@@ -288,6 +288,126 @@
             
               
                 
+                <a class="post-title-link" href="/2020/11/19/UE4-dataCompress/" itemprop="url">
+                  UE4 数据压缩方法(一)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2020-11-19T08:42:11+08:00" content="2020-11-19">
+              2020-11-19
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UE4/" itemprop="url" rel="index">
+                    <span itemprop="name">UE4</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+
+          
+
+          
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+<!-- 自定义，用于添加摘要图片，文章中不显示 -->
+        
+<!-- 自定义结束 -->
+        
+          <blockquote>
+<p>导语<br>对于一个多人实时在线系统，数据同步是关键环节，在相同的网络环境下，数据量决定了同时在线用户量体，数据量也会影响网络延迟和加载时间。所以承载数据的网络带宽是珍贵且昂贵的，所以要在网络数据同步环节细扣每一个 bit !</p>
+</blockquote>
+<h3 id="案例说明"><a href="#案例说明" class="headerlink" title="案例说明"></a>案例说明</h3><p>一个用户有16个设备，每个设备有三种状态: 0 未连接，1 连接异常，2 连接正常。需要用最小的数据量来同步这16个设备的连接状态。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> DeviceState</span><br><span class="line">&#123;</span><br><span class="line">	Connected,</span><br><span class="line">	Abnormal,</span><br><span class="line">	Normal</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><p>每个 bit 有 0 和 1 两种状态，那么至少需要用2个 bit 来表示三种状态，16个设备需要32个 bit。<br>可以把这8个属性编码到一个 uint32 的整数中，前16位分别表示是否连接，后16位分别表示连接是否正常。  </p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2020/11/19/UE4-dataCompress/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2020/11/17/UE4-Config/" itemprop="url">
                   UE4 Config配置文件的使用
                 </a>
@@ -1335,7 +1455,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-count">19</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1352,7 +1472,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

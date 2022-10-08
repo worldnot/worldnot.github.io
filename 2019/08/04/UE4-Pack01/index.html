@@ -1,0 +1,904 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="UBT,UHT,build,cook,pack,run,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="做梦诗人的博客" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon/favicon.ico?v=5.0.1">
+
+
+
+
+
+
+<meta name="description" content="导语想知道从C++代码/蓝图脚本/资产到打包成可执行程序，UE都帮我们干了些什么吗？版本：UE4.21  基本名词解释 ps:受限于当前的知识水平，难免产生理解错误，后期会继续完善修正。  UHT (UnrealHeaderTool )我粗浅的理解就是UE自己的代码预处理器（相对于C++ 的预处理过程），UHT对代码文件内容进行处理，生成 .generated.h/.gen.cpp 文件，加入反">
+<meta name="keywords" content="UBT,UHT,build,cook,pack,run">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UE4 打包相关（一）">
+<meta property="og:url" content="https://worldnot.com/2019/08/04/UE4-Pack01/index.html">
+<meta property="og:site_name" content="做梦诗人的博客">
+<meta property="og:description" content="导语想知道从C++代码/蓝图脚本/资产到打包成可执行程序，UE都帮我们干了些什么吗？版本：UE4.21  基本名词解释 ps:受限于当前的知识水平，难免产生理解错误，后期会继续完善修正。  UHT (UnrealHeaderTool )我粗浅的理解就是UE自己的代码预处理器（相对于C++ 的预处理过程），UHT对代码文件内容进行处理，生成 .generated.h/.gen.cpp 文件，加入反">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2022-10-08T01:37:13.989Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UE4 打包相关（一）">
+<meta name="twitter:description" content="导语想知道从C++代码/蓝图脚本/资产到打包成可执行程序，UE都帮我们干了些什么吗？版本：UE4.21  基本名词解释 ps:受限于当前的知识水平，难免产生理解错误，后期会继续完善修正。  UHT (UnrealHeaderTool )我粗浅的理解就是UE自己的代码预处理器（相对于C++ 的预处理过程），UHT对代码文件内容进行处理，生成 .generated.h/.gen.cpp 文件，加入反">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://worldnot.com/2019/08/04/UE4-Pack01/">
+
+
+<!-- 网页加载条 -->
+<script src="/js/src/pace.min.js"></script>
+  <title> UE4 打包相关（一） | 做梦诗人的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">做梦诗人的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">仰天大笑出门去</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search fa-lg"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">关闭</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                UE4 打包相关（一）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-08-04T20:17:41+08:00" content="2019-08-04">
+              2019-08-04
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UE4/" itemprop="url" rel="index">
+                    <span itemprop="name">UE4</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UE4/PACK/" itemprop="url" rel="index">
+                    <span itemprop="name">PACK</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+
+          
+
+          
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>导语<br>想知道从C++代码/蓝图脚本/资产到打包成可执行程序，UE都帮我们干了些什么吗？<br>版本：UE4.21</p>
+</blockquote>
+<h3 id="基本名词解释"><a href="#基本名词解释" class="headerlink" title="基本名词解释"></a>基本名词解释</h3><blockquote>
+<p>ps:受限于当前的知识水平，难免产生理解错误，后期会继续完善修正。</p>
+</blockquote>
+<h4 id="UHT-UnrealHeaderTool"><a href="#UHT-UnrealHeaderTool" class="headerlink" title="UHT (UnrealHeaderTool )"></a>UHT (UnrealHeaderTool )</h4><p>我粗浅的理解就是UE自己的代码预处理器（相对于C++ 的预处理过程），UHT对代码文件内容进行处理，生成 .generated.h/.gen.cpp 文件，加入反射信息，适配UObject，在以便在在运行时能获取和使用这些数据。<br>生成的文件在 \Intermediate\Build\Win64\UE4Editor\Inc\YourProject 目录下。</p>
+<blockquote>
+<p>UObject提供了 元数据、反射数据、GC垃圾回收、序列化</p>
+</blockquote>
+<h4 id="UBT-UnrealBuildTool"><a href="#UBT-UnrealBuildTool" class="headerlink" title="UBT (UnrealBuildTool)"></a>UBT (UnrealBuildTool)</h4><p>UnrealBuildTool (UBT)管理在各种不同的构建配置下构建UE4源代码的过程；<br>UBT 程序源代码在Engine\Source\Programs\UnrealBuildTool 目录下；<br>UBT 的配置项在 UnrealBuildTool\Configuration\BuildConfiguration.cs 文件中。  </p>
+<a id="more"></a> 
+<h4 id="UAT-AutomotionTool"><a href="#UAT-AutomotionTool" class="headerlink" title="UAT (AutomotionTool)"></a>UAT (AutomotionTool)</h4><p>UnrealBuildTool (UBT)管理在各种不同的构建配置下构建UE4源代码的过程；<br>UBT 程序源代码在Engine\Source\Programs\UnrealBuildTool 目录下；<br>UBT 的配置项在 UnrealBuildTool\Configuration\BuildConfiguration.cs 文件中。  </p>
+<h4 id="Build-构建"><a href="#Build-构建" class="headerlink" title="Build 构建"></a>Build 构建</h4><p>这里说的不是 UE 编辑器上Build按钮，那主要是负责提前计算场景中光照数据、物体可见性、导航网格等。<br>我们说的是源代码source code 的构建。<br>首先我们执行编辑器的 File-&gt;Refresh Visual Studio Project，在输出日志中我们会看到如下信息：<br>（此操作等同在 xxx.uproject 上右击 Generate visual studio project files, ps:必须是C++ 项目）</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Running .../UnrealEngine/Engine/Binaries/DotNET/UnrealBuildTool.exe  -projectfiles -project=".../MyProject.uproject" -game -engine -progress</span><br><span class="line">Discovering modules, targets and source code for project...</span><br><span class="line">Binding IntelliSense data...</span><br><span class="line">Binding IntelliSense data... 100%</span><br><span class="line">Writing project files...</span><br><span class="line">Writing project files... 100%</span><br></pre></td></tr></table></figure>
+<p>我们看到UBT(UnrealBuildTool)这个程序开始执行了。   </p>
+<h3 id="Complie-编译"><a href="#Complie-编译" class="headerlink" title="Complie 编译"></a>Complie 编译</h3><p>在VS等IDE 中执行编译， UE 引擎也提供了热编译功能（在不关闭引擎的情况下，对修改的c++代码进行重新编译） 。<br>这个过程就是编译C++ 代码，生成Binaries二进制文件。</p>
+<h3 id="Cook-烘焙"><a href="#Cook-烘焙" class="headerlink" title="Cook 烘焙"></a>Cook 烘焙</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">UATHelper: Cooking (Windows (64-bit)): Running AutomationTool...</span><br><span class="line">UATHelper: Cooking (Windows (64-bit)): Parsing command line: -ScriptsForProject=&quot;C:/Users/Administrator/Documents/Unreal Projects/MyProject/MyProject.uproject&quot; BuildCookRun -nocompileeditor -nop4 -project=&quot;C:/Users/Administrator/Documents/Unreal Projects/MyProject/MyProject.uproject&quot; -cook -skipstage -ue4exe=C:\Users\Administrator\Documents\UnrealEngine\Engi</span><br><span class="line">ne\Binaries\Win64\UE4Editor-Cmd.exe -targetplatform=Win64 -utf8output -compile</span><br><span class="line">UATHelper: Cooking (Windows (64-bit)): Dependencies are up to date (0.071s). Skipping compile.</span><br><span class="line">UATHelper: Cooking (Windows (64-bit)): Setting up ProjectParams for C:\Users\Administrator\Documents\Unreal Projects\MyProject\MyProject.uproject</span><br><span class="line">UATHelper: Cooking (Windows (64-bit)): ********** COOK COMMAND STARTED **********</span><br><span class="line">UATHelper: Cooking (Windows (64-bit)): Running UE4Editor Cook for project C:\Users\Administrator\Documents\Unreal Projects\MyProject\MyProject.uproject</span><br><span class="line">UATHelper: Cooking (Windows (64-bit)): Commandlet log file is C:\Users\Administrator\Documents\UnrealEngine\Engine\Programs\AutomationTool\Saved\Cook-2021.08.21-15.00.49.txt</span><br><span class="line">UATHelper: Cooking (Windows (64-bit)): Running: C:\Users\Administrator\Documents\UnrealEngine\Engine\Binaries\Win64\UE4Editor-Cmd.exe &quot;C:\Users\Administrator\Documents\Unreal Projects\MyProject\MyProject.uproject&quot; -run=Cook  -TargetPlatform=WindowsNoEditor -fileopenlog -unversioned -abslog=C:\Users\Administrator\Documents\UnrealEngine\Engine\Programs\Automat</span><br><span class="line">ionTool\Saved\Cook-2021.08.21-15.00.49.txt -stdout -CrashForUAT -unattended -NoLogTimes  -UTF8Output</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">LogUObjectHash: Compacting FUObjectHashTables data took   0.52ms</span><br><span class="line">UATHelper: Packaging (Windows (64-bit)): Running AutomationTool...</span><br><span class="line">UATHelper: Packaging (Windows (64-bit)): Parsing command line: -ScriptsForProject=&quot;C:/Users/Administrator/Documents/Unreal Projects/MyProject/MyProject.uproject&quot; BuildCookRun -nocompileeditor -nop4 -project=&quot;C:/Users/Administrator/Documents/Unreal Projects/MyProject/MyProject.uproject&quot; -cook -stage -archive -archivedirectory=&quot;C:/Users/Administrator/Documents</span><br><span class="line">/Unreal Projects/MyProject&quot; -package -ue4exe=C:\Users\Administrator\Documents\UnrealEngine\Engine\Binaries\Win64\UE4Editor-Cmd.exe -pak -prereqs -nodebuginfo -targetplatform=Win64 -build -target=MyProject -clientconfig=Development -utf8output -compile</span><br><span class="line">UATHelper: Packaging (Windows (64-bit)): Dependencies are up to date (0.073s). Skipping compile.</span><br><span class="line">UATHelper: Packaging (Windows (64-bit)): Setting up ProjectParams for C:\Users\Administrator\Documents\Unreal Projects\MyProject\MyProject.uproject</span><br><span class="line">UATHelper: Packaging (Windows (64-bit)): ********** BUILD COMMAND STARTED **********</span><br><span class="line">UATHelper: Packaging (Windows (64-bit)): Running: C:\Users\Administrator\Documents\UnrealEngine\Engine\Binaries\DotNET\UnrealBuildTool.exe UnrealPak Win64 Development -Project=&quot;C:\Users\Administrator\Documents\Unreal Projects\MyProject\MyProject.uproject&quot;  &quot;C:\Users\Administrator\Documents\Unreal Projects\MyProject\MyProject.uproject&quot; -NoUBTMakefiles  -Manif</span><br><span class="line">est=C:\Users\Administrator\Documents\UnrealEngine\Engine\Intermediate\Build\Manifest.xml -NoHotReload -log=&quot;C:\Users\Administrator\Documents\UnrealEngine\Engine\Programs\AutomationTool\Saved\Logs\UBT-UnrealPak-Win64-Development.txt&quot;</span><br><span class="line">UATHelper: Packaging (Windows (64-bit)):   Writing manifest to C:\Users\Administrator\Documents\UnrealEngine\Engine\Intermediate\Build\Manifest.xml</span><br><span class="line">UATHelper: Packaging (Windows (64-bit)):   Building UnrealPak...</span><br><span class="line">UATHelper: Packaging (Windows (64-bit)):   Using Visual Studio 2019 14.28.29913 toolchain (C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910) and Windows 10.0.18362.0 SDK (C:\Program Files (x86)\Windows Kits\10).</span><br><span class="line">UATHelper: Packaging (Windows (64-bit)):   Building 1 action with 12 processes...</span><br><span class="line">UATHelper: Packaging (Windows (64-bit)):     [1/1] UnrealPak.target</span><br><span class="line">UATHelper: Packaging (Windows (64-bit)):   Total time in Parallel executor: 0.15 seconds</span><br><span class="line">UATHelper: Packaging (Windows (64-bit)):   Total execution time: 2.46 seconds</span><br><span class="line">UATHelper: Packaging (Windows (64-bit)): Took 2.5490017s to run UnrealBuildTool.exe, ExitCode=0</span><br><span class="line">UATHelper: Packaging (Windows (64-bit)): Running: C:\Users\Administrator\Documents\UnrealEngine\Engine\Binaries\DotNET\UnrealBuildTool.exe MyProject Win64 Development -Project=&quot;C:\Users\Administrator\Documents\Unreal Projects\MyProject\MyProject.uproject&quot;  &quot;C:\Users\Administrator\Documents\Unreal Projects\MyProject\MyProject.uproject&quot; -NoUBTMakefiles  -remot</span><br><span class="line">eini=&quot;C:\Users\Administrator\Documents\Unreal Projects\MyProject&quot; -skipdeploy -Manifest=C:\Users\Administrator\Documents\UnrealEngine\Engine\Intermediate\Build\Manifest.xml -NoHotReload -log=&quot;C:\Users\Administrator\Documents\UnrealEngine\Engine\Programs\AutomationTool\Saved\Logs\UBT-MyProject-Win64-Development.txt&quot;</span><br><span class="line">UATHelper: Packaging (Windows (64-bit)):   Parsing headers for MyProject</span><br><span class="line">UATHelper: Packaging (Windows (64-bit)):     Running UnrealHeaderTool &quot;C:\Users\Administrator\Documents\Unreal Projects\MyProject\MyProject.uproject&quot; &quot;C:\Users\Administrator\Documents\Unreal Projects\MyProject\Intermediate\Build\Win64\MyProject\Development\MyProject.uhtmanifest&quot; -LogCmds=&quot;loginit warning, logexit warning, logdatabase error&quot; -Unattended -Warn</span><br><span class="line">ingsAsErrors -abslog=&quot;C:\Users\Administrator\Documents\UnrealEngine\Engine\Programs\AutomationTool\Saved\Logs\UHT-MyProject-Win64-Development.txt&quot;</span><br><span class="line">UATHelper: Packaging (Windows (64-bit)):   Reflection code generated for MyProject in 7.6218441 seconds</span><br><span class="line">UATHelper: Packaging (Windows (64-bit)):   Writing manifest to C:\Users\Administrator\Documents\UnrealEngine\Engine\Intermediate\Build\Manifest.xml</span><br><span class="line">UATHelper: Packaging (Windows (64-bit)):   Building MyProject...</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">LogPlayLevel: Completed Launch On Stage: Cooking in the editor, Time: 5.859237</span><br><span class="line">LogPlayLevel: Running AutomationTool...</span><br><span class="line">LogPlayLevel: Parsing command line: -ScriptsForProject=&quot;C:/Users/Administrator/Documents/Unreal Projects/MyProject/MyProject.uproject&quot; BuildCookRun -project=&quot;C:/Users/Administrator/Documents/Unreal Projects/MyProject/MyProject.uproject&quot; -noP4 -clientconfig=Development -serverconfig=Development -nocompileeditor -ue4exe=C:\Users\Administrator\Documents\UnrealE</span><br><span class="line">ngine\Engine\Binaries\Win64\UE4Editor-Cmd.exe -utf8output -platform=Win64 -targetplatform=Win64 -ini:Game:[/Script/UnrealEd.ProjectPackagingSettings]:BlueprintNativizationMethod=Disabled -build -map=/Game/ThirdPersonCPP/Maps/ThirdPersonExampleMap -skipcook -CookInEditor -iterativecooking -compressed -iterativedeploy -stage -deploy -cmdline=&quot;/Game/ThirdPerson</span><br><span class="line">CPP/Maps/ThirdPersonExampleMap -Messaging&quot; -device=WindowsNoEditor@FNEO48MGKFVU1R6 -addcmdline=&quot;-SessionId=F0F275C749ED33221ED7CE83A5061BC4 -SessionOwner=&apos;Administrator&apos; -SessionName=&apos;Launch On Device&apos;  &quot; -run -compile</span><br><span class="line">LogPlayLevel: Dependencies are up to date (0.078s). Skipping compile.</span><br><span class="line">LogPlayLevel: Setting up ProjectParams for C:\Users\Administrator\Documents\Unreal Projects\MyProject\MyProject.uproject</span><br><span class="line">LogPlayLevel: ********** BUILD COMMAND STARTED **********</span><br><span class="line">LogPlayLevel: Completed Launch On Stage: Build Task, Time: 2.761045</span><br><span class="line">LogPlayLevel: Running: C:\Users\Administrator\Documents\UnrealEngine\Engine\Binaries\DotNET\UnrealBuildTool.exe UnrealPak Win64 Development -Project=&quot;C:\Users\Administrator\Documents\Unreal Projects\MyProject\MyProject.uproject&quot;  &quot;C:\Users\Administrator\Documents\Unreal Projects\MyProject\MyProject.uproject&quot; -NoUBTMakefiles  -Manifest=C:\Users\Administrator\</span><br><span class="line">Documents\UnrealEngine\Engine\Intermediate\Build\Manifest.xml -NoHotReload -log=&quot;C:\Users\Administrator\Documents\UnrealEngine\Engine\Programs\AutomationTool\Saved\Logs\UBT-UnrealPak-Win64-Development.txt&quot;</span><br><span class="line">LogPlayLevel:   Writing manifest to C:\Users\Administrator\Documents\UnrealEngine\Engine\Intermediate\Build\Manifest.xml</span><br><span class="line">LogPlayLevel:   Target is up to date</span><br><span class="line">LogPlayLevel:   Total execution time: 1.16 seconds</span><br><span class="line">LogPlayLevel: Took 1.2479697s to run UnrealBuildTool.exe, ExitCode=0</span><br><span class="line">LogPlayLevel: Running: C:\Users\Administrator\Documents\UnrealEngine\Engine\Binaries\DotNET\UnrealBuildTool.exe MyProject Win64 Development -Project=&quot;C:\Users\Administrator\Documents\Unreal Projects\MyProject\MyProject.uproject&quot;  &quot;C:\Users\Administrator\Documents\Unreal Projects\MyProject\MyProject.uproject&quot; -NoUBTMakefiles  -remoteini=&quot;C:\Users\Administrato</span><br><span class="line">r\Documents\Unreal Projects\MyProject&quot; -skipdeploy -ini:Game:[/Script/UnrealEd.ProjectPackagingSettings]:BlueprintNativizationMethod=Disabled -Manifest=C:\Users\Administrator\Documents\UnrealEngine\Engine\Intermediate\Build\Manifest.xml -NoHotReload -log=&quot;C:\Users\Administrator\Documents\UnrealEngine\Engine\Programs\AutomationTool\Saved\Logs\UBT-MyProject-Wi</span><br><span class="line">n64-Development.txt&quot;</span><br><span class="line">LogPlayLevel:   Parsing headers for MyProject</span><br><span class="line">LogPlayLevel:     Running UnrealHeaderTool &quot;C:\Users\Administrator\Documents\Unreal Projects\MyProject\MyProject.uproject&quot; &quot;C:\Users\Administrator\Documents\Unreal Projects\MyProject\Intermediate\Build\Win64\MyProject\Development\MyProject.uhtmanifest&quot; -LogCmds=&quot;loginit warning, logexit warning, logdatabase error&quot; -Unattended -WarningsAsErrors -abslog=&quot;C:\Us</span><br><span class="line">ers\Administrator\Documents\UnrealEngine\Engine\Programs\AutomationTool\Saved\Logs\UHT-MyProject-Win64-Development.txt&quot;</span><br><span class="line">LogPlayLevel:   Reflection code generated for MyProject in 5.4499816 seconds</span><br><span class="line">LogPlayLevel:   Writing manifest to C:\Users\Administrator\Documents\UnrealEngine\Engine\Intermediate\Build\Manifest.xml</span><br><span class="line">LogPlayLevel:   Building MyProject...</span><br></pre></td></tr></table></figure>
+<p>未完待续。。。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+<blockquote class="blockquote-center" style="color: #ccc;">
+    -------------  <i class="fa fa-coffee"></i> 感谢您的阅读-------------
+</blockquote>
+
+  <span id="inline-green" style="border-radius:3px;">作者</span>：<a class="link-blue" href="https://github.com/dreamingpoet" target="_blank">dreamingpoet</a><br>有问题请发邮箱 <a class="link-blue" href target="_blank">Dreamingoet@126.com</a>。
+
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>您的鼓励将成为创作者的动力</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/reward_wechat.webp" alt="Dreamingpoet WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/reward_alipay.webp" alt="Dreamingpoet Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/UBT/" rel="tag"><i class="fa fa-tag"></i> UBT</a>
+          
+            <a href="/tags/UHT/" rel="tag"><i class="fa fa-tag"></i> UHT</a>
+          
+            <a href="/tags/build/" rel="tag"><i class="fa fa-tag"></i> build</a>
+          
+            <a href="/tags/cook/" rel="tag"><i class="fa fa-tag"></i> cook</a>
+          
+            <a href="/tags/pack/" rel="tag"><i class="fa fa-tag"></i> pack</a>
+          
+            <a href="/tags/run/" rel="tag"><i class="fa fa-tag"></i> run</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/24/UE4-CPP-about-char/" rel="next" title="关于char * ,char a[ ] , string">
+                <i class="fa fa-chevron-left"></i> 关于char * ,char a[ ] , string
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/04/UE4-Ansyc01/" rel="prev" title="UE4 多线程FRunnable（一）">
+                UE4 多线程FRunnable（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+  
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/avatar/avatar.png" alt="Dreamingpoet">
+          <p class="site-author-name" itemprop="name">Dreamingpoet</p>
+          <p class="site-description motion-element" itemprop="description">靡不有初 鲜克有终</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/dreamingpoet" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="/weblog" title="建站日志" target="_blank">建站日志</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本名词解释"><span class="nav-number">1.</span> <span class="nav-text">基本名词解释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#UHT-UnrealHeaderTool"><span class="nav-number">1.1.</span> <span class="nav-text">UHT (UnrealHeaderTool )</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UBT-UnrealBuildTool"><span class="nav-number">1.2.</span> <span class="nav-text">UBT (UnrealBuildTool)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UAT-AutomotionTool"><span class="nav-number">1.3.</span> <span class="nav-text">UAT (AutomotionTool)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Build-构建"><span class="nav-number">1.4.</span> <span class="nav-text">Build 构建</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Complie-编译"><span class="nav-number">2.</span> <span class="nav-text">Complie 编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cook-烘焙"><span class="nav-number">3.</span> <span class="nav-text">Cook 烘焙</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dreamingpoet</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a> 生成
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Pisces
+  </a>
+</div>
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  <!-- 按需加载背景 -->
+  
+  <!-- 页面点击小红心 -->
+  <!-- 页面点击小红心 -->
+
+  <script type="text/javascript" src="/js/src/love.js?v=5.0.1"></script>
+
+
+  <!-- 鼠标移动，效果 -->
+
+  <!-- 页面 title 进入/离开 效果 -->
+
+  <script type="text/javascript">var OriginTitile=document.title,st;document.addEventListener("visibilitychange",function(){document.hidden?(document.title="(ง •_•)ง 加油!!!",clearTimeout(st)):(document.title="(ง •_•)ง Thank you~ "+OriginTitile,st=setTimeout(function(){document.title=OriginTitile},4e3))})</script>
+
+
+</body>
+</html>

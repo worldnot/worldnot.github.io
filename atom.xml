@@ -47,6 +47,39 @@
   </entry>
   
   <entry>
+    <title>在 Docker 中运行 PostgreSQL</title>
+    <link href="https://worldnot.com/2022/10/08/Docker-PostgreSQL/"/>
+    <id>https://worldnot.com/2022/10/08/Docker-PostgreSQL/</id>
+    <published>2022-10-08T10:46:12.000Z</published>
+    <updated>2022-10-08T10:39:01.019Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>导语<br>我们在这里要做的是下载PostgreSQL镜像，检查镜像是否准备好，使用特定参数运行镜像，最后连接到正在运行的PostgreSQL实例。</p></blockquote><h3 id="1-拉取一个-PostgreSQL-服务器-Docker-镜像"><a href="#1-拉取一个-PostgreSQL-服务器-Docker-镜像" class="headerlink" title="1.拉取一个 PostgreSQL 服务器 Docker 镜像"></a>1.拉取一个 PostgreSQL 服务器 Docker 镜像</h3><p>首先，我们需要从Docker Hub获取现有的 PostgreSQL 官方镜像。如果您需要特定版本，latest 请将标签更改 为所需版本。<br>现在让我们拉取镜像：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker pull postgres:latest</span><br></pre></td></tr></table></figure></p><p>使用上述命令将从 Docker Hub 存储库中提取最新可用版本的 PostgreSQL。</p><h3 id="2-从-PostgreSQL-服务器-Docker-镜像运行容器"><a href="#2-从-PostgreSQL-服务器-Docker-镜像运行容器" class="headerlink" title="2. 从 PostgreSQL 服务器 Docker 镜像运行容器"></a>2. 从 PostgreSQL 服务器 Docker 镜像运行容器</h3><p>在部署之前，您需要设置一个 Docker 卷或绑定安装来持久化您的数据库。否则，当容器重新启动时，您的数据将丢失。安装应该 /var/lib/postgresql/data 在容器内的目录中。<br>出于本指南的目的，我们将创建一个 docker 卷并将其附加到您的 PostgreSQL 容器。<br>以下命令将在您的本地计算机中创建卷，您可以稍后与 PostgreSQL 容器连接：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker volume create postgres-volume</span><br></pre></td></tr></table></figure><p>现在你的机器上有 PostgreSQL 镜像和一个用于保存数据的卷，你可以部署一个容器：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d --name=postgres14 -p 5432:5432 -v postgres-volume:/var/lib/postgresql/data -e POSTGRES_PASSWORD=your_password postgres</span><br></pre></td></tr></table></figure><p>默认用户名是 postgres</p><a id="more"></a><p>该 docker run 命令将在 Docker 容器中创建一个正在运行的 PostgreSQL 数据库。</p><p>让我们分解一下这个语法。以下是该命令中每个参数的含义：</p><p>-d 将以分离模式运行此容器，以便它在后台运行。<br>–name 将名称“postgres13”分配给您的容器实例。<br>-p会将 PostgreSQL 容器端口 5432 绑定到主机上的相同端口。您将能够localhost:5432 使用psql在您的主机上运行的PostgreSQL 客户端进行连接 。<br>-v选项将容器卷 ( /var/lib/postgresql)内的数据文件夹绑定到postgres-volume您在上一步中创建的本地 Docker 卷。<br>-e设置环境变量。在这种情况下，PostgreSQL 根密码。<br>postgres 是我们用来创建容器的镜像的名称。<br>您可以通过列出正在运行的容器来检查容器是否正在运行：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker ps</span><br></pre></td></tr></table></figure><p>恭喜！您的新 PostgreSQL 实例现在正在 Docker 上运行。</p><p>此外，您可以使用以下命令检查正在运行的 PostgreSQL 容器的日志文件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker logs postgres14</span><br></pre></td></tr></table></figure><h3 id="3-连接到PostgreSQL服务器"><a href="#3-连接到PostgreSQL服务器" class="headerlink" title="3. 连接到PostgreSQL服务器"></a>3. 连接到PostgreSQL服务器</h3><p>您可以通过附加到容器并运行psql命令来获得交互式 PostgreSQL shell 。这提供了完整的 PostgreSQL 命令行界面，因此您可以使用所有熟悉的命令和标志。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker <span class="built_in">exec</span> -it postgres13 psql -U postgres</span><br></pre></td></tr></table></figure><p>psql如果您在主机上预安装了PostgreSQL 客户端，您还可以使用PostgreSQL 客户端连接 PostgreSQL Docker 实例。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psql -h localhost -U postgres</span><br></pre></td></tr></table></figure><h3 id="4-用可视化工具-pgadmin4-管理"><a href="#4-用可视化工具-pgadmin4-管理" class="headerlink" title="4. 用可视化工具 pgadmin4 管理"></a>4. 用可视化工具 pgadmin4 管理</h3><h3 id="4-1-在docker中部署pgadmin4"><a href="#4-1-在docker中部署pgadmin4" class="headerlink" title="4.1 在docker中部署pgadmin4"></a>4.1 在docker中部署pgadmin4</h3><p>拉取postgresql可视化工具pgadmin4</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull dpage/pgadmin4</span><br></pre></td></tr></table></figure><p>运行pgadmin4：</p><p>-p 5433:80 将容器的80端口映射到宿主机的5433端口<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 5433:80 --name pgadmin4 -e PGADMIN_DEFAULT_EMAIL=<span class="built_in">test</span>@123.com -e PGADMIN_DEFAULT_PASSWORD=your_password dpage/pgadmin4</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;导语&lt;br&gt;我们在这里要做的是下载PostgreSQL镜像，检查镜像是否准备好，使用特定参数运行镜像，最后连接到正在运行的PostgreSQL实例。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;1-拉取一个-PostgreSQL-服务器-Docker-镜像&quot;&gt;&lt;a href=&quot;#1-拉取一个-PostgreSQL-服务器-Docker-镜像&quot; class=&quot;headerlink&quot; title=&quot;1.拉取一个 PostgreSQL 服务器 Docker 镜像&quot;&gt;&lt;/a&gt;1.拉取一个 PostgreSQL 服务器 Docker 镜像&lt;/h3&gt;&lt;p&gt;首先，我们需要从Docker Hub获取现有的 PostgreSQL 官方镜像。如果您需要特定版本，latest 请将标签更改 为所需版本。&lt;br&gt;现在让我们拉取镜像：&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo docker pull postgres:latest&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;使用上述命令将从 Docker Hub 存储库中提取最新可用版本的 PostgreSQL。&lt;/p&gt;
+&lt;h3 id=&quot;2-从-PostgreSQL-服务器-Docker-镜像运行容器&quot;&gt;&lt;a href=&quot;#2-从-PostgreSQL-服务器-Docker-镜像运行容器&quot; class=&quot;headerlink&quot; title=&quot;2. 从 PostgreSQL 服务器 Docker 镜像运行容器&quot;&gt;&lt;/a&gt;2. 从 PostgreSQL 服务器 Docker 镜像运行容器&lt;/h3&gt;&lt;p&gt;在部署之前，您需要设置一个 Docker 卷或绑定安装来持久化您的数据库。否则，当容器重新启动时，您的数据将丢失。安装应该 /var/lib/postgresql/data 在容器内的目录中。&lt;br&gt;出于本指南的目的，我们将创建一个 docker 卷并将其附加到您的 PostgreSQL 容器。&lt;br&gt;以下命令将在您的本地计算机中创建卷，您可以稍后与 PostgreSQL 容器连接：&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo docker volume create postgres-volume&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;现在你的机器上有 PostgreSQL 镜像和一个用于保存数据的卷，你可以部署一个容器：&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo docker run -d --name=postgres14 -p 5432:5432 -v postgres-volume:/var/lib/postgresql/data -e POSTGRES_PASSWORD=your_password postgres&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;默认用户名是 postgres&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="DataBase" scheme="https://worldnot.com/categories/DataBase/"/>
+    
+      <category term="PostgreSQL" scheme="https://worldnot.com/categories/DataBase/PostgreSQL/"/>
+    
+    
+      <category term="PostgreSQL" scheme="https://worldnot.com/tags/PostgreSQL/"/>
+    
+  </entry>
+  
+  <entry>
     <title>如何用tauri + vue 搭建一个windows应用</title>
     <link href="https://worldnot.com/2022/10/08/Tauri-vue/"/>
     <id>https://worldnot.com/2022/10/08/Tauri-vue/</id>
@@ -113,39 +146,6 @@
       <category term="tauri" scheme="https://worldnot.com/tags/tauri/"/>
     
       <category term="git" scheme="https://worldnot.com/tags/git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在 Docker 中运行 PostgreSQL</title>
-    <link href="https://worldnot.com/2022/10/08/Docker-PostgreSQL/"/>
-    <id>https://worldnot.com/2022/10/08/Docker-PostgreSQL/</id>
-    <published>2022-10-08T10:46:12.000Z</published>
-    <updated>2022-10-08T10:39:01.019Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote><p>导语<br>我们在这里要做的是下载PostgreSQL镜像，检查镜像是否准备好，使用特定参数运行镜像，最后连接到正在运行的PostgreSQL实例。</p></blockquote><h3 id="1-拉取一个-PostgreSQL-服务器-Docker-镜像"><a href="#1-拉取一个-PostgreSQL-服务器-Docker-镜像" class="headerlink" title="1.拉取一个 PostgreSQL 服务器 Docker 镜像"></a>1.拉取一个 PostgreSQL 服务器 Docker 镜像</h3><p>首先，我们需要从Docker Hub获取现有的 PostgreSQL 官方镜像。如果您需要特定版本，latest 请将标签更改 为所需版本。<br>现在让我们拉取镜像：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker pull postgres:latest</span><br></pre></td></tr></table></figure></p><p>使用上述命令将从 Docker Hub 存储库中提取最新可用版本的 PostgreSQL。</p><h3 id="2-从-PostgreSQL-服务器-Docker-镜像运行容器"><a href="#2-从-PostgreSQL-服务器-Docker-镜像运行容器" class="headerlink" title="2. 从 PostgreSQL 服务器 Docker 镜像运行容器"></a>2. 从 PostgreSQL 服务器 Docker 镜像运行容器</h3><p>在部署之前，您需要设置一个 Docker 卷或绑定安装来持久化您的数据库。否则，当容器重新启动时，您的数据将丢失。安装应该 /var/lib/postgresql/data 在容器内的目录中。<br>出于本指南的目的，我们将创建一个 docker 卷并将其附加到您的 PostgreSQL 容器。<br>以下命令将在您的本地计算机中创建卷，您可以稍后与 PostgreSQL 容器连接：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker volume create postgres-volume</span><br></pre></td></tr></table></figure><p>现在你的机器上有 PostgreSQL 镜像和一个用于保存数据的卷，你可以部署一个容器：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d --name=postgres14 -p 5432:5432 -v postgres-volume:/var/lib/postgresql/data -e POSTGRES_PASSWORD=your_password postgres</span><br></pre></td></tr></table></figure><p>默认用户名是 postgres</p><a id="more"></a><p>该 docker run 命令将在 Docker 容器中创建一个正在运行的 PostgreSQL 数据库。</p><p>让我们分解一下这个语法。以下是该命令中每个参数的含义：</p><p>-d 将以分离模式运行此容器，以便它在后台运行。<br>–name 将名称“postgres13”分配给您的容器实例。<br>-p会将 PostgreSQL 容器端口 5432 绑定到主机上的相同端口。您将能够localhost:5432 使用psql在您的主机上运行的PostgreSQL 客户端进行连接 。<br>-v选项将容器卷 ( /var/lib/postgresql)内的数据文件夹绑定到postgres-volume您在上一步中创建的本地 Docker 卷。<br>-e设置环境变量。在这种情况下，PostgreSQL 根密码。<br>postgres 是我们用来创建容器的镜像的名称。<br>您可以通过列出正在运行的容器来检查容器是否正在运行：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker ps</span><br></pre></td></tr></table></figure><p>恭喜！您的新 PostgreSQL 实例现在正在 Docker 上运行。</p><p>此外，您可以使用以下命令检查正在运行的 PostgreSQL 容器的日志文件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker logs postgres14</span><br></pre></td></tr></table></figure><h3 id="3-连接到PostgreSQL服务器"><a href="#3-连接到PostgreSQL服务器" class="headerlink" title="3. 连接到PostgreSQL服务器"></a>3. 连接到PostgreSQL服务器</h3><p>您可以通过附加到容器并运行psql命令来获得交互式 PostgreSQL shell 。这提供了完整的 PostgreSQL 命令行界面，因此您可以使用所有熟悉的命令和标志。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker <span class="built_in">exec</span> -it postgres13 psql -U postgres</span><br></pre></td></tr></table></figure><p>psql如果您在主机上预安装了PostgreSQL 客户端，您还可以使用PostgreSQL 客户端连接 PostgreSQL Docker 实例。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psql -h localhost -U postgres</span><br></pre></td></tr></table></figure><h3 id="4-用可视化工具-pgadmin4-管理"><a href="#4-用可视化工具-pgadmin4-管理" class="headerlink" title="4. 用可视化工具 pgadmin4 管理"></a>4. 用可视化工具 pgadmin4 管理</h3><h3 id="4-1-在docker中部署pgadmin4"><a href="#4-1-在docker中部署pgadmin4" class="headerlink" title="4.1 在docker中部署pgadmin4"></a>4.1 在docker中部署pgadmin4</h3><p>拉取postgresql可视化工具pgadmin4</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull dpage/pgadmin4</span><br></pre></td></tr></table></figure><p>运行pgadmin4：</p><p>-p 5433:80 将容器的80端口映射到宿主机的5433端口<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 5433:80 --name pgadmin4 -e PGADMIN_DEFAULT_EMAIL=<span class="built_in">test</span>@123.com -e PGADMIN_DEFAULT_PASSWORD=your_password dpage/pgadmin4</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;导语&lt;br&gt;我们在这里要做的是下载PostgreSQL镜像，检查镜像是否准备好，使用特定参数运行镜像，最后连接到正在运行的PostgreSQL实例。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&quot;1-拉取一个-PostgreSQL-服务器-Docker-镜像&quot;&gt;&lt;a href=&quot;#1-拉取一个-PostgreSQL-服务器-Docker-镜像&quot; class=&quot;headerlink&quot; title=&quot;1.拉取一个 PostgreSQL 服务器 Docker 镜像&quot;&gt;&lt;/a&gt;1.拉取一个 PostgreSQL 服务器 Docker 镜像&lt;/h3&gt;&lt;p&gt;首先，我们需要从Docker Hub获取现有的 PostgreSQL 官方镜像。如果您需要特定版本，latest 请将标签更改 为所需版本。&lt;br&gt;现在让我们拉取镜像：&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo docker pull postgres:latest&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;使用上述命令将从 Docker Hub 存储库中提取最新可用版本的 PostgreSQL。&lt;/p&gt;
-&lt;h3 id=&quot;2-从-PostgreSQL-服务器-Docker-镜像运行容器&quot;&gt;&lt;a href=&quot;#2-从-PostgreSQL-服务器-Docker-镜像运行容器&quot; class=&quot;headerlink&quot; title=&quot;2. 从 PostgreSQL 服务器 Docker 镜像运行容器&quot;&gt;&lt;/a&gt;2. 从 PostgreSQL 服务器 Docker 镜像运行容器&lt;/h3&gt;&lt;p&gt;在部署之前，您需要设置一个 Docker 卷或绑定安装来持久化您的数据库。否则，当容器重新启动时，您的数据将丢失。安装应该 /var/lib/postgresql/data 在容器内的目录中。&lt;br&gt;出于本指南的目的，我们将创建一个 docker 卷并将其附加到您的 PostgreSQL 容器。&lt;br&gt;以下命令将在您的本地计算机中创建卷，您可以稍后与 PostgreSQL 容器连接：&lt;/p&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo docker volume create postgres-volume&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;现在你的机器上有 PostgreSQL 镜像和一个用于保存数据的卷，你可以部署一个容器：&lt;/p&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo docker run -d --name=postgres14 -p 5432:5432 -v postgres-volume:/var/lib/postgresql/data -e POSTGRES_PASSWORD=your_password postgres&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;默认用户名是 postgres&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="DataBase" scheme="https://worldnot.com/categories/DataBase/"/>
-    
-      <category term="PostgreSQL" scheme="https://worldnot.com/categories/DataBase/PostgreSQL/"/>
-    
-    
-      <category term="PostgreSQL" scheme="https://worldnot.com/tags/PostgreSQL/"/>
     
   </entry>
   

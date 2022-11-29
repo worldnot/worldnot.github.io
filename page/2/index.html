@@ -288,6 +288,257 @@
             
               
                 
+                <a class="post-title-link" href="/2021/08/23/ue4 GC/" itemprop="url">
+                  Garbage Collection in UE4
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2021-08-23T23:42:03+08:00" content="2021-08-23">
+              2021-08-23
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UE4/" itemprop="url" rel="index">
+                    <span itemprop="name">UE4</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+
+          
+
+          
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+<!-- 自定义，用于添加摘要图片，文章中不显示 -->
+        
+<!-- 自定义结束 -->
+        
+          <blockquote>
+<p>导语<br>UE4 C++ 不同于原生的C++, UE内置了GC系统。对于有些人来说，GC帮我们处理了弃用的对象，防止了内存泄漏，确实是一件令人愉快的事情。然后有的时候，如果不了解GC规则，可能会给开发带来大麻烦。</p>
+</blockquote>
+<h3 id="什么对象会被GC-系统处理？"><a href="#什么对象会被GC-系统处理？" class="headerlink" title="什么对象会被GC 系统处理？"></a>什么对象会被GC 系统处理？</h3><p>GC主要思想很简单——要让 GC系统 相信对象是多余的并删除它，必须满足以下几个条件：</p>
+<ul>
+<li><p>这个对象不再被UE 的反射系统引用。</p>
+</li>
+<li><p>指向对象的指针没有被保存在容器中。</p>
+</li>
+<li><p>对象在其作用域内没有被强指针指向，比如<a href="or just plainly [strong pointers]">shared pointers, shared references, unique pointers</a> </p>
+</li>
+<li><p>创建对象的代码块经结束执行(离开作用域)</p>
+</li>
+<li><p>对象没有添加到根节点 AddToRoot()  </p>
+</li>
+<li><p>对象必须是继承自Uobject</p>
+</li>
+</ul>
+<p>有一个要特殊注意的例外，我们可以显式地将UObject派生的类对象标记为销毁。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2021/08/23/ue4 GC/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2020/11/20/UE4-dataCompress03/" itemprop="url">
+                  UE4 数据压缩方法(三)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2020-11-20T22:44:23+08:00" content="2020-11-20">
+              2020-11-20
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UE4/" itemprop="url" rel="index">
+                    <span itemprop="name">UE4</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+
+          
+
+          
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+<!-- 自定义，用于添加摘要图片，文章中不显示 -->
+        
+<!-- 自定义结束 -->
+        
+          <blockquote>
+<p>导语<br>之前我们压缩了整数<a href="/2020/11/19/UE4-dataCompress/">（压缩方法一）</a>，Angle角度浮点数<a href="/2020/11/20/UE4-dataCompress02/">（压缩方法二）</a>，那么用来同步位置的FVector是否也可以压缩呢？<br>整数压缩部分是用编码解压实现的，属于无损压缩，Angle角度浮点数是用一个小范围的数据集来表示一个大范围的数据集，属于有损压缩。那么我们可能会问，如果同步的数据不一致，对于不同客户端的计算或者显示结果是否会有影响呢？比如一个游戏中，一个玩家在不同的客户端上的位置和方向存在较大的差异，那肯定是不行的。</p>
+</blockquote>
+<h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><p>本次我的思路是对于特定情况下的一些数据压缩提供一种思路。比如我们的一个多人在线应用，用户的活动范围被限制在一定的范围内，也就是玩家的位置坐标的最大值能用更短的整数来存储。那么我们就有压缩的空间了。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2020/11/20/UE4-dataCompress03/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2020/11/20/UE4-dataCompress02/" itemprop="url">
                   UE4 数据压缩方法(二)
                 </a>
@@ -1285,257 +1536,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2019/01/22/UE4-CPP11Feature/" itemprop="url">
-                  C++ 11 特性
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2019-01-22T20:32:27+08:00" content="2019-01-22">
-              2019-01-22
-            </time>
-          </span>
-
-          
-            <span class="post-category">
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C-C/" itemprop="url" rel="index">
-                    <span itemprop="name">C/C++</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-
-          
-
-          
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-<!-- 自定义，用于添加摘要图片，文章中不显示 -->
-        
-<!-- 自定义结束 -->
-        
-          <blockquote>
-<p>导语<br>本篇转载自 <a href="https://blog.csdn.net/jiange_zh/article/details/79356417" target="_blank" rel="noopener">C++11常用新特性快速一览</a> 一是方便将来检索，而是后续会按自己的思路重新整理</p>
-</blockquote>
-<p>最近工作中，遇到一些问题，使用C++11实现起来会更加方便，而线上的生产环境还不支持C++11，于是决定新年开工后，在组内把C++11推广开来，整理以下文档，方便自己查阅，也方便同事快速上手。（对于异步编程十分实用的Future/Promise以及智能指针等，将不做整理介绍，组内使用的框架已经支持并广泛使用了，用的是自己公司参考boost实现的版本）</p>
-<h3 id="1-nullptr"><a href="#1-nullptr" class="headerlink" title="1. nullptr"></a>1. nullptr</h3><p>nullptr 出现的目的是为了替代 NULL。</p>
-<p>在某种意义上来说，传统 C++ 会把 NULL、0 视为同一种东西，这取决于编译器如何定义 NULL，有些编译器会将 NULL 定义为 ((void*)0)，有些则会直接将其定义为 0。</p>
-<p>C++ 不允许直接将 void <em> 隐式转换到其他类型，但如果 NULL 被定义为 ((void</em>)0)，那么当编译char *ch = NULL;时，NULL 只好被定义为 0。</p>
-<p>而这依然会产生问题，将导致了 C++ 中重载特性会发生混乱，考虑：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(<span class="keyword">char</span> *)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>对于这两个函数来说，如果 NULL 又被定义为了 0 那么 foo(NULL); 这个语句将会去调用 foo(int)，从而导致代码违反直观。</p>
-<p>为了解决这个问题，C++11 引入了 nullptr 关键字，专门用来区分空指针、0。</p>
-<p>nullptr 的类型为 nullptr_t，能够隐式的转换为任何指针或成员指针的类型，也能和他们进行相等或者不等的比较。</p>
-<p>当需要使用 NULL 时候，养成直接使用 nullptr的习惯。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2019/01/22/UE4-CPP11Feature/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2019/01/21/UE4-CPPListInitialization/" itemprop="url">
-                  C++ 11 变量初始化
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2019-01-21T22:10:07+08:00" content="2019-01-21">
-              2019-01-21
-            </time>
-          </span>
-
-          
-            <span class="post-category">
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C-C/" itemprop="url" rel="index">
-                    <span itemprop="name">C/C++</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-
-          
-
-          
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-<!-- 自定义，用于添加摘要图片，文章中不显示 -->
-        
-<!-- 自定义结束 -->
-        
-          <blockquote>
-<p>导语<br>uniform initialization（标准初始化）<br>在c++11之前的版本，初始化是一个没有被统一的写法，有时候用小括号，有时候用大括号，有时候还用赋值号，在c++11中就统一了初始化的形式——“{ }”，直接在对象名后面跟大括号，并在大括号中写入需要初始化的值，并用逗号隔开。甚至类构造函数的初始化列表也可以用“{}”大括号。</p>
-</blockquote>
-<h3 id="1-就地初始化"><a href="#1-就地初始化" class="headerlink" title="1.就地初始化"></a>1.就地初始化</h3><h4 id="1-1-简介"><a href="#1-1-简介" class="headerlink" title="1.1 简介"></a>1.1 简介</h4><p>在C++11之前，只能对结构体或类的静态常量成员就行就地初始化，其他的不行。如下代码所示：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> a=<span class="number">10</span>;	<span class="comment">//yes</span></span><br><span class="line">	<span class="keyword">int</span> a=<span class="number">10</span>;	            <span class="comment">//no</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在C++11中，结构体或类的数据成员在申明时可以直接赋予一个默认值，初始化的方式有两种，一是使用等号“=”，二是使用大括号列表初始化的方式。注意，使用参考如下代码：</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2019/01/21/UE4-CPPListInitialization/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1573,7 +1578,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1581,7 +1586,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1590,7 +1595,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-count">41</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

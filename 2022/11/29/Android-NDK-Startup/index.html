@@ -1,0 +1,1184 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="android,ndk,jdk,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="做梦诗人的博客" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon/favicon.ico?v=5.0.1">
+
+
+
+
+
+
+<meta name="description" content="导语最近在尝试开发一体机VR(Android系统)，但是苦于第三方库插件一直无法打包成功，因此开始学习之路。本文收藏自 Android NDK入门避坑指南  前言本文基于自己所学到的NDk的知识和一些在网上查到的资料 因为学习NDK的时间不是很长，学到的内容难免有所错漏，希望有问题的可以明确的指出来，我会积极采纳 本文会竭尽可能的将我现在所学到的关于NDK的知识清晰的表达出来，本文主要以NDK的">
+<meta name="keywords" content="android,ndk,jdk">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android NDK入门避坑指南">
+<meta property="og:url" content="https://worldnot.com/2022/11/29/Android-NDK-Startup/index.html">
+<meta property="og:site_name" content="做梦诗人的博客">
+<meta property="og:description" content="导语最近在尝试开发一体机VR(Android系统)，但是苦于第三方库插件一直无法打包成功，因此开始学习之路。本文收藏自 Android NDK入门避坑指南  前言本文基于自己所学到的NDk的知识和一些在网上查到的资料 因为学习NDK的时间不是很长，学到的内容难免有所错漏，希望有问题的可以明确的指出来，我会积极采纳 本文会竭尽可能的将我现在所学到的关于NDK的知识清晰的表达出来，本文主要以NDK的">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://worldnot.com/images/16847684-01f5fcda5a1591f0.webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/16847684-5a115c705121ccd3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp">
+<meta property="og:image" content="https://worldnot.com/images/16847684-f06815c59e5f8fed.webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/16847684-29df9ae030e17745.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/610/format/webp">
+<meta property="og:updated_time" content="2022-11-29T01:14:55.972Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android NDK入门避坑指南">
+<meta name="twitter:description" content="导语最近在尝试开发一体机VR(Android系统)，但是苦于第三方库插件一直无法打包成功，因此开始学习之路。本文收藏自 Android NDK入门避坑指南  前言本文基于自己所学到的NDk的知识和一些在网上查到的资料 因为学习NDK的时间不是很长，学到的内容难免有所错漏，希望有问题的可以明确的指出来，我会积极采纳 本文会竭尽可能的将我现在所学到的关于NDK的知识清晰的表达出来，本文主要以NDK的">
+<meta name="twitter:image" content="https://worldnot.com/images/16847684-01f5fcda5a1591f0.webp">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://worldnot.com/2022/11/29/Android-NDK-Startup/">
+
+
+<!-- 网页加载条 -->
+<script src="/js/src/pace.min.js"></script>
+  <title> Android NDK入门避坑指南 | 做梦诗人的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">做梦诗人的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">仰天大笑出门去</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search fa-lg"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">关闭</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android NDK入门避坑指南
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2022-11-29T03:00:12+08:00" content="2022-11-29">
+              2022-11-29
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+
+          
+
+          
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>导语<br>最近在尝试开发一体机VR(Android系统)，但是苦于第三方库插件一直无法打包成功，因此开始学习之路。<br>本文收藏自 <a href="https://www.jianshu.com/p/fe54d70a260e" target="_blank" rel="noopener">Android NDK入门避坑指南</a></p>
+</blockquote>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文基于自己所学到的NDk的知识和一些在网上查到的资料</p>
+<p>因为学习NDK的时间不是很长，学到的内容难免有所错漏，希望有问题的可以明确的指出来，我会积极采纳</p>
+<p>本文会竭尽可能的将我现在所学到的关于NDK的知识清晰的表达出来，本文主要以<strong>NDK的基本概念，NDK的组成部分，NDK的注意事项三个部分组成</strong></p>
+<p>实践部分因为本篇文章已经6000多字了，为了不让文章过长，将会在后面的博客中</p>
+<h1 id="一-NDK的基本概念"><a href="#一-NDK的基本概念" class="headerlink" title="一. NDK的基本概念"></a>一. NDK的基本概念</h1><p>在学习NDK之前，我首先得知道什么是NDK，NDK可以干些什么，使用NDK的好处有哪些，知道了这些，我们才可以更好的学习NDK</p>
+<h3 id="1-什么是NDK"><a href="#1-什么是NDK" class="headerlink" title="1. 什么是NDK"></a>1. 什么是NDK</h3><p>NDK即<code>Native Development Kit</code>,是Android中的一个开发工具包,为我们提供native开发的环境</p>
+<p>NDK是我们实现Java与Native进行交互的一个<strong>手段</strong></p>
+<h3 id="2-NDK可以干什么"><a href="#2-NDK可以干什么" class="headerlink" title="2. NDK可以干什么"></a>2. NDK可以干什么</h3><p>可以快速开发<code>C</code>、 <code>C++</code>的动态库，并自动将<code>so</code>和应用一起打包成 <code>APK</code></p>
+<p>即可通过 <code>NDK</code>使 <code>Java</code>与native代码（如 C、C++）交互</p>
+<p>NDK在现在很多热门的技术中都有使用，如：Android 音视频开发，热更新，OpenCV，等等</p>
+<h3 id="3-我们为什么要使用NDK"><a href="#3-我们为什么要使用NDK" class="headerlink" title="3. 我们为什么要使用NDK"></a>3. 我们为什么要使用NDK</h3><ol>
+<li><p>允许程序开发人员直接使用 C/C++ 源代码，极大的提高了 Android 应用程序开发的灵活性</p>
+</li>
+<li><p>跨平台应用移植、使用第三方库。如：许多第三方库只有 C/C++ 语言的版本，而 Android 应用程序需要使用现有的第三方库，如 FFmpeg、OpenCV等，则必须使用NDK</p>
+</li>
+<li><p>采用C++代码来处理性能要求高的操作，提高了Android APP的性能</p>
+</li>
+<li><p>安全性高</p>
+</li>
+</ol>
+<h3 id="4-NDK与SDK的关系"><a href="#4-NDK与SDK的关系" class="headerlink" title="4. NDK与SDK的关系"></a>4. NDK与SDK的关系</h3><p>在Android开发中，最常用的是SDK，那么SDK与NDK的关系是什么呢？</p>
+<p>在SDK中，我们使用Java来进行开发，而在NDK中，我们使用C++来进行开发</p>
+<p>SDK支持了Android开发中的大部分操作，如UI展示，用户与手机的交互等，主要是支持了Android APP开发的<strong>基础功能</strong></p>
+<p>NDK支持了一些复杂的，比较高级的操作，如音视频的解析，大量数据的运算，提高Android游戏的运行速度等，主要是Android APP的一些<strong>高级功能</strong></p>
+<p>所以<strong>NDK与SDK是并列关系，NDK是SDK的有效补充</strong></p>
+<p><img src="/images/16847684-01f5fcda5a1591f0.webp" alt="image"></p>
+<h1 id="二-NDK的组成部分"><a href="#二-NDK的组成部分" class="headerlink" title="二. NDK的组成部分"></a>二. NDK的组成部分</h1><p>现在我们知道了NDK是什么，NDK的作业，优点了，那我们该开始正式学习NDK了，但是<code>工欲善其事，必先利其器</code>，在使用NDK这个工具以前，我们必须先好好地了解NDK</p>
+<p>所以本部分将分析NDK中的一些组成及他们的作用</p>
+<p>本部分将讲述NDK中的<strong><code>JNI</code> ，二进制文件（.so 和 .a）, ABI ，本机编译工具，交叉编译工具等等</strong></p>
+<h2 id="1-JNI"><a href="#1-JNI" class="headerlink" title="1. JNI"></a>1. JNI</h2><ul>
+<li><p>定义</p>
+<p>JNI 即<code>Java Native Interface</code>,即Javanative接口</p>
+<p>JNI是一种编程框架，使得 Java 虚拟机中的 Java 程序可以调用本地应用 / 或库，也可以被其他程序调用。 本地程序一般是用其它语言（C、C++ 或汇编语言等）编写的，并且被编译为基于本机硬件和操作系统的程序</p>
+<p>上文中，NDK也是支持Java代码与Native代码的交互，那他们之间有什么区别呢？</p>
+<p>实际上，JNI是一个编程框架，是一个抽象的东西，NDK是一个工具包，是一个</p>
+<p>所以：<strong>NDK是实现JNI的一个手段</strong></p>
+</li>
+<li><p>作用 <strong>支持Java代码与native代码进行交互</strong>，即Java代码调用native代码 或者 native代码调用Java代码 native代码主要指<code>C</code>和<code>C++</code></p>
+</li>
+<li><p>使用JNI的原因</p>
+<p>有些事情 Java 无法处理时，JNI 允许程序员用其他编程语言来解决，例如，Java 标准库不支持的平台相关功能或者程序库。也用于改造已存在的用其它语言写的程序，供 Java 程序调用</p>
+</li>
+<li><p>使用JNI的步骤</p>
+<ol>
+<li><p>使用<code>Native</code>关键字定义<code>Java</code>方法（即需要调用的native方法）</p>
+</li>
+<li><p>使用<code>javac</code>编译上述 <code>Java</code>源文件 （即 <code>.java文件</code>）最终得到 <code>.class</code>文件</p>
+</li>
+<li><p>通过 <code>javah</code> 命令编译<code>.class</code>文件,最终导出<code>JNI</code>的头文件（<code>.h</code>文件）</p>
+</li>
+<li><p>使用 <code>Java</code>需要交互的native代码，以及实现在 <code>Java</code>中声明的<code>Native</code>方法</p>
+</li>
+<li><p>编译<code>.so</code>库文件</p>
+</li>
+<li><p>通过<code>Java</code>命令执行 <code>Java</code>程序，最终实现<code>Java</code>调用<code>native</code>代码编译生成的.so文件</p>
+</li>
+</ol>
+<p>实际上2345步骤的目的就是<strong>生成.so 文件</strong></p>
+<p>所以上面的步骤可以归纳为三步：</p>
+<ol>
+<li><p><strong>声明Native方法</strong></p>
+</li>
+<li><p><strong>实现Native方法，经过一系列操作，最终生成.so 文件</strong></p>
+</li>
+<li><p><strong>加载.so文件，调用Native方法</strong></p>
+<p>这里只简单介绍JNI的步骤，具体实现的例子在后面的博客中</p>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="2-so-和-a-文件"><a href="#2-so-和-a-文件" class="headerlink" title="2 .so 和 .a 文件"></a>2 .so 和 .a 文件</h2><p>上面我们已经说到，JNI 支持了<code>Java</code>代码和<code>native</code>代码的互相调用</p>
+<p>但是JNI是直接调用Java代码和native代码吗？</p>
+<blockquote>
+<p>实际上，JNI是调用<code>java</code>代码和<code>native</code>代码编译后的<code>.so</code>和<code>.a</code>文件来实现了Java代码和native代码的交互</p>
+</blockquote>
+<p>那么<code>.so</code>和<code>.a</code>文件是什么呢？下面我列出了.so和.a文件的一些定义</p>
+<ul>
+<li><p>动态链接库 (.so 后缀):</p>
+<p><strong>运行</strong>时才动态加载这个库;</p>
+<p>动态链接库，也叫共享库，因为在 NDK 中用 <code>shared</code> 来表示是动态库</p>
+<p>现在热门的插件化，热更新以及缩小APK大小等技术都使用了 <code>.so</code> 文件</p>
+</li>
+<li><p>静态链接库 (.a 后缀)</p>
+<p>在<strong>编译</strong>的时候, 就把静态库打包进 APK 中</p>
+<ul>
+<li><p>缺点 : 使用静态库编译, 编译的时间比较长，同时也使得APK比较大</p>
+</li>
+<li><p>优点 : 只导出一个库, 可以隐藏自己调用的库;</p>
+</li>
+</ul>
+</li>
+<li><p><code>.so</code>和<code>.a</code>本质上都是<strong>二进制文件</strong>，下文我将用二进制文件统称这两个文件</p>
+</li>
+<li><p><strong>每个CPU系统只能使用相对应的二进制文件</strong>，即他们不像<code>jar</code>包一样，所有的CPU系统都可以使用一个jar包，.so 和 .a 每个系统必须使用自己的，不能使用别的，如 <code>armeabi</code>的<code>.so</code>文件，不能被应用到<code>x86</code>中</p>
+</li>
+</ul>
+<h2 id="3-CPU架构"><a href="#3-CPU架构" class="headerlink" title="3. CPU架构"></a>3. CPU架构</h2><p>Android 平台，其支持的设备型号繁多，单单就设备的核心 CPU 而言，都有三大类：<strong>ARM、x86 和 MIPS</strong></p>
+<p>**ARM主要应用于手机中，x86主要应用于PC中</p>
+<p>Android中使用<code>x86</code>主要是因为：<strong>因为PC是x86架构，所以PC上的手机模拟器需要x86的二进制文件</strong></p>
+<p>而在<strong>NDK r17</strong>中，有了大的变化：</p>
+<p><strong>在NDK r17 以后，NDK 不在支持<code>32位和64位 MIPS</code> 和<code>ARM v5(armeabi)</code></strong></p>
+<p>所以现在NDK只支持<code>ARM</code>和<code>x86</code>，而<code>ARM</code>和<code>x86</code>又各自分为两种：</p>
+<p>简单的来说:<strong>ARM 和 x86 各分为 32位和64位两种，所以现在NDK一共支持4种CPU架构</strong></p>
+<p>即：ARM 32位 ，ARM 64位 ， x86 32位 ，x86 64位</p>
+<h2 id="4-ABI"><a href="#4-ABI" class="headerlink" title="4. ABI"></a>4. ABI</h2><p>ABI ： Application Binary Interface</p>
+<p>我们上面说了，每个系统只能使用相对应的二进制文件，</p>
+<p><strong>不同的 Android 设备使用不同的 CPU，而不同的 CPU 支持不同的指令集。CPU 与指令集的每种组合都有专属的应用二进制接口 (ABI)</strong></p>
+<p>简而言之：而<strong>ABI定义了二进制文件是怎么运行在对应的CPU中的</strong></p>
+<p>上文中我们大致了解了Android中常用的CPU架构，而且我们知道，ABI 定义了二进制文件时怎么在CPU中运行的，那么我们可以知道，<strong>每一个CPU架构必定有一个相对应的ABI</strong></p>
+<p>上面我们已经知道了有四种，那么ABI也有四种，他们分别是：<strong>armeabi-v7a，armeabi-v8a，x86，x86_64</strong></p>
+<table>
+<thead>
+<tr>
+<th>ABI</th>
+<th>对应的CPU架构</th>
+<th>应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>armeabi-v7a</td>
+<td>ARM 32位</td>
+<td>手机</td>
+</tr>
+<tr>
+<td>armeabi-v8a</td>
+<td>ARM 64位</td>
+<td>手机</td>
+</tr>
+<tr>
+<td>X86</td>
+<td>X86 32位</td>
+<td>PC</td>
+</tr>
+<tr>
+<td>X86_64</td>
+<td>X86 64位</td>
+<td>PC</td>
+</tr>
+</tbody>
+</table>
+<p>CPU架构中<strong>64位的CPU架构兼容32位的ABI和64位的ABI，32位的CPU架构只支持32位的ABI</strong></p>
+<blockquote>
+<p>armeabi-v7a设备只兼容armeabi-v7a</p>
+<p>armeabi-v8a设备兼容armeabi-v7a，armeabi-v7a</p>
+<p>X86设备只兼容X86_64</p>
+<p>X86_64兼容X86，X86_64</p>
+</blockquote>
+<p>NDK编译实际上<strong>默认编译出所有系统的文件</strong></p>
+<p>但是有时我们只需要使用指定的系统，我们就可以指定编译什么系统，减少二进制文件，避免我们不会使用到的二进制文件被打包到apk中，如我们在PC上使用模拟器来执行APP时，我们需要x86，但是我们APP最终是要在手机上运行的，这样我们只需要ARM的就行了，我们就可以在最终打包APK时，去掉x86的</p>
+<p>我们可以使用下面的代码来指定我们要编译什么CPU架构的二进制文件</p>
+<p> <code class="gradle  language-gradle">//在project的build.gradle中<br>android {<br>    defaultConfig {<br>        ndk {<br>            abiFilters ‘arm64-v8a’, ‘x86_64’<br>        }<br>    }</code> </p>
+<h2 id="5-编译工具"><a href="#5-编译工具" class="headerlink" title="5. 编译工具"></a>5. 编译工具</h2><h3 id="5-1-本机编译工具"><a href="#5-1-本机编译工具" class="headerlink" title="5.1 本机编译工具"></a>5.1 本机编译工具</h3><p>我们已经知道，每个系统只能使用自己系统的二进制文件，本机编译工具正是<strong>编译出本机系统可以使用的二进制文件</strong></p>
+<p>在Android中可以使用的<strong>本机编译工具有两种：<code>ndk-build</code>和 <code>cmake</code></strong></p>
+<ol>
+<li><p>cmake</p>
+<p>我们已经知道，每个系统只能使用自己的二进制文件</p>
+<p>那么我们在开发中，就需要编译出对应的二进制文件，而且如果我们的软件想要跨平台，那么我们就得保证在每一个平台上都可以编译</p>
+<p>即：如果我们的软件想在Mac OS 和 Windows上运行，那么我们的软件在Mac OS上运行时，要生成可以在Mac OS上运行的二进制文件，在Windows上运行，要生成Windows上可以运行的二进制文件</p>
+<p>这样的话，那我们得为每一个平台都要编写一次<code>MakeFile</code>文件，这将是一个很无趣，很令人抓狂的操作</p>
+</li>
+</ol>
+<p>而CMake就是针对上述问题的一个工具</p>
+<p>它<strong>允许开发者编写一种与平台无关的CMakeList.txt文件来定制整个编译流程，然后再根据目标用户的平台逐步生成所需的本地化Makefile和工程文件</strong>，如Unix的Makefile或Windows的Visual Studio工程</p>
+<p>从而达到“<strong>只写一次，到处运行</strong>”</p>
+<p>即：我们只要写一个 <code>cmakeLists.txt</code>文件，那么就可以在所有平台中编译出对应的二进制文件</p>
+<p>这样的话，当运行在Windows上时，自动生成Windows的，在Mac OS行运行，自动生成MacOS的，但是，我们只需要写一个<code>cmakeList.txt</code>文件即可！！！</p>
+<p>使用 CMake 生成 Makefile 并编译的流程如下：</p>
+<ol>
+<li>编写 CMake 配置文件 CMakeLists.txt 。</li>
+<li>执行命令 <code>cmake PATH</code> 或者 <code>ccmake PATH</code> 生成 Makefile（<code>ccmake</code> 和 <code>cmake</code> 的区别在于前者提供了一个交互式的界面）。其中， <code>PATH</code> 是 CMakeLists.txt 所在的目录。</li>
+<li>使用 <code>make</code> 命令进行编译。</li>
+</ol>
+<p>当然，在Android开发过程中，我们不需要执行上面的流程，因为在 Android studio 当中已经为我们集成了，我们<strong>只需要编写<code>cmakeLists.txt</code>文件，剩下的就交给 Android studio 就行了</strong></p>
+<p>在Android开发过程中，使用cmake只需要两个文件，<code>xxx.cpp</code> 和<code>CMakeLists.txt</code></p>
+<ul>
+<li>cmakeLists.txt 就如上面所述，定义整个的编译流程</li>
+<li>xxx.cpp 则是要被编译的 C++ 文件</li>
+</ul>
+<p>具体的实现方式我会在下面列出</p>
+<ol>
+<li>ndk-build</li>
+</ol>
+<p>ndk-build是一个和cmake功能差不多的工具，他们都减少了我们定制编译流程的操作</p>
+<p>但是ndk-build是以前常使用的工具，我们现在常用cmake，ndk-build的操作要比cmake复杂一些</p>
+<p><code>ndk-build</code>本质上是一个脚本,它的位置就在NDK目录的最上层，即在<code>&lt; NDK &gt;/ndk-build</code>路径下</p>
+<p>因为是一个脚本，所以下面的命令等同于<code>ndk-build</code></p>
+<p> <code class="shell  language-shell"># $GNUMAKE 指 GNU Make 3.81 或更高版本</code></p>
+<h1 id="则指向-NDK-安装目录"><a href="#则指向-NDK-安装目录" class="headerlink" title=" 则指向 NDK 安装目录"></a><ndk> 则指向 NDK 安装目录</ndk></h1><p>$GNUMAKE -f <ndk>/build/core/build-local.mk <parameters></parameters></ndk></p>
+<p>#等同于<br>ndk-build </p>
+<p><strong>使用ndk-build我们需要两个文件: Android.mk 和 Application.mk</strong></p>
+<ol>
+<li><p>Android.mk</p>
+<p>Google的官方文档对Android.mk的定义如下</p>
+<blockquote>
+<p><code>Android.mk</code> 文件位于项目 <code>jni/</code> 目录的子目录中，用于向构建系统描述源文件和共享库。它实际上是构建系统解析一次或多次的微小 GNU makefile 片段。<code>Android.mk</code> 文件用于定义 <a href="https://links.jianshu.com/go?to=https%3A%2F%2Fdeveloper.android.com%2Fndk%2Fguides%2Fapplication_mk%3Fhl%3Dzh-cn" target="_blank" rel="noopener"><code>Application.mk</code></a>、构建系统和环境变量所未定义的项目级设置。它还可替换特定模块的项目级设置。</p>
+<p><code>Android.mk</code> 的语法支持将源文件分组为“模块”。模块是静态库、共享库或独立的可执行文件。您可在每个 <code>Android.mk</code> 文件中定义一个或多个模块，也可在多个模块中使用同一个源文件。构建系统只将共享库放入您的应用软件包。此外，静态库可生成共享库。</p>
+<p>除了封装库之外，构建系统还可为您处理各种其他事项。例如，您无需在 <code>Android.mk</code> 文件中列出头文件或生成的文件之间的显式依赖关系。NDK 构建系统会自动计算这些关系。因此，您应该能够享受到未来 NDK 版本中支持的新工具链/平台功能带来的益处，而无需处理 <code>Android.mk</code> 文件。</p>
+<p>此文件的语法与随整个 <a href="https://links.jianshu.com/go?to=https%3A%2F%2Fsource.android.com%2F%3Fhl%3Dzh-cn" target="_blank" rel="noopener">Android 开源项目</a>分发的 <code>Android.mk</code> 文件中使用的语法非常接近。虽然使用这些语法的构建系统实现并不相同，但通过有意将语法设计得相似，可使应用开发者更轻松地将源代码重复用于外部库。</p>
+</blockquote>
+</li>
+</ol>
+<p>这个的定义很长，简单的来说，Android.mk的作用如下：</p>
+<ol>
+<li>描述了源文件的位置和名字</li>
+<li>描述了生成什么文件，如共享库，静态库等</li>
+<li>自动处理构建中的一些事项，如文件之间的依赖关系</li>
+<li>语法设置得与Android开源项目相似，使得我们可以轻易的将源代码重复使用</li>
+</ol>
+<p>Android.mk的一些常用的变量如下：</p>
+<p>  <code class="shell  language-shell"># 这个是源文件的路径，call my-dir表示了返回当前Android.mk所在的目录<br>  LOCAL_PATH := $(call my-dir)</code></p>
+<h3 id="清除许多-LOCAL-XXX-变量"><a href="#清除许多-LOCAL-XXX-变量" class="headerlink" title="清除许多 LOCAL_XXX 变量"></a>清除许多 LOCAL_XXX 变量</h3><h3 id="注意：不会清除-LOCAL-PATH"><a href="#注意：不会清除-LOCAL-PATH" class="headerlink" title="注意：不会清除 LOCAL_PATH"></a>注意：不会清除 LOCAL_PATH</h3><p>  include $(CLEAR_VARS)</p>
+<h3 id="LOCAL-MODULE-变量存储要构建的模块的名称"><a href="#LOCAL-MODULE-变量存储要构建的模块的名称" class="headerlink" title="LOCAL_MODULE 变量存储要构建的模块的名称"></a>LOCAL_MODULE 变量存储要构建的模块的名称</h3><h3 id="这里最终会生成叫-libhello-jni-so-的文件"><a href="#这里最终会生成叫-libhello-jni-so-的文件" class="headerlink" title="这里最终会生成叫 libhello-jni.so 的文件"></a>这里最终会生成叫 libhello-jni.so 的文件</h3><p>  LOCAL_MODULE := hello-jni</p>
+<h3 id="源文件名字"><a href="#源文件名字" class="headerlink" title="源文件名字"></a>源文件名字</h3><h3 id="可以有多个源文件，使用空格隔开"><a href="#可以有多个源文件，使用空格隔开" class="headerlink" title="可以有多个源文件，使用空格隔开"></a>可以有多个源文件，使用空格隔开</h3><p>  LOCAL_SRC_FILES := hello-jni.c</p>
+<h3 id="指定编译出什么二进制文件"><a href="#指定编译出什么二进制文件" class="headerlink" title="指定编译出什么二进制文件"></a>指定编译出什么二进制文件</h3><h3 id="这里编译出共享库，即-so文件"><a href="#这里编译出共享库，即-so文件" class="headerlink" title="这里编译出共享库，即:.so文件"></a>这里编译出共享库，即:.so文件</h3><h3 id="编译出静态库可以使用：-BUILD-STATIC-LIBRARY"><a href="#编译出静态库可以使用：-BUILD-STATIC-LIBRARY" class="headerlink" title="编译出静态库可以使用： BUILD_STATIC_LIBRARY"></a>编译出静态库可以使用： BUILD_STATIC_LIBRARY</h3><p>  include $(BUILD_SHARED_LIBRARY) </p>
+<ol>
+<li><p>Application.mk</p>
+<p><code>Application.mk</code> 指定 ndk-build 的项目范围设置。默认情况下，它位于应用项目目录中的 <code>jni/Application.mk</code> 下</p>
+<p>简单的来说，Application.mk的功能主要是：主要是<strong>描述了Android Native开发需要的模组（module）</strong></p>
+<p>一些常用的变量如下：</p>
+<p><code class="shell  language-shell"># 定义生成的二进制文件要生成的CPU架构</code></p>
+<h1 id="这里指定生成-arm64-v8a-可以用的二进制文件"><a href="#这里指定生成-arm64-v8a-可以用的二进制文件" class="headerlink" title="这里指定生成 arm64-v8a 可以用的二进制文件"></a>这里指定生成 arm64-v8a 可以用的二进制文件</h1><p>APP_ABI := arm64-v8a</p>
+</li>
+</ol>
+<h1 id="定义可以使用该二进制文件的Android版本"><a href="#定义可以使用该二进制文件的Android版本" class="headerlink" title="定义可以使用该二进制文件的Android版本"></a>定义可以使用该二进制文件的Android版本</h1><p>APP_PLATFORM := android-21</p>
+<h1 id="默认情况下，ndk-build-假定-Android-mk-文件位于项目根目录的相对路径-jni-Android-mk-中。"><a href="#默认情况下，ndk-build-假定-Android-mk-文件位于项目根目录的相对路径-jni-Android-mk-中。" class="headerlink" title="默认情况下，ndk-build 假定 Android.mk 文件位于项目根目录的相对路径 jni/Android.mk 中。"></a>默认情况下，ndk-build 假定 Android.mk 文件位于项目根目录的相对路径 jni/Android.mk 中。</h1><h1 id="要从其他位置加载-Android-mk-文件，将-APP-BUILD-SCRIPT-设置为-Android-mk-文件的绝对路径。"><a href="#要从其他位置加载-Android-mk-文件，将-APP-BUILD-SCRIPT-设置为-Android-mk-文件的绝对路径。" class="headerlink" title="要从其他位置加载 Android.mk 文件，将 APP_BUILD_SCRIPT 设置为 Android.mk 文件的绝对路径。"></a>要从其他位置加载 Android.mk 文件，将 APP_BUILD_SCRIPT 设置为 Android.mk 文件的绝对路径。</h1><p>APP_BUILD_SCRIPT </p>
+<p>​</p>
+<ol>
+<li><p>cmake 和 ndk-build 都可以在Android开发中使用，但是<strong>现在默认使用的是cmake，以前常用的是ndk-build</strong></p>
+<p><code>ndk-build</code> 的实现过程比<code>cmake</code>复杂的多,所以现在推荐使用cmake</p>
+<p>但是因为以前的项目常用 <code>ndk-build</code> ，如果我们要参与以前 NDK项目 的开发，那么 <code>ndk-build</code>也是需要了解的</p>
+<p>所以，如果<strong>要新建一个项目，那么推荐使用<code>cmake</code>,要参与以前老项目的开发，<code>ndk-build</code>也不可落下</strong></p>
+</li>
+</ol>
+<h3 id="5-2交叉编译工具"><a href="#5-2交叉编译工具" class="headerlink" title="5.2交叉编译工具"></a>5.2交叉编译工具</h3><p>与本机编译对应的，有时我们需要编译出其他系统的二进制文件，如我们在PC上写Android文件，那么我们PC中就需要编译出Android中可以运行的二进制文件</p>
+<p>交叉编译工具，又叫<strong>交叉编译链( <code>toolchain</code>)</strong></p>
+<p>交叉编译链（编译器、链接器等）来<strong>生成可以在其他系统中运行的二进制文件</strong></p>
+<p><strong>在NDK中，交叉编译工具主要有两种：<code>clang</code>和<code>gcc</code></strong></p>
+<h1 id="三-NDK中一些值得注意的事情"><a href="#三-NDK中一些值得注意的事情" class="headerlink" title="三. NDK中一些值得注意的事情"></a>三. NDK中一些值得注意的事情</h1><h2 id="1-NDK版本变化的问题"><a href="#1-NDK版本变化的问题" class="headerlink" title="1. NDK版本变化的问题"></a>1. NDK版本变化的问题</h2><h3 id="1-1-NDK中编译工具的变化"><a href="#1-1-NDK中编译工具的变化" class="headerlink" title="1.1 NDK中编译工具的变化"></a>1.1 NDK中编译工具的变化</h3><p>cmake 和 ndk-build 都可以在Android开发中使用，但是<strong>现在默认使用的是cmake，以前常用的是ndk-build</strong></p>
+<p><code>ndk-build</code> 的实现过程比<code>cmake</code>复杂的多,所以现在推荐使用cmake</p>
+<p>但是因为以前的项目常用 <code>ndk-build</code> ，如果我们要参与以前 NDK项目 的开发，那么 <code>ndk-build</code>也是需要了解的</p>
+<p>所以，如果<strong>要新建一个项目，那么推荐使用<code>cmake</code>,要参与以前老项目的开发，<code>ndk-build</code>也不可落下</strong></p>
+<h3 id="1-2-NDK中交叉编译的工具的变化"><a href="#1-2-NDK中交叉编译的工具的变化" class="headerlink" title="1.2 NDK中交叉编译的工具的变化"></a>1.2 NDK中交叉编译的工具的变化</h3><p><strong>在ndk r17c 以后默认使用的变成了clang，而不是gcc</strong></p>
+<h4 id="库文件和头文件的变化"><a href="#库文件和头文件的变化" class="headerlink" title="库文件和头文件的变化"></a>库文件和头文件的变化</h4><p>在r17c以前，头文件，库文件以及gcc的路径如下：</p>
+<blockquote>
+<p><code class="shell  language-shell"># 库文件路径<br>android-ndk-r17c/platforms/android-21/arch-arm/usr/lib</code></p>
+<h1 id="头文件路径"><a href="#头文件路径" class="headerlink" title="头文件路径"></a>头文件路径</h1><p>android-ndk-r17c/sysroot/usr/include</p>
+<p>#gcc的路径<br>android-ndk-r17c/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin</p>
+</blockquote>
+<p>而在r17以后，如 r20 中，头文件和库文件统一放到了<strong><code>sysroot</code></strong>中：</p>
+<p>  <code class="shell  language-shell">#头文件<br> toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include</code></p>
+<p> #库文件<br> toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib </p>
+<p>我们可以发现 r20 把头文件和库文件弄到了一起</p>
+<p>但是，r20 中也没有把 r17 中的库文件删除，即我们也可以在下面的路径中找到头文件</p>
+<p> <code class="shell  language-shell">android-ndk-r17c/platforms/android-21/arch-arm/usr/lib</code> </p>
+<h4 id="交叉编译工具位置的变化"><a href="#交叉编译工具位置的变化" class="headerlink" title="交叉编译工具位置的变化"></a>交叉编译工具位置的变化</h4><p>在 <strong>NDK r19以前</strong>的 <code>ndk</code> 内置了一个可以自动生成<code>交叉编译工具(toolchain)</code> 的<code>.py</code>文件，放在</p>
+<p>ndk路径下面的<strong><code>build/tool/make_standalone_toolchain.py</code></strong></p>
+<p>要生成toolchain，使用下面的命令</p>
+<blockquote>
+<p>$NDK_HOME/build/tools/make_standalone_toolchain.py –arch arm –api 21 –install-dir /Users/fczhao/Desktop</p>
+<p>后面的几个都是必要的</p>
+<p>–arch 指定了生成的toolchain要在哪个CPU框架中使用</p>
+<p>–api 指定了生成的toolchain要在哪个Android API 中使用</p>
+<p>–install-dir 生成的toolchain的路径</p>
+</blockquote>
+<p>如果使用的是<code>NDK r19以前的</code>，可以参考下面的这个文章</p>
+<p><a href="https://links.jianshu.com/go?to=https%3A%2F%2Fdeveloper.android.com%2Fndk%2Fguides%2Fstandalone_toolchain%3Fhl%3Dzh-cn" target="_blank" rel="noopener">https://developer.android.com/ndk/guides/standalone_toolchain?hl=zh-cn</a></p>
+<p>但是<strong><code>NDK r19</code>以后</strong>的NDK已经内置了这些文件，如果运行上面的命令，会出现这样的日志</p>
+<p> <code class="shell  language-shell">WARNING:<strong>main</strong>:make_standalone_toolchain.py is no longer necessary. The</code></p>
+<p>#$NDK/toolchains/llvm/prebuilt/darwin-x86_64/bin 这个路径已经有了我们要生成的文件<br>$NDK/toolchains/llvm/prebuilt/darwin-x86_64/bin directory contains target-specific scripts that perform<br>the same task. For example, instead of:</p>
+<pre><code>$ python $NDK/build/tools/make_standalone_toolchain.py \
+    --arch arm --api 21 --install-dir toolchain
+$ toolchain/bin/clang++ src.cpp
+</code></pre><p>Instead use:</p>
+<pre><code>$ $NDK/toolchains/llvm/prebuilt/darwin-x86_64/bin/armv7a-linux-androideabi21-clang++ src.cpp
+</code></pre><p>Installation directory already exists. Use –force. </p>
+<p>然后让我们去上面输出的路径中看看，就可以看到NDK的确已经提供了很多的<strong>clang</strong>,这里我只截取了一部分</p>
+<p> <img src="//upload-images.jianshu.io/upload_images/16847684-5a115c705121ccd3.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" alt></p>
+<p> image-20200601130753041</p>
+<h3 id="1-3-NDK支持的CPU架构的变化"><a href="#1-3-NDK支持的CPU架构的变化" class="headerlink" title="1.3 NDK支持的CPU架构的变化"></a>1.3 NDK支持的CPU架构的变化</h3><p>上文中我们在ABI已经提到了CPU架构相关的东西，但是为了增加印象，这里稍微重新提一下</p>
+<p>Android 平台核心 CPU有三大类：<strong>ARM、x86 和 MIPS</strong></p>
+<p>而在<strong>NDK r17</strong>中，有了大的变化：</p>
+<p><strong>在NDK r17 以后，NDK 不在支持<code>32位和64位 MIPS</code> 和<code>ARM v5(armeabi)</code></strong></p>
+<p>所以现在NDK中只支持armeabi-v7a，armeabi-v8a，x86,x86_64四类</p>
+<h2 id="2-NDK-的系统是否适用的问题"><a href="#2-NDK-的系统是否适用的问题" class="headerlink" title="2. NDK 的系统是否适用的问题"></a>2. NDK 的系统是否适用的问题</h2><p>值得注意的是：<br>在下载NDK时，不像我们下载JDK一样</p>
+<blockquote>
+<p>当下载同一版本的JDK时，所有的电脑（不论是macOS，Windows还是Linus）下载的都是一样</p>
+<p>而当我们下载相同版本的NDK时，会发现Google提供了适合于不同系统的NDK，如下图</p>
+<p> <img src="/images/16847684-f06815c59e5f8fed.webp" alt></p>
+<p> NDK截图</p>
+<p>之所以提供针对每个系统的NDK的原因是是</p>
+<p>因为Java良好的跨平台性，所以所有的系统都可以使用同一个JDK</p>
+<p>而NDK调用的是C++代码，C++没有这么好的跨平台性，从而我们必须为每一个平台配置适合于它的NDK</p>
+</blockquote>
+<p>所以在我们看别人的NDK博客时，一定要<strong>注意是否与自己使用的NDK是一个系统的，一个版本</strong>的，否则一定会出现问题</p>
+<h2 id="3-NDK-中Java与native代码的交互"><a href="#3-NDK-中Java与native代码的交互" class="headerlink" title="3. NDK 中Java与native代码的交互"></a>3. NDK 中Java与native代码的交互</h2><p>Java 和 c/c++ 有两种交互方式:</p>
+<ul>
+<li><p>Java调用 native 代码</p>
+</li>
+<li><p>native 代码调用 Java 代码</p>
+</li>
+</ul>
+<p>也就是说，交互是Java与C++之间的互相调用</p>
+<p>但是在NDK中他们实际上的顺序是：</p>
+<p><strong>Java调用C++代码，然后C++调用Java代码返回C++执行后的数据</strong>，如图所示</p>
+<p> <img src="//upload-images.jianshu.io/upload_images/16847684-29df9ae030e17745.png?imageMogr2/auto-orient/strip|imageView2/2/w/610/format/webp" alt></p>
+<p> image-20200528190701126</p>
+<p>从图中可以看到，我们使用NDK的目的实际上是：</p>
+<p>​ <strong>Java调用C++，让C++处理一些复杂的操作，然后把处理后的数据返回到Java中</strong></p>
+<p>​ 而我们为什么不直接使用Java来进行处理，而是绕了一圈，通过 <code>Java -&gt; C++ -&gt; Java</code>的方式来实现，其中的原因是：</p>
+<p>​ C++速度比Java快</p>
+<p>​ 举个简单的例子，在ACM或者LeetCode中，C++代码运行的超时时间是 1s，而Java的是 2s</p>
+<p>​ 所以对于一些计算量很大的操作，如音视频的渲染等我们采用C++可以有效的减少计算时间和内存占用，减少手机发热和耗电量等</p>
+<hr>
+<p>现在我们已经大致了解了一些NDK的东西了，后面的博客我将分别分析cmake，ndk-build，clang，gcc的具体实现过程</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+<blockquote class="blockquote-center" style="color: #ccc;">
+    -------------  <i class="fa fa-coffee"></i> 感谢您的阅读-------------
+</blockquote>
+
+  <span id="inline-green" style="border-radius:3px;">作者</span>：<a class="link-blue" href="https://github.com/dreamingpoet" target="_blank">dreamingpoet</a><br>有问题请发邮箱 <a class="link-blue" href target="_blank">Dreamingoet@126.com</a>。
+
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>您的鼓励将成为创作者的动力</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/reward_wechat.webp" alt="Dreamingpoet WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/reward_alipay.webp" alt="Dreamingpoet Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag"><i class="fa fa-tag"></i> android</a>
+          
+            <a href="/tags/ndk/" rel="tag"><i class="fa fa-tag"></i> ndk</a>
+          
+            <a href="/tags/jdk/" rel="tag"><i class="fa fa-tag"></i> jdk</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/10/08/Tauri-vue/" rel="next" title="如何用tauri + vue 搭建一个windows应用">
+                <i class="fa fa-chevron-left"></i> 如何用tauri + vue 搭建一个windows应用
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+  
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/avatar/avatar.png" alt="Dreamingpoet">
+          <p class="site-author-name" itemprop="name">Dreamingpoet</p>
+          <p class="site-description motion-element" itemprop="description">靡不有初 鲜克有终</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/dreamingpoet" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="/weblog" title="建站日志" target="_blank">建站日志</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一-NDK的基本概念"><span class="nav-number">2.</span> <span class="nav-text">一. NDK的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-什么是NDK"><span class="nav-number">2.0.1.</span> <span class="nav-text">1. 什么是NDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-NDK可以干什么"><span class="nav-number">2.0.2.</span> <span class="nav-text">2. NDK可以干什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-我们为什么要使用NDK"><span class="nav-number">2.0.3.</span> <span class="nav-text">3. 我们为什么要使用NDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-NDK与SDK的关系"><span class="nav-number">2.0.4.</span> <span class="nav-text">4. NDK与SDK的关系</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#二-NDK的组成部分"><span class="nav-number">3.</span> <span class="nav-text">二. NDK的组成部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-JNI"><span class="nav-number">3.1.</span> <span class="nav-text">1. JNI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-so-和-a-文件"><span class="nav-number">3.2.</span> <span class="nav-text">2 .so 和 .a 文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-CPU架构"><span class="nav-number">3.3.</span> <span class="nav-text">3. CPU架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-ABI"><span class="nav-number">3.4.</span> <span class="nav-text">4. ABI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-编译工具"><span class="nav-number">3.5.</span> <span class="nav-text">5. 编译工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-本机编译工具"><span class="nav-number">3.5.1.</span> <span class="nav-text">5.1 本机编译工具</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#则指向-NDK-安装目录"><span class="nav-number">4.</span> <span class="nav-text"> 则指向 NDK 安装目录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#清除许多-LOCAL-XXX-变量"><span class="nav-number">4.0.1.</span> <span class="nav-text">清除许多 LOCAL_XXX 变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意：不会清除-LOCAL-PATH"><span class="nav-number">4.0.2.</span> <span class="nav-text">注意：不会清除 LOCAL_PATH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LOCAL-MODULE-变量存储要构建的模块的名称"><span class="nav-number">4.0.3.</span> <span class="nav-text">LOCAL_MODULE 变量存储要构建的模块的名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#这里最终会生成叫-libhello-jni-so-的文件"><span class="nav-number">4.0.4.</span> <span class="nav-text">这里最终会生成叫 libhello-jni.so 的文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源文件名字"><span class="nav-number">4.0.5.</span> <span class="nav-text">源文件名字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可以有多个源文件，使用空格隔开"><span class="nav-number">4.0.6.</span> <span class="nav-text">可以有多个源文件，使用空格隔开</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指定编译出什么二进制文件"><span class="nav-number">4.0.7.</span> <span class="nav-text">指定编译出什么二进制文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#这里编译出共享库，即-so文件"><span class="nav-number">4.0.8.</span> <span class="nav-text">这里编译出共享库，即:.so文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译出静态库可以使用：-BUILD-STATIC-LIBRARY"><span class="nav-number">4.0.9.</span> <span class="nav-text">编译出静态库可以使用： BUILD_STATIC_LIBRARY</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#这里指定生成-arm64-v8a-可以用的二进制文件"><span class="nav-number">5.</span> <span class="nav-text">这里指定生成 arm64-v8a 可以用的二进制文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定义可以使用该二进制文件的Android版本"><span class="nav-number">6.</span> <span class="nav-text">定义可以使用该二进制文件的Android版本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#默认情况下，ndk-build-假定-Android-mk-文件位于项目根目录的相对路径-jni-Android-mk-中。"><span class="nav-number">7.</span> <span class="nav-text">默认情况下，ndk-build 假定 Android.mk 文件位于项目根目录的相对路径 jni/Android.mk 中。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#要从其他位置加载-Android-mk-文件，将-APP-BUILD-SCRIPT-设置为-Android-mk-文件的绝对路径。"><span class="nav-number">8.</span> <span class="nav-text">要从其他位置加载 Android.mk 文件，将 APP_BUILD_SCRIPT 设置为 Android.mk 文件的绝对路径。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2交叉编译工具"><span class="nav-number">8.0.1.</span> <span class="nav-text">5.2交叉编译工具</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三-NDK中一些值得注意的事情"><span class="nav-number">9.</span> <span class="nav-text">三. NDK中一些值得注意的事情</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-NDK版本变化的问题"><span class="nav-number">9.1.</span> <span class="nav-text">1. NDK版本变化的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-NDK中编译工具的变化"><span class="nav-number">9.1.1.</span> <span class="nav-text">1.1 NDK中编译工具的变化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-NDK中交叉编译的工具的变化"><span class="nav-number">9.1.2.</span> <span class="nav-text">1.2 NDK中交叉编译的工具的变化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#库文件和头文件的变化"><span class="nav-number">9.1.2.1.</span> <span class="nav-text">库文件和头文件的变化</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#头文件路径"><span class="nav-number">10.</span> <span class="nav-text">头文件路径</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#交叉编译工具位置的变化"><span class="nav-number">10.0.0.1.</span> <span class="nav-text">交叉编译工具位置的变化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-NDK支持的CPU架构的变化"><span class="nav-number">10.0.1.</span> <span class="nav-text">1.3 NDK支持的CPU架构的变化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-NDK-的系统是否适用的问题"><span class="nav-number">10.1.</span> <span class="nav-text">2. NDK 的系统是否适用的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-NDK-中Java与native代码的交互"><span class="nav-number">10.2.</span> <span class="nav-text">3. NDK 中Java与native代码的交互</span></a></li></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dreamingpoet</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a> 生成
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Pisces
+  </a>
+</div>
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  <!-- 按需加载背景 -->
+  
+  <!-- 页面点击小红心 -->
+  <!-- 页面点击小红心 -->
+
+  <script type="text/javascript" src="/js/src/love.js?v=5.0.1"></script>
+
+
+  <!-- 鼠标移动，效果 -->
+
+  <!-- 页面 title 进入/离开 效果 -->
+
+  <script type="text/javascript">var OriginTitile=document.title,st;document.addEventListener("visibilitychange",function(){document.hidden?(document.title="(ง •_•)ง 加油!!!",clearTimeout(st)):(document.title="(ง •_•)ง Thank you~ "+OriginTitile,st=setTimeout(function(){document.title=OriginTitile},4e3))})</script>
+
+
+</body>
+</html>

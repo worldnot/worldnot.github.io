@@ -1,0 +1,936 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="vue,element-plus,npm,vite,tauri,git,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="做梦诗人的博客" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon/favicon.ico?v=5.0.1">
+
+
+
+
+
+
+<meta name="description" content="导语 本次实验，使用 tauri 作为桌面框架，使用 Rust 语言作为后端，使用 axum 作为后端框架，使用 vue3 + element-plus 作为前端UI，使用 cargo + npm 作为包管理器，使用 vite 作为前端打包工具， 使用 TS 作为前端开发语言使用 websocket 作为通信协议  npm 官网https://www.npmjs.com/package/npmh">
+<meta name="keywords" content="vue,element-plus,npm,vite,tauri,git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何用tauri + vue 搭建一个windows应用">
+<meta property="og:url" content="https://worldnot.com/2022/10/08/Tauri-vue/index.html">
+<meta property="og:site_name" content="做梦诗人的博客">
+<meta property="og:description" content="导语 本次实验，使用 tauri 作为桌面框架，使用 Rust 语言作为后端，使用 axum 作为后端框架，使用 vue3 + element-plus 作为前端UI，使用 cargo + npm 作为包管理器，使用 vite 作为前端打包工具， 使用 TS 作为前端开发语言使用 websocket 作为通信协议  npm 官网https://www.npmjs.com/package/npmh">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2022-10-12T09:17:40.575Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何用tauri + vue 搭建一个windows应用">
+<meta name="twitter:description" content="导语 本次实验，使用 tauri 作为桌面框架，使用 Rust 语言作为后端，使用 axum 作为后端框架，使用 vue3 + element-plus 作为前端UI，使用 cargo + npm 作为包管理器，使用 vite 作为前端打包工具， 使用 TS 作为前端开发语言使用 websocket 作为通信协议  npm 官网https://www.npmjs.com/package/npmh">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://worldnot.com/2022/10/08/Tauri-vue/">
+
+
+<!-- 网页加载条 -->
+<script src="/js/src/pace.min.js"></script>
+  <title> 如何用tauri + vue 搭建一个windows应用 | 做梦诗人的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">做梦诗人的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">仰天大笑出门去</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search fa-lg"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">关闭</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                如何用tauri + vue 搭建一个windows应用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2022-10-08T18:46:12+08:00" content="2022-10-08">
+              2022-10-08
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Rust/" itemprop="url" rel="index">
+                    <span itemprop="name">Rust</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Rust/Tauri/" itemprop="url" rel="index">
+                    <span itemprop="name">Tauri</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+
+          
+
+          
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>导语</p>
+<p>本次实验，使用 tauri 作为桌面框架，使用 Rust 语言作为后端，使用 axum 作为后端框架，使用 vue3 + element-plus 作为前端UI，使用 cargo + npm 作为包管理器，使用 vite 作为前端打包工具， 使用 TS 作为前端开发语言<br>使用 websocket 作为通信协议</p>
+</blockquote>
+<p>npm 官网<br><a href="https://www.npmjs.com/package/npm" target="_blank" rel="noopener">https://www.npmjs.com/package/npm</a><br><a href="https://docs.npmjs.com/" target="_blank" rel="noopener">https://docs.npmjs.com/</a></p>
+<h3 id="1-用vite创建一个vue项目"><a href="#1-用vite创建一个vue项目" class="headerlink" title="1.用vite创建一个vue项目"></a>1.用vite创建一个vue项目</h3><p>vite 官网<br><a href="https://vitejs.cn/" target="_blank" rel="noopener">https://vitejs.cn/</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm create vite@latest</span><br></pre></td></tr></table></figure>
+<p>  cd vite-project<br>  npm install<br>  npm run dev</p>
+<p>安装的插件</p>
+<p>JavaScript and TypeScript Nightly<br>Tauri<br>rust-analyzer<br>Vue Language Features (Volar)</p>
+<p>CodeLLDB<br>es6-string-html</p>
+<h3 id="添加到-github-进行版本管理"><a href="#添加到-github-进行版本管理" class="headerlink" title="添加到 github 进行版本管理"></a>添加到 github 进行版本管理</h3><p>在项目根目录下初始化</p>
+<p>初始化本地仓库<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure></p>
+<p>执行效果如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PS E:\RustProject\espect-launcher&gt; git init</span><br><span class="line">Initialized empty Git repository <span class="keyword">in</span> E:/RustProject/espect-launcher/.git/</span><br></pre></td></tr></table></figure></p>
+<p>当前分支更名为main<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -M main</span><br></pre></td></tr></table></figure></p>
+<p>添加本地所有文件到本地仓库<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure></p>
+<p>提交本次修改（新增加文件）到本地仓库<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">"new project"</span></span><br></pre></td></tr></table></figure></p>
+<p>执行效果如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">PS E:\RustProject\espect-launcher&gt; git commit -m <span class="string">"new project"</span></span><br><span class="line">[main (root-commit) 167eb52] new project</span><br><span class="line"> 16 files changed, 1713 insertions(+)</span><br><span class="line"> create mode 100644 .gitignore</span><br><span class="line"> create mode 100644 .vscode/extensions.json</span><br><span class="line"> create mode 100644 README.md</span><br><span class="line"> create mode 100644 index.html</span><br><span class="line"> create mode 100644 package-lock.json</span><br><span class="line"> create mode 100644 package.json</span><br><span class="line"> create mode 100644 public/vite.svg</span><br><span class="line"> create mode 100644 src/App.vue</span><br><span class="line"> create mode 100644 src/assets/vue.svg</span><br><span class="line"> create mode 100644 src/components/HelloWorld.vue</span><br><span class="line"> create mode 100644 src/main.ts</span><br><span class="line"> create mode 100644 src/style.css</span><br><span class="line"> create mode 100644 src/vite-env.d.ts</span><br><span class="line"> create mode 100644 tsconfig.json</span><br><span class="line"> create mode 100644 tsconfig.node.json</span><br><span class="line"> create mode 100644 vite.config.ts</span><br></pre></td></tr></table></figure></p>
+<p>添加远程仓库（origin）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:DreamingPoet/espect_launcher.git</span><br></pre></td></tr></table></figure></p>
+<p>推送当前main 分支到 远程仓库（origin）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure></p>
+<p>执行效果如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">PS E:\RustProject\espect-launcher&gt; git push -u origin main </span><br><span class="line">Enumerating objects: 23, <span class="keyword">done</span>.</span><br><span class="line">Counting objects: 100% (23/23), <span class="keyword">done</span>.</span><br><span class="line">Delta compression using up to 16 threads</span><br><span class="line">Compressing objects: 100% (18/18), <span class="keyword">done</span>.</span><br><span class="line">Writing objects: 100% (23/23), 13.42 KiB | 859.00 KiB/s, <span class="keyword">done</span>.</span><br><span class="line">Total 23 (delta 1), reused 0 (delta 0), pack-reused 0</span><br><span class="line">remote: Resolving deltas: 100% (1/1), <span class="keyword">done</span>.</span><br><span class="line">To github.com:DreamingPoet/espect-launcher.git</span><br><span class="line"> * [new branch]      main -&gt; main</span><br><span class="line">branch <span class="string">'main'</span> <span class="built_in">set</span> up to track <span class="string">'origin/main'</span>.</span><br></pre></td></tr></table></figure></p>
+<p>安装 element-plus<br>npm install element-plus –save</p>
+<h3 id="安装后端相关"><a href="#安装后端相关" class="headerlink" title="安装后端相关"></a>安装后端相关</h3><p>tauri官网<br><a href="https://tauri.app/" target="_blank" rel="noopener">https://tauri.app/</a></p>
+<p>install tauri cli</p>
+<p>初始化后端Rust，添加 tauri<br>cargo tauri init</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PS E:\RustProject\espect-launcher&gt; cargo tauri init</span><br><span class="line">✔ What is your app name? · espect-launcher</span><br><span class="line">✔ What should the window title be? · espect-launcher</span><br><span class="line">✔ Where are your web assets (HTML/CSS/JS) located, relative to the <span class="string">"&lt;current dir&gt;/src-tauri/tauri.conf.json"</span> file that will be created? · ../dist</span><br><span class="line">✔ What is the url of your dev server? · http://localhost:8080</span><br><span class="line">✔ What is your frontend dev <span class="built_in">command</span>? · npm run dev    </span><br><span class="line">✔ What is your frontend build <span class="built_in">command</span>? · npm run build</span><br></pre></td></tr></table></figure>
+<p>启动调试<br>cargo tauri dev</p>
+<h3 id="连接前后端"><a href="#连接前后端" class="headerlink" title="连接前后端"></a>连接前后端</h3><p>npm install @tauri-apps/api</p>
+<p>Tauri 应用篇 - 系统托盘<br><a href="https://zhuanlan.zhihu.com/p/548270127" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/548270127</a><br><a href="https://www.cnblogs.com/yjmyzz/p/system-tray-with-tauri.html" target="_blank" rel="noopener">https://www.cnblogs.com/yjmyzz/p/system-tray-with-tauri.html</a></p>
+<p><a href="https://github.com/caojianyu/tauri-ti" target="_blank" rel="noopener">https://github.com/caojianyu/tauri-ti</a></p>
+<h3 id="1-拉取一个-PostgreSQL-服务器-Docker-镜像"><a href="#1-拉取一个-PostgreSQL-服务器-Docker-镜像" class="headerlink" title="1.拉取一个 PostgreSQL 服务器 Docker 镜像"></a>1.拉取一个 PostgreSQL 服务器 Docker 镜像</h3><p>首先，我们需要从Docker Hub获取现有的 PostgreSQL 官方镜像。如果您需要特定版本，latest 请将标签更改 为所需版本。<br>现在让我们拉取镜像：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker pull postgres:latest</span><br></pre></td></tr></table></figure></p>
+<p>使用上述命令将从 Docker Hub 存储库中提取最新可用版本的 PostgreSQL。</p>
+<h3 id="2-从-PostgreSQL-服务器-Docker-镜像运行容器"><a href="#2-从-PostgreSQL-服务器-Docker-镜像运行容器" class="headerlink" title="2. 从 PostgreSQL 服务器 Docker 镜像运行容器"></a>2. 从 PostgreSQL 服务器 Docker 镜像运行容器</h3><p>在部署之前，您需要设置一个 Docker 卷或绑定安装来持久化您的数据库。否则，当容器重新启动时，您的数据将丢失。安装应该 /var/lib/postgresql/data 在容器内的目录中。<br>出于本指南的目的，我们将创建一个 docker 卷并将其附加到您的 PostgreSQL 容器。<br>以下命令将在您的本地计算机中创建卷，您可以稍后与 PostgreSQL 容器连接：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker volume create postgres-volume</span><br></pre></td></tr></table></figure>
+<p>现在你的机器上有 PostgreSQL 镜像和一个用于保存数据的卷，你可以部署一个容器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d --name=postgres14 -p 5432:5432 -v postgres-volume:/var/lib/postgresql/data -e POSTGRES_PASSWORD=your_password postgres</span><br></pre></td></tr></table></figure>
+<p>默认用户名是 postgres</p>
+<a id="more"></a>
+<p>该 docker run 命令将在 Docker 容器中创建一个正在运行的 PostgreSQL 数据库。</p>
+<p>让我们分解一下这个语法。以下是该命令中每个参数的含义：</p>
+<p>-d 将以分离模式运行此容器，以便它在后台运行。<br>–name 将名称“postgres13”分配给您的容器实例。<br>-p会将 PostgreSQL 容器端口 5432 绑定到主机上的相同端口。您将能够localhost:5432 使用psql在您的主机上运行的PostgreSQL 客户端进行连接 。<br>-v选项将容器卷 ( /var/lib/postgresql)内的数据文件夹绑定到postgres-volume您在上一步中创建的本地 Docker 卷。<br>-e设置环境变量。在这种情况下，PostgreSQL 根密码。<br>postgres 是我们用来创建容器的镜像的名称。<br>您可以通过列出正在运行的容器来检查容器是否正在运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker ps</span><br></pre></td></tr></table></figure>
+<p>恭喜！您的新 PostgreSQL 实例现在正在 Docker 上运行。</p>
+<p>此外，您可以使用以下命令检查正在运行的 PostgreSQL 容器的日志文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker logs postgres14</span><br></pre></td></tr></table></figure>
+<h3 id="3-连接到PostgreSQL服务器"><a href="#3-连接到PostgreSQL服务器" class="headerlink" title="3. 连接到PostgreSQL服务器"></a>3. 连接到PostgreSQL服务器</h3><p>您可以通过附加到容器并运行psql命令来获得交互式 PostgreSQL shell 。这提供了完整的 PostgreSQL 命令行界面，因此您可以使用所有熟悉的命令和标志。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker <span class="built_in">exec</span> -it postgres13 psql -U postgres</span><br></pre></td></tr></table></figure>
+<p>psql如果您在主机上预安装了PostgreSQL 客户端，您还可以使用PostgreSQL 客户端连接 PostgreSQL Docker 实例。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psql -h localhost -U postgres</span><br></pre></td></tr></table></figure>
+<h3 id="4-用可视化工具-pgadmin4-管理"><a href="#4-用可视化工具-pgadmin4-管理" class="headerlink" title="4. 用可视化工具 pgadmin4 管理"></a>4. 用可视化工具 pgadmin4 管理</h3><h3 id="4-1-在docker中部署pgadmin4"><a href="#4-1-在docker中部署pgadmin4" class="headerlink" title="4.1 在docker中部署pgadmin4"></a>4.1 在docker中部署pgadmin4</h3><p>拉取postgresql可视化工具pgadmin4</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull dpage/pgadmin4</span><br></pre></td></tr></table></figure>
+<p>运行pgadmin4：</p>
+<p>-p 5433:80 将容器的80端口映射到宿主机的5433端口<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 5433:80 --name pgadmin4 -e PGADMIN_DEFAULT_EMAIL=<span class="built_in">test</span>@123.com -e PGADMIN_DEFAULT_PASSWORD=your_password dpage/pgadmin4</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+<blockquote class="blockquote-center" style="color: #ccc;">
+    -------------  <i class="fa fa-coffee"></i> 感谢您的阅读-------------
+</blockquote>
+
+  <span id="inline-green" style="border-radius:3px;">作者</span>：<a class="link-blue" href="https://github.com/dreamingpoet" target="_blank">dreamingpoet</a><br>有问题请发邮箱 <a class="link-blue" href target="_blank">Dreamingoet@126.com</a>。
+
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>您的鼓励将成为创作者的动力</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/reward_wechat.webp" alt="Dreamingpoet WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/reward_alipay.webp" alt="Dreamingpoet Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"><i class="fa fa-tag"></i> vue</a>
+          
+            <a href="/tags/element-plus/" rel="tag"><i class="fa fa-tag"></i> element-plus</a>
+          
+            <a href="/tags/npm/" rel="tag"><i class="fa fa-tag"></i> npm</a>
+          
+            <a href="/tags/vite/" rel="tag"><i class="fa fa-tag"></i> vite</a>
+          
+            <a href="/tags/tauri/" rel="tag"><i class="fa fa-tag"></i> tauri</a>
+          
+            <a href="/tags/git/" rel="tag"><i class="fa fa-tag"></i> git</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/10/08/Docker-PostgreSQL/" rel="next" title="在 Docker 中运行 PostgreSQL">
+                <i class="fa fa-chevron-left"></i> 在 Docker 中运行 PostgreSQL
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/11/29/Android-NDK-Startup/" rel="prev" title="Android NDK入门避坑指南">
+                Android NDK入门避坑指南 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+  
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/avatar/avatar.png" alt="Dreamingpoet">
+          <p class="site-author-name" itemprop="name">Dreamingpoet</p>
+          <p class="site-description motion-element" itemprop="description">靡不有初 鲜克有终</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/dreamingpoet" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="/weblog" title="建站日志" target="_blank">建站日志</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-用vite创建一个vue项目"><span class="nav-number">1.</span> <span class="nav-text">1.用vite创建一个vue项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加到-github-进行版本管理"><span class="nav-number">2.</span> <span class="nav-text">添加到 github 进行版本管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装后端相关"><span class="nav-number">3.</span> <span class="nav-text">安装后端相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接前后端"><span class="nav-number">4.</span> <span class="nav-text">连接前后端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-拉取一个-PostgreSQL-服务器-Docker-镜像"><span class="nav-number">5.</span> <span class="nav-text">1.拉取一个 PostgreSQL 服务器 Docker 镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-从-PostgreSQL-服务器-Docker-镜像运行容器"><span class="nav-number">6.</span> <span class="nav-text">2. 从 PostgreSQL 服务器 Docker 镜像运行容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-连接到PostgreSQL服务器"><span class="nav-number">7.</span> <span class="nav-text">3. 连接到PostgreSQL服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-用可视化工具-pgadmin4-管理"><span class="nav-number">8.</span> <span class="nav-text">4. 用可视化工具 pgadmin4 管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-在docker中部署pgadmin4"><span class="nav-number">9.</span> <span class="nav-text">4.1 在docker中部署pgadmin4</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dreamingpoet</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a> 生成
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Pisces
+  </a>
+</div>
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  <!-- 按需加载背景 -->
+  
+  <!-- 页面点击小红心 -->
+  <!-- 页面点击小红心 -->
+
+  <script type="text/javascript" src="/js/src/love.js?v=5.0.1"></script>
+
+
+  <!-- 鼠标移动，效果 -->
+
+  <!-- 页面 title 进入/离开 效果 -->
+
+  <script type="text/javascript">var OriginTitile=document.title,st;document.addEventListener("visibilitychange",function(){document.hidden?(document.title="(ง •_•)ง 加油!!!",clearTimeout(st)):(document.title="(ง •_•)ง Thank you~ "+OriginTitile,st=setTimeout(function(){document.title=OriginTitile},4e3))})</script>
+
+
+</body>
+</html>

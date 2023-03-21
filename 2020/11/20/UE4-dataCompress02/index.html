@@ -90,16 +90,16 @@
 <meta name="keywords" content="压缩,编码,Rotator">
 <meta property="og:type" content="article">
 <meta property="og:title" content="UE4 数据压缩方法(二)">
-<meta property="og:url" content="https://worldnot.com/2020/11/20/UE4-dataCompress02/index.html">
+<meta property="og:url" content="https://nkoo.top/2020/11/20/UE4-dataCompress02/index.html">
 <meta property="og:site_name" content="做梦诗人的博客">
 <meta property="og:description" content="导语在之前的压缩方法一里面我们把表示状态的数据编码到uint32的每个bit上，进行网络传输后再解码出来，以达到压缩数据，节省带宽的效果。这次我们尝试把UE4中的Rotator数据也进行压缩。  实现思路UE中的Rotator本质上就是一个结构体，其中有三个float，那么传输一个Rotator要占用12个字节。但是可以发现Rotator就是表示三个轴的旋转角度，而角度的范围是0 - 360.0">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:image" content="https://worldnot.com/images/image-20210818221744775.webp">
+<meta property="og:image" content="https://nkoo.top/images/image-20210818221744775.webp">
 <meta property="og:updated_time" content="2022-10-08T01:37:13.989Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="UE4 数据压缩方法(二)">
 <meta name="twitter:description" content="导语在之前的压缩方法一里面我们把表示状态的数据编码到uint32的每个bit上，进行网络传输后再解码出来，以达到压缩数据，节省带宽的效果。这次我们尝试把UE4中的Rotator数据也进行压缩。  实现思路UE中的Rotator本质上就是一个结构体，其中有三个float，那么传输一个Rotator要占用12个字节。但是可以发现Rotator就是表示三个轴的旋转角度，而角度的范围是0 - 360.0">
-<meta name="twitter:image" content="https://worldnot.com/images/image-20210818221744775.webp">
+<meta name="twitter:image" content="https://nkoo.top/images/image-20210818221744775.webp">
 
 
 
@@ -120,7 +120,7 @@
 
 
 
-  <link rel="canonical" href="https://worldnot.com/2020/11/20/UE4-dataCompress02/">
+  <link rel="canonical" href="https://nkoo.top/2020/11/20/UE4-dataCompress02/">
 
 
 <!-- 网页加载条 -->

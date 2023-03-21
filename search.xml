@@ -5,7 +5,7 @@
     
     <entry>
       <title><![CDATA[构建Android平台的UE-Protobuf插件]]></title>
-      <url>https://worldnot.com/2023/10/02/UE-Protobuf-Android/</url>
+      <url>https://nkoo.top/2023/10/02/UE-Protobuf-Android/</url>
       <content type="html"><![CDATA[<blockquote>
 <p>导语<br>Protobuf 作为一种跨平台的数据传输方案，在作为UE插件使用的时候，也是需要编译各平台的库文件的。本次会记录构建UE4 和 UE5的静态库文件，并在插件中使用。<br>Protobuf: 3.19.0<br>Unreal Engine 4: 4.27.2<br>Unreal Engine 5: 5.1.1</p>
 </blockquote>
@@ -36,7 +36,7 @@
     
     <entry>
       <title><![CDATA[Android NDK入门避坑指南]]></title>
-      <url>https://worldnot.com/2022/11/29/Android-NDK-Startup/</url>
+      <url>https://nkoo.top/2022/11/29/Android-NDK-Startup/</url>
       <content type="html"><![CDATA[<blockquote>
 <p>导语<br>最近在尝试开发一体机VR(Android系统)，但是苦于第三方库插件一直无法打包成功，因此开始学习之路。<br>本文收藏自 <a href="https://www.jianshu.com/p/fe54d70a260e" target="_blank" rel="noopener">Android NDK入门避坑指南</a></p>
 </blockquote>
@@ -378,7 +378,7 @@ $ toolchain/bin/clang++ src.cpp
     
     <entry>
       <title><![CDATA[在 Docker 中运行 PostgreSQL]]></title>
-      <url>https://worldnot.com/2022/10/08/Docker-PostgreSQL/</url>
+      <url>https://nkoo.top/2022/10/08/Docker-PostgreSQL/</url>
       <content type="html"><![CDATA[<blockquote>
 <p>导语<br>我们在这里要做的是下载PostgreSQL镜像，检查镜像是否准备好，使用特定参数运行镜像，最后连接到正在运行的PostgreSQL实例。</p>
 </blockquote>
@@ -426,7 +426,7 @@ $ toolchain/bin/clang++ src.cpp
     
     <entry>
       <title><![CDATA[如何用tauri + vue 搭建一个windows应用]]></title>
-      <url>https://worldnot.com/2022/10/08/Tauri-vue/</url>
+      <url>https://nkoo.top/2022/10/08/Tauri-vue/</url>
       <content type="html"><![CDATA[<blockquote>
 <p>导语</p>
 <p>本次实验，使用 tauri 作为桌面框架，使用 Rust 语言作为后端，使用 axum 作为后端框架，使用 vue3 + element-plus 作为前端UI，使用 cargo + npm 作为包管理器，使用 vite 作为前端打包工具， 使用 TS 作为前端开发语言<br>使用 websocket 作为通信协议</p>
@@ -488,7 +488,7 @@ $ toolchain/bin/clang++ src.cpp
     
     <entry>
       <title><![CDATA[FString和各种数据格式间转换]]></title>
-      <url>https://worldnot.com/2022/04/20/UE4-FString/</url>
+      <url>https://nkoo.top/2022/04/20/UE4-FString/</url>
       <content type="html"><![CDATA[<h3 id="一、UE4-Source-Header-References"><a href="#一、UE4-Source-Header-References" class="headerlink" title="一、UE4 Source Header References"></a>一、UE4 Source Header References</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CString.h</span><br><span class="line">UnrealString.h</span><br><span class="line">NameTypes.h</span><br><span class="line">StringConv.h (TCHAR_TO_ANSI etc)</span><br></pre></td></tr></table></figure>
 <p>CString.h可以查到更多，如<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">atoi64 (<span class="built_in">string</span> to int64)</span><br><span class="line">Atod (<span class="built_in">string</span> to <span class="keyword">double</span> precision <span class="keyword">float</span>)</span><br></pre></td></tr></table></figure></p>
 <h3 id="二、日志打印"><a href="#二、日志打印" class="headerlink" title="二、日志打印"></a>二、日志打印</h3><h4 id="1-输出字符串到output-log中"><a href="#1-输出字符串到output-log中" class="headerlink" title="1.输出字符串到output log中"></a>1.输出字符串到output log中</h4><h4 id="1-1-最普通的三种"><a href="#1-1-最普通的三种" class="headerlink" title="1.1 最普通的三种"></a>1.1 最普通的三种</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FString filePath</span><br><span class="line">UE_LOG(LogTemp, Log, TEXT(<span class="string">"Hello,World!"</span>));</span><br><span class="line">UE_LOG(LogTemp, Warning, TEXT(<span class="string">"Hello,World!"</span>));</span><br><span class="line">UE_LOG(LogTemp, Error, TEXT(<span class="string">"Hello,World!"</span>));</span><br><span class="line">#### <span class="number">1.2</span> %d打印<span class="keyword">int</span>，%f打印<span class="keyword">float</span>，%s <span class="built_in">string</span></span><br></pre></td></tr></table></figure>
@@ -545,7 +545,7 @@ $ toolchain/bin/clang++ src.cpp
     
     <entry>
       <title><![CDATA[Linux 系统目录结构]]></title>
-      <url>https://worldnot.com/2022/04/16/LinuxFileSys/</url>
+      <url>https://nkoo.top/2022/04/16/LinuxFileSys/</url>
       <content type="html"><![CDATA[<p>树状目录结构：</p>
 <p><img src="https://www.runoob.com/wp-content/uploads/2014/06/d0c50-linux2bfile2bsystem2bhierarchy.jpg" alt="img"></p>
 <a id="more"></a> 
@@ -601,7 +601,7 @@ $ toolchain/bin/clang++ src.cpp
     
     <entry>
       <title><![CDATA[UE4PythonHelper]]></title>
-      <url>https://worldnot.com/2022/03/27/UnrealEnginePythonHelper/</url>
+      <url>https://nkoo.top/2022/03/27/UnrealEnginePythonHelper/</url>
       <content type="html"><![CDATA[<h1 id="UE4PythonHelper"><a href="#UE4PythonHelper" class="headerlink" title="UE4PythonHelper"></a>UE4PythonHelper</h1><p>This plugin is only used in editor mode!!!</p>
 <p><img src="/images/ph01.webp" alt="ph01"></p>
 <h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><ol>
@@ -677,7 +677,7 @@ $ toolchain/bin/clang++ src.cpp
     
     <entry>
       <title><![CDATA[哈夫曼编码在 UE4 中的实现]]></title>
-      <url>https://worldnot.com/2021/12/04/HuffmanEncode/</url>
+      <url>https://nkoo.top/2021/12/04/HuffmanEncode/</url>
       <content type="html"><![CDATA[<blockquote>
 <p>导语<br>在UE4 中实现哈夫曼编码的本意是在网络数据传输的时候，进行数据包一定程度的数据压缩。但是实现完之后发现并无用武之地，一个是因为压缩的数据中还必须要包含编码表，对于高频、小数据包反而会增加数据的大小和增加编码解码的计算消耗。二是因为好多要传输的数据本身就是已经编码压缩过了，再次编码压缩已经没有效果了（比如UE4 的 RenderTarget 图像数据 和 VoiceData）。所以权当是一次代码练习吧。</p>
 </blockquote>
@@ -710,7 +710,7 @@ $ toolchain/bin/clang++ src.cpp
     
     <entry>
       <title><![CDATA[C++ 智能指针]]></title>
-      <url>https://worldnot.com/2021/09/12/smartpointer01/</url>
+      <url>https://nkoo.top/2021/09/12/smartpointer01/</url>
       <content type="html"><![CDATA[<blockquote>
 <p>导语<br>本篇不对智能指针的实现原理做详细研究，只讨论为什么要使用智能指针，以及使用规范和注意事项。</p>
 </blockquote>
@@ -747,7 +747,7 @@ $ toolchain/bin/clang++ src.cpp
     
     <entry>
       <title><![CDATA[宏 Macro]]></title>
-      <url>https://worldnot.com/2021/09/05/macro/</url>
+      <url>https://nkoo.top/2021/09/05/macro/</url>
       <content type="html"><![CDATA[<blockquote>
 <p>导语<br>本篇是关于宏定义的一些知识总结</p>
 </blockquote>
@@ -796,7 +796,7 @@ $ toolchain/bin/clang++ src.cpp
     
     <entry>
       <title><![CDATA[Working with git and ssh]]></title>
-      <url>https://worldnot.com/2021/08/29/git-ssh/</url>
+      <url>https://nkoo.top/2021/08/29/git-ssh/</url>
       <content type="html"><![CDATA[<blockquote>
 <p>导语<br>从2021年8月14日之后，使用git对github进行身份验证操作的时候不再接受使用账号密码形式clone和push代码，必须使用acces_token或者基于SSH 的方式了。本文记录SSH 的使用过程。</p>
 </blockquote>
@@ -851,7 +851,7 @@ $ toolchain/bin/clang++ src.cpp
     
     <entry>
       <title><![CDATA[Garbage Collection in UE4]]></title>
-      <url>https://worldnot.com/2021/08/23/ue4%20GC/</url>
+      <url>https://nkoo.top/2021/08/23/ue4%20GC/</url>
       <content type="html"><![CDATA[<blockquote>
 <p>导语<br>UE4 C++ 不同于原生的C++, UE内置了GC系统。对于有些人来说，GC帮我们处理了弃用的对象，防止了内存泄漏，确实是一件令人愉快的事情。然后有的时候，如果不了解GC规则，可能会给开发带来大麻烦。</p>
 </blockquote>
@@ -925,7 +925,7 @@ $ toolchain/bin/clang++ src.cpp
     
     <entry>
       <title><![CDATA[UE4 数据压缩方法(三)]]></title>
-      <url>https://worldnot.com/2020/11/20/UE4-dataCompress03/</url>
+      <url>https://nkoo.top/2020/11/20/UE4-dataCompress03/</url>
       <content type="html"><![CDATA[<blockquote>
 <p>导语<br>之前我们压缩了整数<a href="/2020/11/19/UE4-dataCompress/">（压缩方法一）</a>，Angle角度浮点数<a href="/2020/11/20/UE4-dataCompress02/">（压缩方法二）</a>，那么用来同步位置的FVector是否也可以压缩呢？<br>整数压缩部分是用编码解压实现的，属于无损压缩，Angle角度浮点数是用一个小范围的数据集来表示一个大范围的数据集，属于有损压缩。那么我们可能会问，如果同步的数据不一致，对于不同客户端的计算或者显示结果是否会有影响呢？比如一个游戏中，一个玩家在不同的客户端上的位置和方向存在较大的差异，那肯定是不行的。</p>
 </blockquote>
@@ -956,7 +956,7 @@ $ toolchain/bin/clang++ src.cpp
     
     <entry>
       <title><![CDATA[UE4 数据压缩方法(二)]]></title>
-      <url>https://worldnot.com/2020/11/20/UE4-dataCompress02/</url>
+      <url>https://nkoo.top/2020/11/20/UE4-dataCompress02/</url>
       <content type="html"><![CDATA[<blockquote>
 <p>导语<br>在之前的<a href="/2020/11/19/UE4-dataCompress/">压缩方法一</a>里面我们把表示状态的数据编码到uint32的每个bit上，进行网络传输后再解码出来，以达到压缩数据，节省带宽的效果。这次我们尝试把UE4中的Rotator数据也进行压缩。</p>
 </blockquote>
@@ -994,7 +994,7 @@ $ toolchain/bin/clang++ src.cpp
     
     <entry>
       <title><![CDATA[UE4 数据压缩方法(一)]]></title>
-      <url>https://worldnot.com/2020/11/19/UE4-dataCompress/</url>
+      <url>https://nkoo.top/2020/11/19/UE4-dataCompress/</url>
       <content type="html"><![CDATA[<blockquote>
 <p>导语<br>对于一个多人实时在线系统，数据同步是关键环节，在相同的网络环境下，数据量决定了同时在线用户量体，数据量也会影响网络延迟和加载时间。所以承载数据的网络带宽是珍贵且昂贵的，所以要在网络数据同步环节细扣每一个 bit !</p>
 </blockquote>
@@ -1033,7 +1033,7 @@ $ toolchain/bin/clang++ src.cpp
     
     <entry>
       <title><![CDATA[UE4 Config配置文件的使用]]></title>
-      <url>https://worldnot.com/2020/11/17/UE4-Config/</url>
+      <url>https://nkoo.top/2020/11/17/UE4-Config/</url>
       <content type="html"><![CDATA[<blockquote>
 <p>导语<br>本篇文章将简单介绍UE4 项目开发过程中, 如何使用配置文件来修改项目中的参数<br>我们知道在UE4项目的根目录下都会有一个 Config 的文件夹,里面有各种.ini 结尾的文件,这里面都是UE4 默认生成的一些配置文件. 今天我们要做的就是使用自己定义的.ini 文件,定义自己的 Config 变量, 并用这些变量来初始化 Class 中的定义的成员变量.</p>
 <p>版本：UE4.25</p>
@@ -1069,7 +1069,7 @@ $ toolchain/bin/clang++ src.cpp
     
     <entry>
       <title><![CDATA[UE4 重复点击检测]]></title>
-      <url>https://worldnot.com/2020/10/04/UE4-ClickCheck/</url>
+      <url>https://nkoo.top/2020/10/04/UE4-ClickCheck/</url>
       <content type="html"><![CDATA[<blockquote>
 <p>导语<br>在开发过程中，我们经常会有这样的需求：限制用户的点击频率。一方面考虑到服务器数据请求的压力，一方面防止恶意攻击服务器。<br>我在网上也能看到其他的实现方法，有用Delay 节点的，有传递点击按钮对象的。总觉得使用起来不是很方便，因此打算自己实现一个，简单易用，没有任何使用代价的方式。自认为是最优雅的方式了。</p>
 <p>版本：UE4.25</p>
@@ -1105,7 +1105,7 @@ $ toolchain/bin/clang++ src.cpp
     
     <entry>
       <title><![CDATA[UE4 多线程FRunnable（一）]]></title>
-      <url>https://worldnot.com/2019/11/04/UE4-Ansyc01/</url>
+      <url>https://nkoo.top/2019/11/04/UE4-Ansyc01/</url>
       <content type="html"><![CDATA[<blockquote>
 <p>导语<br>在开发过程中，有时候会遇到需要使用线程相关逻辑，比如网络相关，动态加载资源的，希望不要影响主线程的运行。<br>版本：UE4.25</p>
 </blockquote>
@@ -1152,7 +1152,7 @@ $ toolchain/bin/clang++ src.cpp
     
     <entry>
       <title><![CDATA[UE4 打包相关（一）]]></title>
-      <url>https://worldnot.com/2019/08/04/UE4-Pack01/</url>
+      <url>https://nkoo.top/2019/08/04/UE4-Pack01/</url>
       <content type="html"><![CDATA[<blockquote>
 <p>导语<br>想知道从C++代码/蓝图脚本/资产到打包成可执行程序，UE都帮我们干了些什么吗？<br>版本：UE4.21</p>
 </blockquote>
@@ -1205,7 +1205,7 @@ $ toolchain/bin/clang++ src.cpp
     
     <entry>
       <title><![CDATA[关于char * ,char a[ ] , string]]></title>
-      <url>https://worldnot.com/2019/01/24/UE4-CPP-about-char/</url>
+      <url>https://nkoo.top/2019/01/24/UE4-CPP-about-char/</url>
       <content type="html"><![CDATA[<blockquote>
 <p>导语<br>借此理解数组名和数组首地址</p>
 </blockquote>
@@ -1241,7 +1241,7 @@ $ toolchain/bin/clang++ src.cpp
     
     <entry>
       <title><![CDATA[C++ 临时对象]]></title>
-      <url>https://worldnot.com/2019/01/23/UE4-CPP-temporary-objects/</url>
+      <url>https://nkoo.top/2019/01/23/UE4-CPP-temporary-objects/</url>
       <content type="html"><![CDATA[<blockquote>
 <p>导语<br>函数<strong>不要返回</strong>引用类型的临时对象，也<strong>不要引用</strong>函数返回的临时对象，因为无法预测会发生什么。</p>
 </blockquote>
@@ -1296,7 +1296,7 @@ $ toolchain/bin/clang++ src.cpp
     
     <entry>
       <title><![CDATA[C++ 11 特性]]></title>
-      <url>https://worldnot.com/2019/01/22/UE4-CPP11Feature/</url>
+      <url>https://nkoo.top/2019/01/22/UE4-CPP11Feature/</url>
       <content type="html"><![CDATA[<blockquote>
 <p>导语<br>本篇转载自 <a href="https://blog.csdn.net/jiange_zh/article/details/79356417" target="_blank" rel="noopener">C++11常用新特性快速一览</a> 一是方便将来检索，而是后续会按自己的思路重新整理</p>
 </blockquote>
@@ -1434,7 +1434,7 @@ $ toolchain/bin/clang++ src.cpp
     
     <entry>
       <title><![CDATA[C++ 11 变量初始化]]></title>
-      <url>https://worldnot.com/2019/01/21/UE4-CPPListInitialization/</url>
+      <url>https://nkoo.top/2019/01/21/UE4-CPPListInitialization/</url>
       <content type="html"><![CDATA[<blockquote>
 <p>导语<br>uniform initialization（标准初始化）<br>在c++11之前的版本，初始化是一个没有被统一的写法，有时候用小括号，有时候用大括号，有时候还用赋值号，在c++11中就统一了初始化的形式——“{ }”，直接在对象名后面跟大括号，并在大括号中写入需要初始化的值，并用逗号隔开。甚至类构造函数的初始化列表也可以用“{}”大括号。</p>
 </blockquote>

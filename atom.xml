@@ -5,9 +5,9 @@
   <subtitle>仰天大笑出门去</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://worldnot.com/"/>
+  <link href="https://nkoo.top/"/>
   <updated>2023-02-10T08:45:55.889Z</updated>
-  <id>https://worldnot.com/</id>
+  <id>https://nkoo.top/</id>
   
   <author>
     <name>Dreamingpoet</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>构建Android平台的UE-Protobuf插件</title>
-    <link href="https://worldnot.com/2023/10/02/UE-Protobuf-Android/"/>
-    <id>https://worldnot.com/2023/10/02/UE-Protobuf-Android/</id>
+    <link href="https://nkoo.top/2023/10/02/UE-Protobuf-Android/"/>
+    <id>https://nkoo.top/2023/10/02/UE-Protobuf-Android/</id>
     <published>2023-10-02T11:24:07.000Z</published>
     <updated>2023-02-10T08:45:55.889Z</updated>
     
@@ -35,23 +35,23 @@
     
     </summary>
     
-      <category term="Protobuf" scheme="https://worldnot.com/categories/Protobuf/"/>
+      <category term="Protobuf" scheme="https://nkoo.top/categories/Protobuf/"/>
     
     
-      <category term="Protobuf" scheme="https://worldnot.com/tags/Protobuf/"/>
+      <category term="Protobuf" scheme="https://nkoo.top/tags/Protobuf/"/>
     
-      <category term="ue4" scheme="https://worldnot.com/tags/ue4/"/>
+      <category term="ue4" scheme="https://nkoo.top/tags/ue4/"/>
     
-      <category term="ue5" scheme="https://worldnot.com/tags/ue5/"/>
+      <category term="ue5" scheme="https://nkoo.top/tags/ue5/"/>
     
-      <category term="Android" scheme="https://worldnot.com/tags/Android/"/>
+      <category term="Android" scheme="https://nkoo.top/tags/Android/"/>
     
   </entry>
   
   <entry>
     <title>Android NDK入门避坑指南</title>
-    <link href="https://worldnot.com/2022/11/29/Android-NDK-Startup/"/>
-    <id>https://worldnot.com/2022/11/29/Android-NDK-Startup/</id>
+    <link href="https://nkoo.top/2022/11/29/Android-NDK-Startup/"/>
+    <id>https://nkoo.top/2022/11/29/Android-NDK-Startup/</id>
     <published>2022-11-28T19:00:12.000Z</published>
     <updated>2022-11-29T01:14:55.972Z</updated>
     
@@ -67,21 +67,21 @@
     
     </summary>
     
-      <category term="Android" scheme="https://worldnot.com/categories/Android/"/>
+      <category term="Android" scheme="https://nkoo.top/categories/Android/"/>
     
     
-      <category term="android" scheme="https://worldnot.com/tags/android/"/>
+      <category term="android" scheme="https://nkoo.top/tags/android/"/>
     
-      <category term="ndk" scheme="https://worldnot.com/tags/ndk/"/>
+      <category term="ndk" scheme="https://nkoo.top/tags/ndk/"/>
     
-      <category term="jdk" scheme="https://worldnot.com/tags/jdk/"/>
+      <category term="jdk" scheme="https://nkoo.top/tags/jdk/"/>
     
   </entry>
   
   <entry>
     <title>在 Docker 中运行 PostgreSQL</title>
-    <link href="https://worldnot.com/2022/10/08/Docker-PostgreSQL/"/>
-    <id>https://worldnot.com/2022/10/08/Docker-PostgreSQL/</id>
+    <link href="https://nkoo.top/2022/10/08/Docker-PostgreSQL/"/>
+    <id>https://nkoo.top/2022/10/08/Docker-PostgreSQL/</id>
     <published>2022-10-08T10:46:12.000Z</published>
     <updated>2022-10-08T10:39:01.019Z</updated>
     
@@ -102,19 +102,19 @@
     
     </summary>
     
-      <category term="DataBase" scheme="https://worldnot.com/categories/DataBase/"/>
+      <category term="DataBase" scheme="https://nkoo.top/categories/DataBase/"/>
     
-      <category term="PostgreSQL" scheme="https://worldnot.com/categories/DataBase/PostgreSQL/"/>
+      <category term="PostgreSQL" scheme="https://nkoo.top/categories/DataBase/PostgreSQL/"/>
     
     
-      <category term="PostgreSQL" scheme="https://worldnot.com/tags/PostgreSQL/"/>
+      <category term="PostgreSQL" scheme="https://nkoo.top/tags/PostgreSQL/"/>
     
   </entry>
   
   <entry>
     <title>如何用tauri + vue 搭建一个windows应用</title>
-    <link href="https://worldnot.com/2022/10/08/Tauri-vue/"/>
-    <id>https://worldnot.com/2022/10/08/Tauri-vue/</id>
+    <link href="https://nkoo.top/2022/10/08/Tauri-vue/"/>
+    <id>https://nkoo.top/2022/10/08/Tauri-vue/</id>
     <published>2022-10-08T10:46:12.000Z</published>
     <updated>2023-03-21T05:41:52.760Z</updated>
     
@@ -131,29 +131,29 @@
     
     </summary>
     
-      <category term="Rust" scheme="https://worldnot.com/categories/Rust/"/>
+      <category term="Rust" scheme="https://nkoo.top/categories/Rust/"/>
     
-      <category term="Tauri" scheme="https://worldnot.com/categories/Rust/Tauri/"/>
+      <category term="Tauri" scheme="https://nkoo.top/categories/Rust/Tauri/"/>
     
     
-      <category term="vue" scheme="https://worldnot.com/tags/vue/"/>
+      <category term="vue" scheme="https://nkoo.top/tags/vue/"/>
     
-      <category term="element-plus" scheme="https://worldnot.com/tags/element-plus/"/>
+      <category term="element-plus" scheme="https://nkoo.top/tags/element-plus/"/>
     
-      <category term="npm" scheme="https://worldnot.com/tags/npm/"/>
+      <category term="npm" scheme="https://nkoo.top/tags/npm/"/>
     
-      <category term="vite" scheme="https://worldnot.com/tags/vite/"/>
+      <category term="vite" scheme="https://nkoo.top/tags/vite/"/>
     
-      <category term="tauri" scheme="https://worldnot.com/tags/tauri/"/>
+      <category term="tauri" scheme="https://nkoo.top/tags/tauri/"/>
     
-      <category term="git" scheme="https://worldnot.com/tags/git/"/>
+      <category term="git" scheme="https://nkoo.top/tags/git/"/>
     
   </entry>
   
   <entry>
     <title>FString和各种数据格式间转换</title>
-    <link href="https://worldnot.com/2022/04/20/UE4-FString/"/>
-    <id>https://worldnot.com/2022/04/20/UE4-FString/</id>
+    <link href="https://nkoo.top/2022/04/20/UE4-FString/"/>
+    <id>https://nkoo.top/2022/04/20/UE4-FString/</id>
     <published>2022-04-20T14:46:15.000Z</published>
     <updated>2022-10-08T01:37:13.989Z</updated>
     
@@ -167,17 +167,17 @@
     
     </summary>
     
-      <category term="UE4" scheme="https://worldnot.com/categories/UE4/"/>
+      <category term="UE4" scheme="https://nkoo.top/categories/UE4/"/>
     
     
-      <category term="FString" scheme="https://worldnot.com/tags/FString/"/>
+      <category term="FString" scheme="https://nkoo.top/tags/FString/"/>
     
   </entry>
   
   <entry>
     <title>Linux 系统目录结构</title>
-    <link href="https://worldnot.com/2022/04/16/LinuxFileSys/"/>
-    <id>https://worldnot.com/2022/04/16/LinuxFileSys/</id>
+    <link href="https://nkoo.top/2022/04/16/LinuxFileSys/"/>
+    <id>https://nkoo.top/2022/04/16/LinuxFileSys/</id>
     <published>2022-04-16T07:30:22.000Z</published>
     <updated>2022-10-08T01:37:13.989Z</updated>
     
@@ -190,17 +190,17 @@
     
     </summary>
     
-      <category term="Linux" scheme="https://worldnot.com/categories/Linux/"/>
+      <category term="Linux" scheme="https://nkoo.top/categories/Linux/"/>
     
     
-      <category term="Linux" scheme="https://worldnot.com/tags/Linux/"/>
+      <category term="Linux" scheme="https://nkoo.top/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>UE4PythonHelper</title>
-    <link href="https://worldnot.com/2022/03/27/UnrealEnginePythonHelper/"/>
-    <id>https://worldnot.com/2022/03/27/UnrealEnginePythonHelper/</id>
+    <link href="https://nkoo.top/2022/03/27/UnrealEnginePythonHelper/"/>
+    <id>https://nkoo.top/2022/03/27/UnrealEnginePythonHelper/</id>
     <published>2022-03-27T05:20:10.000Z</published>
     <updated>2022-10-08T01:37:13.989Z</updated>
     
@@ -215,19 +215,19 @@
     
     </summary>
     
-      <category term="UE4" scheme="https://worldnot.com/categories/UE4/"/>
+      <category term="UE4" scheme="https://nkoo.top/categories/UE4/"/>
     
     
-      <category term="python" scheme="https://worldnot.com/tags/python/"/>
+      <category term="python" scheme="https://nkoo.top/tags/python/"/>
     
-      <category term="tools" scheme="https://worldnot.com/tags/tools/"/>
+      <category term="tools" scheme="https://nkoo.top/tags/tools/"/>
     
   </entry>
   
   <entry>
     <title>哈夫曼编码在 UE4 中的实现</title>
-    <link href="https://worldnot.com/2021/12/04/HuffmanEncode/"/>
-    <id>https://worldnot.com/2021/12/04/HuffmanEncode/</id>
+    <link href="https://nkoo.top/2021/12/04/HuffmanEncode/"/>
+    <id>https://nkoo.top/2021/12/04/HuffmanEncode/</id>
     <published>2021-12-04T03:05:10.000Z</published>
     <updated>2022-10-08T01:37:13.989Z</updated>
     
@@ -244,19 +244,19 @@
     
     </summary>
     
-      <category term="UE4" scheme="https://worldnot.com/categories/UE4/"/>
+      <category term="UE4" scheme="https://nkoo.top/categories/UE4/"/>
     
     
-      <category term="编码" scheme="https://worldnot.com/tags/%E7%BC%96%E7%A0%81/"/>
+      <category term="编码" scheme="https://nkoo.top/tags/%E7%BC%96%E7%A0%81/"/>
     
-      <category term="哈夫曼" scheme="https://worldnot.com/tags/%E5%93%88%E5%A4%AB%E6%9B%BC/"/>
+      <category term="哈夫曼" scheme="https://nkoo.top/tags/%E5%93%88%E5%A4%AB%E6%9B%BC/"/>
     
   </entry>
   
   <entry>
     <title>C++ 智能指针</title>
-    <link href="https://worldnot.com/2021/09/12/smartpointer01/"/>
-    <id>https://worldnot.com/2021/09/12/smartpointer01/</id>
+    <link href="https://nkoo.top/2021/09/12/smartpointer01/"/>
+    <id>https://nkoo.top/2021/09/12/smartpointer01/</id>
     <published>2021-09-12T03:56:23.000Z</published>
     <updated>2022-10-08T01:37:13.989Z</updated>
     
@@ -274,17 +274,17 @@
     
     </summary>
     
-      <category term="C/C++" scheme="https://worldnot.com/categories/C-C/"/>
+      <category term="C/C++" scheme="https://nkoo.top/categories/C-C/"/>
     
     
-      <category term="智能指针" scheme="https://worldnot.com/tags/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"/>
+      <category term="智能指针" scheme="https://nkoo.top/tags/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"/>
     
   </entry>
   
   <entry>
     <title>宏 Macro</title>
-    <link href="https://worldnot.com/2021/09/05/macro/"/>
-    <id>https://worldnot.com/2021/09/05/macro/</id>
+    <link href="https://nkoo.top/2021/09/05/macro/"/>
+    <id>https://nkoo.top/2021/09/05/macro/</id>
     <published>2021-09-04T23:43:11.000Z</published>
     <updated>2022-10-08T01:37:13.989Z</updated>
     
@@ -299,19 +299,19 @@
     
     </summary>
     
-      <category term="C/C++" scheme="https://worldnot.com/categories/C-C/"/>
+      <category term="C/C++" scheme="https://nkoo.top/categories/C-C/"/>
     
     
-      <category term="宏" scheme="https://worldnot.com/tags/%E5%AE%8F/"/>
+      <category term="宏" scheme="https://nkoo.top/tags/%E5%AE%8F/"/>
     
-      <category term="macro" scheme="https://worldnot.com/tags/macro/"/>
+      <category term="macro" scheme="https://nkoo.top/tags/macro/"/>
     
   </entry>
   
   <entry>
     <title>Working with git and ssh</title>
-    <link href="https://worldnot.com/2021/08/29/git-ssh/"/>
-    <id>https://worldnot.com/2021/08/29/git-ssh/</id>
+    <link href="https://nkoo.top/2021/08/29/git-ssh/"/>
+    <id>https://nkoo.top/2021/08/29/git-ssh/</id>
     <published>2021-08-29T01:26:22.000Z</published>
     <updated>2022-10-08T09:54:45.645Z</updated>
     
@@ -327,17 +327,17 @@
     
     </summary>
     
-      <category term="git" scheme="https://worldnot.com/categories/git/"/>
+      <category term="git" scheme="https://nkoo.top/categories/git/"/>
     
     
-      <category term="ssh" scheme="https://worldnot.com/tags/ssh/"/>
+      <category term="ssh" scheme="https://nkoo.top/tags/ssh/"/>
     
   </entry>
   
   <entry>
     <title>Garbage Collection in UE4</title>
-    <link href="https://worldnot.com/2021/08/23/ue4%20GC/"/>
-    <id>https://worldnot.com/2021/08/23/ue4 GC/</id>
+    <link href="https://nkoo.top/2021/08/23/ue4%20GC/"/>
+    <id>https://nkoo.top/2021/08/23/ue4 GC/</id>
     <published>2021-08-23T15:42:03.000Z</published>
     <updated>2022-10-08T01:37:13.989Z</updated>
     
@@ -367,17 +367,17 @@
     
     </summary>
     
-      <category term="UE4" scheme="https://worldnot.com/categories/UE4/"/>
+      <category term="UE4" scheme="https://nkoo.top/categories/UE4/"/>
     
     
-      <category term="GC" scheme="https://worldnot.com/tags/GC/"/>
+      <category term="GC" scheme="https://nkoo.top/tags/GC/"/>
     
   </entry>
   
   <entry>
     <title>UE4 数据压缩方法(三)</title>
-    <link href="https://worldnot.com/2020/11/20/UE4-dataCompress03/"/>
-    <id>https://worldnot.com/2020/11/20/UE4-dataCompress03/</id>
+    <link href="https://nkoo.top/2020/11/20/UE4-dataCompress03/"/>
+    <id>https://nkoo.top/2020/11/20/UE4-dataCompress03/</id>
     <published>2020-11-20T14:44:23.000Z</published>
     <updated>2022-10-08T01:37:13.989Z</updated>
     
@@ -392,21 +392,21 @@
     
     </summary>
     
-      <category term="UE4" scheme="https://worldnot.com/categories/UE4/"/>
+      <category term="UE4" scheme="https://nkoo.top/categories/UE4/"/>
     
     
-      <category term="压缩" scheme="https://worldnot.com/tags/%E5%8E%8B%E7%BC%A9/"/>
+      <category term="压缩" scheme="https://nkoo.top/tags/%E5%8E%8B%E7%BC%A9/"/>
     
-      <category term="编码" scheme="https://worldnot.com/tags/%E7%BC%96%E7%A0%81/"/>
+      <category term="编码" scheme="https://nkoo.top/tags/%E7%BC%96%E7%A0%81/"/>
     
-      <category term="FVector" scheme="https://worldnot.com/tags/FVector/"/>
+      <category term="FVector" scheme="https://nkoo.top/tags/FVector/"/>
     
   </entry>
   
   <entry>
     <title>UE4 数据压缩方法(二)</title>
-    <link href="https://worldnot.com/2020/11/20/UE4-dataCompress02/"/>
-    <id>https://worldnot.com/2020/11/20/UE4-dataCompress02/</id>
+    <link href="https://nkoo.top/2020/11/20/UE4-dataCompress02/"/>
+    <id>https://nkoo.top/2020/11/20/UE4-dataCompress02/</id>
     <published>2020-11-20T00:16:20.000Z</published>
     <updated>2022-10-08T01:37:13.989Z</updated>
     
@@ -421,21 +421,21 @@
     
     </summary>
     
-      <category term="UE4" scheme="https://worldnot.com/categories/UE4/"/>
+      <category term="UE4" scheme="https://nkoo.top/categories/UE4/"/>
     
     
-      <category term="压缩" scheme="https://worldnot.com/tags/%E5%8E%8B%E7%BC%A9/"/>
+      <category term="压缩" scheme="https://nkoo.top/tags/%E5%8E%8B%E7%BC%A9/"/>
     
-      <category term="编码" scheme="https://worldnot.com/tags/%E7%BC%96%E7%A0%81/"/>
+      <category term="编码" scheme="https://nkoo.top/tags/%E7%BC%96%E7%A0%81/"/>
     
-      <category term="Rotator" scheme="https://worldnot.com/tags/Rotator/"/>
+      <category term="Rotator" scheme="https://nkoo.top/tags/Rotator/"/>
     
   </entry>
   
   <entry>
     <title>UE4 数据压缩方法(一)</title>
-    <link href="https://worldnot.com/2020/11/19/UE4-dataCompress/"/>
-    <id>https://worldnot.com/2020/11/19/UE4-dataCompress/</id>
+    <link href="https://nkoo.top/2020/11/19/UE4-dataCompress/"/>
+    <id>https://nkoo.top/2020/11/19/UE4-dataCompress/</id>
     <published>2020-11-19T00:42:11.000Z</published>
     <updated>2022-10-08T01:37:13.989Z</updated>
     
@@ -452,19 +452,19 @@
     
     </summary>
     
-      <category term="UE4" scheme="https://worldnot.com/categories/UE4/"/>
+      <category term="UE4" scheme="https://nkoo.top/categories/UE4/"/>
     
     
-      <category term="压缩" scheme="https://worldnot.com/tags/%E5%8E%8B%E7%BC%A9/"/>
+      <category term="压缩" scheme="https://nkoo.top/tags/%E5%8E%8B%E7%BC%A9/"/>
     
-      <category term="位运算" scheme="https://worldnot.com/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
+      <category term="位运算" scheme="https://nkoo.top/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
     
   </entry>
   
   <entry>
     <title>UE4 Config配置文件的使用</title>
-    <link href="https://worldnot.com/2020/11/17/UE4-Config/"/>
-    <id>https://worldnot.com/2020/11/17/UE4-Config/</id>
+    <link href="https://nkoo.top/2020/11/17/UE4-Config/"/>
+    <id>https://nkoo.top/2020/11/17/UE4-Config/</id>
     <published>2020-11-17T00:54:11.000Z</published>
     <updated>2022-10-08T01:37:13.989Z</updated>
     
@@ -481,17 +481,17 @@
     
     </summary>
     
-      <category term="UE4" scheme="https://worldnot.com/categories/UE4/"/>
+      <category term="UE4" scheme="https://nkoo.top/categories/UE4/"/>
     
     
-      <category term="Config" scheme="https://worldnot.com/tags/Config/"/>
+      <category term="Config" scheme="https://nkoo.top/tags/Config/"/>
     
   </entry>
   
   <entry>
     <title>UE4 重复点击检测</title>
-    <link href="https://worldnot.com/2020/10/04/UE4-ClickCheck/"/>
-    <id>https://worldnot.com/2020/10/04/UE4-ClickCheck/</id>
+    <link href="https://nkoo.top/2020/10/04/UE4-ClickCheck/"/>
+    <id>https://nkoo.top/2020/10/04/UE4-ClickCheck/</id>
     <published>2020-10-03T23:12:23.000Z</published>
     <updated>2022-10-08T01:37:13.989Z</updated>
     
@@ -507,21 +507,21 @@
     
     </summary>
     
-      <category term="UE4" scheme="https://worldnot.com/categories/UE4/"/>
+      <category term="UE4" scheme="https://nkoo.top/categories/UE4/"/>
     
-      <category term="UMG" scheme="https://worldnot.com/categories/UE4/UMG/"/>
+      <category term="UMG" scheme="https://nkoo.top/categories/UE4/UMG/"/>
     
     
-      <category term="蓝图" scheme="https://worldnot.com/tags/%E8%93%9D%E5%9B%BE/"/>
+      <category term="蓝图" scheme="https://nkoo.top/tags/%E8%93%9D%E5%9B%BE/"/>
     
-      <category term="宏" scheme="https://worldnot.com/tags/%E5%AE%8F/"/>
+      <category term="宏" scheme="https://nkoo.top/tags/%E5%AE%8F/"/>
     
   </entry>
   
   <entry>
     <title>UE4 多线程FRunnable（一）</title>
-    <link href="https://worldnot.com/2019/11/04/UE4-Ansyc01/"/>
-    <id>https://worldnot.com/2019/11/04/UE4-Ansyc01/</id>
+    <link href="https://nkoo.top/2019/11/04/UE4-Ansyc01/"/>
+    <id>https://nkoo.top/2019/11/04/UE4-Ansyc01/</id>
     <published>2019-11-04T12:35:33.000Z</published>
     <updated>2022-10-08T01:37:13.989Z</updated>
     
@@ -547,23 +547,23 @@
     
     </summary>
     
-      <category term="UE4" scheme="https://worldnot.com/categories/UE4/"/>
+      <category term="UE4" scheme="https://nkoo.top/categories/UE4/"/>
     
-      <category term="多线程" scheme="https://worldnot.com/categories/UE4/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+      <category term="多线程" scheme="https://nkoo.top/categories/UE4/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
     
     
-      <category term="Ansyc" scheme="https://worldnot.com/tags/Ansyc/"/>
+      <category term="Ansyc" scheme="https://nkoo.top/tags/Ansyc/"/>
     
-      <category term="异步" scheme="https://worldnot.com/tags/%E5%BC%82%E6%AD%A5/"/>
+      <category term="异步" scheme="https://nkoo.top/tags/%E5%BC%82%E6%AD%A5/"/>
     
-      <category term="多线程" scheme="https://worldnot.com/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+      <category term="多线程" scheme="https://nkoo.top/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title>UE4 打包相关（一）</title>
-    <link href="https://worldnot.com/2019/08/04/UE4-Pack01/"/>
-    <id>https://worldnot.com/2019/08/04/UE4-Pack01/</id>
+    <link href="https://nkoo.top/2019/08/04/UE4-Pack01/"/>
+    <id>https://nkoo.top/2019/08/04/UE4-Pack01/</id>
     <published>2019-08-04T12:17:41.000Z</published>
     <updated>2022-10-08T01:37:13.989Z</updated>
     
@@ -585,29 +585,29 @@
     
     </summary>
     
-      <category term="UE4" scheme="https://worldnot.com/categories/UE4/"/>
+      <category term="UE4" scheme="https://nkoo.top/categories/UE4/"/>
     
-      <category term="PACK" scheme="https://worldnot.com/categories/UE4/PACK/"/>
+      <category term="PACK" scheme="https://nkoo.top/categories/UE4/PACK/"/>
     
     
-      <category term="UBT" scheme="https://worldnot.com/tags/UBT/"/>
+      <category term="UBT" scheme="https://nkoo.top/tags/UBT/"/>
     
-      <category term="UHT" scheme="https://worldnot.com/tags/UHT/"/>
+      <category term="UHT" scheme="https://nkoo.top/tags/UHT/"/>
     
-      <category term="build" scheme="https://worldnot.com/tags/build/"/>
+      <category term="build" scheme="https://nkoo.top/tags/build/"/>
     
-      <category term="cook" scheme="https://worldnot.com/tags/cook/"/>
+      <category term="cook" scheme="https://nkoo.top/tags/cook/"/>
     
-      <category term="pack" scheme="https://worldnot.com/tags/pack/"/>
+      <category term="pack" scheme="https://nkoo.top/tags/pack/"/>
     
-      <category term="run" scheme="https://worldnot.com/tags/run/"/>
+      <category term="run" scheme="https://nkoo.top/tags/run/"/>
     
   </entry>
   
   <entry>
     <title>关于char * ,char a[ ] , string</title>
-    <link href="https://worldnot.com/2019/01/24/UE4-CPP-about-char/"/>
-    <id>https://worldnot.com/2019/01/24/UE4-CPP-about-char/</id>
+    <link href="https://nkoo.top/2019/01/24/UE4-CPP-about-char/"/>
+    <id>https://nkoo.top/2019/01/24/UE4-CPP-about-char/</id>
     <published>2019-01-24T11:22:17.000Z</published>
     <updated>2022-10-08T01:37:13.989Z</updated>
     
@@ -631,10 +631,10 @@
     
     </summary>
     
-      <category term="C/C++" scheme="https://worldnot.com/categories/C-C/"/>
+      <category term="C/C++" scheme="https://nkoo.top/categories/C-C/"/>
     
     
-      <category term="char" scheme="https://worldnot.com/tags/char/"/>
+      <category term="char" scheme="https://nkoo.top/tags/char/"/>
     
   </entry>
   

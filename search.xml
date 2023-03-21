@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title><![CDATA[构建Android平台的UE-Protobuf插件]]></title>
+      <url>https://worldnot.com/2023/10/02/UE-Protobuf-Android/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>导语<br>Protobuf 作为一种跨平台的数据传输方案，在作为UE插件使用的时候，也是需要编译各平台的库文件的。本次会记录构建UE4 和 UE5的静态库文件，并在插件中使用。<br>Protobuf: 3.19.0<br>Unreal Engine 4: 4.27.2<br>Unreal Engine 5: 5.1.1</p>
+</blockquote>
+<h3 id="下载-protobuf-源码"><a href="#下载-protobuf-源码" class="headerlink" title="下载 protobuf 源码"></a>下载 protobuf 源码</h3><p>鉴于下载源码后，为了能匹配UE 的编译环境，需要进行一系列修改<br>具体修改内容参考：<br><a href="https://github.com/jashking/UE4Protobuf" target="_blank" rel="noopener">https://github.com/jashking/UE4Protobuf</a></p>
+<p>本案例直接使用</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Protobuf </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Protobuf </tag>
+            
+            <tag> ue4 </tag>
+            
+            <tag> ue5 </tag>
+            
+            <tag> Android </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Android NDK入门避坑指南]]></title>
       <url>https://worldnot.com/2022/11/29/Android-NDK-Startup/</url>
       <content type="html"><![CDATA[<blockquote>
@@ -426,29 +457,6 @@ $ toolchain/bin/clang++ src.cpp
 <h3 id="连接前后端"><a href="#连接前后端" class="headerlink" title="连接前后端"></a>连接前后端</h3><p>npm install @tauri-apps/api</p>
 <p>Tauri 应用篇 - 系统托盘<br><a href="https://zhuanlan.zhihu.com/p/548270127" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/548270127</a><br><a href="https://www.cnblogs.com/yjmyzz/p/system-tray-with-tauri.html" target="_blank" rel="noopener">https://www.cnblogs.com/yjmyzz/p/system-tray-with-tauri.html</a></p>
 <p><a href="https://github.com/caojianyu/tauri-ti" target="_blank" rel="noopener">https://github.com/caojianyu/tauri-ti</a></p>
-<h3 id="1-拉取一个-PostgreSQL-服务器-Docker-镜像"><a href="#1-拉取一个-PostgreSQL-服务器-Docker-镜像" class="headerlink" title="1.拉取一个 PostgreSQL 服务器 Docker 镜像"></a>1.拉取一个 PostgreSQL 服务器 Docker 镜像</h3><p>首先，我们需要从Docker Hub获取现有的 PostgreSQL 官方镜像。如果您需要特定版本，latest 请将标签更改 为所需版本。<br>现在让我们拉取镜像：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker pull postgres:latest</span><br></pre></td></tr></table></figure></p>
-<p>使用上述命令将从 Docker Hub 存储库中提取最新可用版本的 PostgreSQL。</p>
-<h3 id="2-从-PostgreSQL-服务器-Docker-镜像运行容器"><a href="#2-从-PostgreSQL-服务器-Docker-镜像运行容器" class="headerlink" title="2. 从 PostgreSQL 服务器 Docker 镜像运行容器"></a>2. 从 PostgreSQL 服务器 Docker 镜像运行容器</h3><p>在部署之前，您需要设置一个 Docker 卷或绑定安装来持久化您的数据库。否则，当容器重新启动时，您的数据将丢失。安装应该 /var/lib/postgresql/data 在容器内的目录中。<br>出于本指南的目的，我们将创建一个 docker 卷并将其附加到您的 PostgreSQL 容器。<br>以下命令将在您的本地计算机中创建卷，您可以稍后与 PostgreSQL 容器连接：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker volume create postgres-volume</span><br></pre></td></tr></table></figure>
-<p>现在你的机器上有 PostgreSQL 镜像和一个用于保存数据的卷，你可以部署一个容器：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d --name=postgres14 -p 5432:5432 -v postgres-volume:/var/lib/postgresql/data -e POSTGRES_PASSWORD=your_password postgres</span><br></pre></td></tr></table></figure>
-<p>默认用户名是 postgres</p>
-<a id="more"></a>
-<p>该 docker run 命令将在 Docker 容器中创建一个正在运行的 PostgreSQL 数据库。</p>
-<p>让我们分解一下这个语法。以下是该命令中每个参数的含义：</p>
-<p>-d 将以分离模式运行此容器，以便它在后台运行。<br>–name 将名称“postgres13”分配给您的容器实例。<br>-p会将 PostgreSQL 容器端口 5432 绑定到主机上的相同端口。您将能够localhost:5432 使用psql在您的主机上运行的PostgreSQL 客户端进行连接 。<br>-v选项将容器卷 ( /var/lib/postgresql)内的数据文件夹绑定到postgres-volume您在上一步中创建的本地 Docker 卷。<br>-e设置环境变量。在这种情况下，PostgreSQL 根密码。<br>postgres 是我们用来创建容器的镜像的名称。<br>您可以通过列出正在运行的容器来检查容器是否正在运行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker ps</span><br></pre></td></tr></table></figure>
-<p>恭喜！您的新 PostgreSQL 实例现在正在 Docker 上运行。</p>
-<p>此外，您可以使用以下命令检查正在运行的 PostgreSQL 容器的日志文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker logs postgres14</span><br></pre></td></tr></table></figure>
-<h3 id="3-连接到PostgreSQL服务器"><a href="#3-连接到PostgreSQL服务器" class="headerlink" title="3. 连接到PostgreSQL服务器"></a>3. 连接到PostgreSQL服务器</h3><p>您可以通过附加到容器并运行psql命令来获得交互式 PostgreSQL shell 。这提供了完整的 PostgreSQL 命令行界面，因此您可以使用所有熟悉的命令和标志。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker <span class="built_in">exec</span> -it postgres13 psql -U postgres</span><br></pre></td></tr></table></figure>
-<p>psql如果您在主机上预安装了PostgreSQL 客户端，您还可以使用PostgreSQL 客户端连接 PostgreSQL Docker 实例。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psql -h localhost -U postgres</span><br></pre></td></tr></table></figure>
-<h3 id="4-用可视化工具-pgadmin4-管理"><a href="#4-用可视化工具-pgadmin4-管理" class="headerlink" title="4. 用可视化工具 pgadmin4 管理"></a>4. 用可视化工具 pgadmin4 管理</h3><h3 id="4-1-在docker中部署pgadmin4"><a href="#4-1-在docker中部署pgadmin4" class="headerlink" title="4.1 在docker中部署pgadmin4"></a>4.1 在docker中部署pgadmin4</h3><p>拉取postgresql可视化工具pgadmin4</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull dpage/pgadmin4</span><br></pre></td></tr></table></figure>
-<p>运行pgadmin4：</p>
-<p>-p 5433:80 将容器的80端口映射到宿主机的5433端口<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 5433:80 --name pgadmin4 -e PGADMIN_DEFAULT_EMAIL=<span class="built_in">test</span>@123.com -e PGADMIN_DEFAULT_PASSWORD=your_password dpage/pgadmin4</span><br></pre></td></tr></table></figure></p>
 ]]></content>
       
         <categories>

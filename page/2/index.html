@@ -288,6 +288,125 @@
             
               
                 
+                <a class="post-title-link" href="/2021/08/29/git-ssh/" itemprop="url">
+                  Working with git and ssh
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2021-08-29T09:26:22+08:00" content="2021-08-29">
+              2021-08-29
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index">
+                    <span itemprop="name">git</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+
+          
+
+          
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+<!-- 自定义，用于添加摘要图片，文章中不显示 -->
+        
+<!-- 自定义结束 -->
+        
+          <blockquote>
+<p>导语<br>从2021年8月14日之后，使用git对github进行身份验证操作的时候不再接受使用账号密码形式clone和push代码，必须使用acces_token或者基于SSH 的方式了。本文记录SSH 的使用过程。</p>
+</blockquote>
+<h3 id="一、生成shh密钥"><a href="#一、生成shh密钥" class="headerlink" title="一、生成shh密钥"></a>一、生成shh密钥</h3><p>进入 .ssh 目录，windows下一般在默认用户文件夹下 <code>Users/Administrator/.ssh</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> C:\Users\Administrator\.ssh</span><br><span class="line"></span><br><span class="line">ssh -V <span class="comment"># 查看版本号，确认是否安装ssh</span></span><br><span class="line"></span><br><span class="line">ssh-keygen -t rsa -C <span class="string">"email@abc.com"</span> <span class="comment"># 生成ssh密钥</span></span><br><span class="line"></span><br><span class="line">Generating public/private rsa key pair.</span><br><span class="line">Enter file <span class="keyword">in</span> <span class="built_in">which</span> to save the key (/c/Users/Administrator/.ssh/id_rsa): id_rsa_pubrepo <span class="comment"># 此处输入密钥的名称，方便后面管理多个密钥</span></span><br><span class="line">Enter passphrase (empty <span class="keyword">for</span> no passphrase):<span class="comment"># 回车</span></span><br><span class="line">Enter same passphrase again:<span class="comment"># 回车</span></span><br><span class="line">Your identification has been saved <span class="keyword">in</span> id_rsa_pubrepo.</span><br><span class="line">Your public key has been saved <span class="keyword">in</span> id_rsa_pubrepo.pub.</span><br><span class="line">The key fingerprint is:</span><br><span class="line">SHA256:xxxxxxxxxxxxx email@abc.com</span><br><span class="line">The key<span class="string">'s randomart image is:</span></span><br><span class="line"><span class="string">+---[RSA 3072]----+</span></span><br><span class="line"><span class="string">|     .   . .     |</span></span><br><span class="line"><span class="string">|    o =   oo.    |</span></span><br><span class="line"><span class="string">|     . ..*+. .   |</span></span><br><span class="line"><span class="string">|    .  .o.B.*    |</span></span><br><span class="line"><span class="string">|    . *.E=o      |</span></span><br><span class="line"><span class="string">|     ..+*B=      |</span></span><br><span class="line"><span class="string">+----[SHA256]-----+</span></span><br></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2021/08/29/git-ssh/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2021/08/23/ue4 GC/" itemprop="url">
                   Garbage Collection in UE4
                 </a>
@@ -1412,130 +1531,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2019/01/23/UE4-CPP-temporary-objects/" itemprop="url">
-                  C++ 临时对象
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2019-01-23T21:28:15+08:00" content="2019-01-23">
-              2019-01-23
-            </time>
-          </span>
-
-          
-            <span class="post-category">
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C-C/" itemprop="url" rel="index">
-                    <span itemprop="name">C/C++</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-
-          
-
-          
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-<!-- 自定义，用于添加摘要图片，文章中不显示 -->
-        
-<!-- 自定义结束 -->
-        
-          <blockquote>
-<p>导语<br>函数<strong>不要返回</strong>引用类型的临时对象，也<strong>不要引用</strong>函数返回的临时对象，因为无法预测会发生什么。</p>
-</blockquote>
-<h3 id="一、引用和指针的区别"><a href="#一、引用和指针的区别" class="headerlink" title="一、引用和指针的区别"></a>一、引用和指针的区别</h3><h4 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h4><p>引用声明时，需要初始化</p>
-<p>引用是被引用对象的别名，和被引用对象绑定后不可变更</p>
-<p>引用一定不为空，不需要判定是否空对象</p>
-<p>使用引用传递，可以避免临时对象</p>
-<h4 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h4><p>指针可以多次赋值，改变指向的对象</p>
-<p>指针可以指向空</p>
-<h3 id="二、什么是临时对象"><a href="#二、什么是临时对象" class="headerlink" title="二、什么是临时对象"></a>二、什么是临时对象</h3><p>临时对象是在源码中不可见的，是栈上的、没有名字的对象</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2019/01/23/UE4-CPP-temporary-objects/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1578,7 +1573,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">23</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1586,7 +1581,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1595,7 +1590,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1669,7 +1664,7 @@
         <div class="copyright">
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="做梦诗人的博客">
 <meta property="og:description" content="导语 本次实验，使用 tauri 作为桌面框架，使用 Rust 语言作为后端，使用 axum 作为后端框架，使用 vue3 + element-plus 作为前端UI，使用 cargo + npm 作为包管理器，使用 vite 作为前端打包工具， 使用 TS 作为前端开发语言使用 websocket 作为通信协议  npm 官网https://www.npmjs.com/package/npmh">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2022-10-12T09:17:40.575Z">
+<meta property="og:updated_time" content="2023-03-21T05:41:52.760Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何用tauri + vue 搭建一个windows应用">
 <meta name="twitter:description" content="导语 本次实验，使用 tauri 作为桌面框架，使用 Rust 语言作为后端，使用 axum 作为后端框架，使用 vue3 + element-plus 作为前端UI，使用 cargo + npm 作为包管理器，使用 vite 作为前端打包工具， 使用 TS 作为前端开发语言使用 websocket 作为通信协议  npm 官网https://www.npmjs.com/package/npmh">
@@ -385,29 +385,6 @@
 <h3 id="连接前后端"><a href="#连接前后端" class="headerlink" title="连接前后端"></a>连接前后端</h3><p>npm install @tauri-apps/api</p>
 <p>Tauri 应用篇 - 系统托盘<br><a href="https://zhuanlan.zhihu.com/p/548270127" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/548270127</a><br><a href="https://www.cnblogs.com/yjmyzz/p/system-tray-with-tauri.html" target="_blank" rel="noopener">https://www.cnblogs.com/yjmyzz/p/system-tray-with-tauri.html</a></p>
 <p><a href="https://github.com/caojianyu/tauri-ti" target="_blank" rel="noopener">https://github.com/caojianyu/tauri-ti</a></p>
-<h3 id="1-拉取一个-PostgreSQL-服务器-Docker-镜像"><a href="#1-拉取一个-PostgreSQL-服务器-Docker-镜像" class="headerlink" title="1.拉取一个 PostgreSQL 服务器 Docker 镜像"></a>1.拉取一个 PostgreSQL 服务器 Docker 镜像</h3><p>首先，我们需要从Docker Hub获取现有的 PostgreSQL 官方镜像。如果您需要特定版本，latest 请将标签更改 为所需版本。<br>现在让我们拉取镜像：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker pull postgres:latest</span><br></pre></td></tr></table></figure></p>
-<p>使用上述命令将从 Docker Hub 存储库中提取最新可用版本的 PostgreSQL。</p>
-<h3 id="2-从-PostgreSQL-服务器-Docker-镜像运行容器"><a href="#2-从-PostgreSQL-服务器-Docker-镜像运行容器" class="headerlink" title="2. 从 PostgreSQL 服务器 Docker 镜像运行容器"></a>2. 从 PostgreSQL 服务器 Docker 镜像运行容器</h3><p>在部署之前，您需要设置一个 Docker 卷或绑定安装来持久化您的数据库。否则，当容器重新启动时，您的数据将丢失。安装应该 /var/lib/postgresql/data 在容器内的目录中。<br>出于本指南的目的，我们将创建一个 docker 卷并将其附加到您的 PostgreSQL 容器。<br>以下命令将在您的本地计算机中创建卷，您可以稍后与 PostgreSQL 容器连接：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker volume create postgres-volume</span><br></pre></td></tr></table></figure>
-<p>现在你的机器上有 PostgreSQL 镜像和一个用于保存数据的卷，你可以部署一个容器：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d --name=postgres14 -p 5432:5432 -v postgres-volume:/var/lib/postgresql/data -e POSTGRES_PASSWORD=your_password postgres</span><br></pre></td></tr></table></figure>
-<p>默认用户名是 postgres</p>
-<a id="more"></a>
-<p>该 docker run 命令将在 Docker 容器中创建一个正在运行的 PostgreSQL 数据库。</p>
-<p>让我们分解一下这个语法。以下是该命令中每个参数的含义：</p>
-<p>-d 将以分离模式运行此容器，以便它在后台运行。<br>–name 将名称“postgres13”分配给您的容器实例。<br>-p会将 PostgreSQL 容器端口 5432 绑定到主机上的相同端口。您将能够localhost:5432 使用psql在您的主机上运行的PostgreSQL 客户端进行连接 。<br>-v选项将容器卷 ( /var/lib/postgresql)内的数据文件夹绑定到postgres-volume您在上一步中创建的本地 Docker 卷。<br>-e设置环境变量。在这种情况下，PostgreSQL 根密码。<br>postgres 是我们用来创建容器的镜像的名称。<br>您可以通过列出正在运行的容器来检查容器是否正在运行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker ps</span><br></pre></td></tr></table></figure>
-<p>恭喜！您的新 PostgreSQL 实例现在正在 Docker 上运行。</p>
-<p>此外，您可以使用以下命令检查正在运行的 PostgreSQL 容器的日志文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker logs postgres14</span><br></pre></td></tr></table></figure>
-<h3 id="3-连接到PostgreSQL服务器"><a href="#3-连接到PostgreSQL服务器" class="headerlink" title="3. 连接到PostgreSQL服务器"></a>3. 连接到PostgreSQL服务器</h3><p>您可以通过附加到容器并运行psql命令来获得交互式 PostgreSQL shell 。这提供了完整的 PostgreSQL 命令行界面，因此您可以使用所有熟悉的命令和标志。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker <span class="built_in">exec</span> -it postgres13 psql -U postgres</span><br></pre></td></tr></table></figure>
-<p>psql如果您在主机上预安装了PostgreSQL 客户端，您还可以使用PostgreSQL 客户端连接 PostgreSQL Docker 实例。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psql -h localhost -U postgres</span><br></pre></td></tr></table></figure>
-<h3 id="4-用可视化工具-pgadmin4-管理"><a href="#4-用可视化工具-pgadmin4-管理" class="headerlink" title="4. 用可视化工具 pgadmin4 管理"></a>4. 用可视化工具 pgadmin4 管理</h3><h3 id="4-1-在docker中部署pgadmin4"><a href="#4-1-在docker中部署pgadmin4" class="headerlink" title="4.1 在docker中部署pgadmin4"></a>4.1 在docker中部署pgadmin4</h3><p>拉取postgresql可视化工具pgadmin4</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull dpage/pgadmin4</span><br></pre></td></tr></table></figure>
-<p>运行pgadmin4：</p>
-<p>-p 5433:80 将容器的80端口映射到宿主机的5433端口<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 5433:80 --name pgadmin4 -e PGADMIN_DEFAULT_EMAIL=<span class="built_in">test</span>@123.com -e PGADMIN_DEFAULT_PASSWORD=your_password dpage/pgadmin4</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -571,7 +548,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">23</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -579,7 +556,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -588,7 +565,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -654,7 +631,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-用vite创建一个vue项目"><span class="nav-number">1.</span> <span class="nav-text">1.用vite创建一个vue项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加到-github-进行版本管理"><span class="nav-number">2.</span> <span class="nav-text">添加到 github 进行版本管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装后端相关"><span class="nav-number">3.</span> <span class="nav-text">安装后端相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接前后端"><span class="nav-number">4.</span> <span class="nav-text">连接前后端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-拉取一个-PostgreSQL-服务器-Docker-镜像"><span class="nav-number">5.</span> <span class="nav-text">1.拉取一个 PostgreSQL 服务器 Docker 镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-从-PostgreSQL-服务器-Docker-镜像运行容器"><span class="nav-number">6.</span> <span class="nav-text">2. 从 PostgreSQL 服务器 Docker 镜像运行容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-连接到PostgreSQL服务器"><span class="nav-number">7.</span> <span class="nav-text">3. 连接到PostgreSQL服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-用可视化工具-pgadmin4-管理"><span class="nav-number">8.</span> <span class="nav-text">4. 用可视化工具 pgadmin4 管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-在docker中部署pgadmin4"><span class="nav-number">9.</span> <span class="nav-text">4.1 在docker中部署pgadmin4</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-用vite创建一个vue项目"><span class="nav-number">1.</span> <span class="nav-text">1.用vite创建一个vue项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加到-github-进行版本管理"><span class="nav-number">2.</span> <span class="nav-text">添加到 github 进行版本管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装后端相关"><span class="nav-number">3.</span> <span class="nav-text">安装后端相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接前后端"><span class="nav-number">4.</span> <span class="nav-text">连接前后端</span></a></li></ol></div>
             
           </div>
         </section>
@@ -673,7 +650,7 @@
         <div class="copyright">
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

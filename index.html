@@ -288,6 +288,123 @@
             
               
                 
+                <a class="post-title-link" href="/2023/10/02/UE-Protobuf-Android/" itemprop="url">
+                  构建Android平台的UE-Protobuf插件
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2023-10-02T19:24:07+08:00" content="2023-10-02">
+              2023-10-02
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Protobuf/" itemprop="url" rel="index">
+                    <span itemprop="name">Protobuf</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+
+          
+
+          
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+<!-- 自定义，用于添加摘要图片，文章中不显示 -->
+        
+<!-- 自定义结束 -->
+        
+          
+            <blockquote>
+<p>导语<br>Protobuf 作为一种跨平台的数据传输方案，在作为UE插件使用的时候，也是需要编译各平台的库文件的。本次会记录构建UE4 和 UE5的静态库文件，并在插件中使用。<br>Protobuf: 3.19.0<br>Unreal Engine 4: 4.27.2<br>Unreal Engine 5: 5.1.1</p>
+</blockquote>
+<h3 id="下载-protobuf-源码"><a href="#下载-protobuf-源码" class="headerlink" title="下载 protobuf 源码"></a>下载 protobuf 源码</h3><p>鉴于下载源码后，为了能匹配UE 的编译环境，需要进行一系列修改<br>具体修改内容参考：<br><a href="https://github.com/jashking/UE4Protobuf" target="_blank" rel="noopener">https://github.com/jashking/UE4Protobuf</a></p>
+<p>本案例直接使用</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2022/11/29/Android-NDK-Startup/" itemprop="url">
                   Android NDK入门避坑指南
                 </a>
@@ -928,7 +1045,8 @@ $ toolchain/bin/clang++ src.cpp
         
 <!-- 自定义结束 -->
         
-          <blockquote>
+          
+            <blockquote>
 <p>导语</p>
 <p>本次实验，使用 tauri 作为桌面框架，使用 Rust 语言作为后端，使用 axum 作为后端框架，使用 vue3 + element-plus 作为前端UI，使用 cargo + npm 作为包管理器，使用 vite 作为前端打包工具， 使用 TS 作为前端开发语言<br>使用 websocket 作为通信协议</p>
 </blockquote>
@@ -958,18 +1076,8 @@ $ toolchain/bin/clang++ src.cpp
 <h3 id="连接前后端"><a href="#连接前后端" class="headerlink" title="连接前后端"></a>连接前后端</h3><p>npm install @tauri-apps/api</p>
 <p>Tauri 应用篇 - 系统托盘<br><a href="https://zhuanlan.zhihu.com/p/548270127" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/548270127</a><br><a href="https://www.cnblogs.com/yjmyzz/p/system-tray-with-tauri.html" target="_blank" rel="noopener">https://www.cnblogs.com/yjmyzz/p/system-tray-with-tauri.html</a></p>
 <p><a href="https://github.com/caojianyu/tauri-ti" target="_blank" rel="noopener">https://github.com/caojianyu/tauri-ti</a></p>
-<h3 id="1-拉取一个-PostgreSQL-服务器-Docker-镜像"><a href="#1-拉取一个-PostgreSQL-服务器-Docker-镜像" class="headerlink" title="1.拉取一个 PostgreSQL 服务器 Docker 镜像"></a>1.拉取一个 PostgreSQL 服务器 Docker 镜像</h3><p>首先，我们需要从Docker Hub获取现有的 PostgreSQL 官方镜像。如果您需要特定版本，latest 请将标签更改 为所需版本。<br>现在让我们拉取镜像：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker pull postgres:latest</span><br></pre></td></tr></table></figure></p>
-<p>使用上述命令将从 Docker Hub 存储库中提取最新可用版本的 PostgreSQL。</p>
-<h3 id="2-从-PostgreSQL-服务器-Docker-镜像运行容器"><a href="#2-从-PostgreSQL-服务器-Docker-镜像运行容器" class="headerlink" title="2. 从 PostgreSQL 服务器 Docker 镜像运行容器"></a>2. 从 PostgreSQL 服务器 Docker 镜像运行容器</h3><p>在部署之前，您需要设置一个 Docker 卷或绑定安装来持久化您的数据库。否则，当容器重新启动时，您的数据将丢失。安装应该 /var/lib/postgresql/data 在容器内的目录中。<br>出于本指南的目的，我们将创建一个 docker 卷并将其附加到您的 PostgreSQL 容器。<br>以下命令将在您的本地计算机中创建卷，您可以稍后与 PostgreSQL 容器连接：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker volume create postgres-volume</span><br></pre></td></tr></table></figure>
-<p>现在你的机器上有 PostgreSQL 镜像和一个用于保存数据的卷，你可以部署一个容器：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d --name=postgres14 -p 5432:5432 -v postgres-volume:/var/lib/postgresql/data -e POSTGRES_PASSWORD=your_password postgres</span><br></pre></td></tr></table></figure>
-<p>默认用户名是 postgres</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2022/10/08/Tauri-vue/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+
+          
         
       
     </div>
@@ -1706,125 +1814,6 @@ $ toolchain/bin/clang++ src.cpp
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2021/08/29/git-ssh/" itemprop="url">
-                  Working with git and ssh
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2021-08-29T09:26:22+08:00" content="2021-08-29">
-              2021-08-29
-            </time>
-          </span>
-
-          
-            <span class="post-category">
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index">
-                    <span itemprop="name">git</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-
-          
-
-          
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-<!-- 自定义，用于添加摘要图片，文章中不显示 -->
-        
-<!-- 自定义结束 -->
-        
-          <blockquote>
-<p>导语<br>从2021年8月14日之后，使用git对github进行身份验证操作的时候不再接受使用账号密码形式clone和push代码，必须使用acces_token或者基于SSH 的方式了。本文记录SSH 的使用过程。</p>
-</blockquote>
-<h3 id="一、生成shh密钥"><a href="#一、生成shh密钥" class="headerlink" title="一、生成shh密钥"></a>一、生成shh密钥</h3><p>进入 .ssh 目录，windows下一般在默认用户文件夹下 <code>Users/Administrator/.ssh</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> C:\Users\Administrator\.ssh</span><br><span class="line"></span><br><span class="line">ssh -V <span class="comment"># 查看版本号，确认是否安装ssh</span></span><br><span class="line"></span><br><span class="line">ssh-keygen -t rsa -C <span class="string">"email@abc.com"</span> <span class="comment"># 生成ssh密钥</span></span><br><span class="line"></span><br><span class="line">Generating public/private rsa key pair.</span><br><span class="line">Enter file <span class="keyword">in</span> <span class="built_in">which</span> to save the key (/c/Users/Administrator/.ssh/id_rsa): id_rsa_pubrepo <span class="comment"># 此处输入密钥的名称，方便后面管理多个密钥</span></span><br><span class="line">Enter passphrase (empty <span class="keyword">for</span> no passphrase):<span class="comment"># 回车</span></span><br><span class="line">Enter same passphrase again:<span class="comment"># 回车</span></span><br><span class="line">Your identification has been saved <span class="keyword">in</span> id_rsa_pubrepo.</span><br><span class="line">Your public key has been saved <span class="keyword">in</span> id_rsa_pubrepo.pub.</span><br><span class="line">The key fingerprint is:</span><br><span class="line">SHA256:xxxxxxxxxxxxx email@abc.com</span><br><span class="line">The key<span class="string">'s randomart image is:</span></span><br><span class="line"><span class="string">+---[RSA 3072]----+</span></span><br><span class="line"><span class="string">|     .   . .     |</span></span><br><span class="line"><span class="string">|    o =   oo.    |</span></span><br><span class="line"><span class="string">|     . ..*+. .   |</span></span><br><span class="line"><span class="string">|    .  .o.B.*    |</span></span><br><span class="line"><span class="string">|    . *.E=o      |</span></span><br><span class="line"><span class="string">|     ..+*B=      |</span></span><br><span class="line"><span class="string">+----[SHA256]-----+</span></span><br></pre></td></tr></table></figure>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2021/08/29/git-ssh/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1867,7 +1856,7 @@ $ toolchain/bin/clang++ src.cpp
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">23</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1875,7 +1864,7 @@ $ toolchain/bin/clang++ src.cpp
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1884,7 +1873,7 @@ $ toolchain/bin/clang++ src.cpp
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1958,7 +1947,7 @@ $ toolchain/bin/clang++ src.cpp
         <div class="copyright">
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

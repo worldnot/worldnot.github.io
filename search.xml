@@ -621,7 +621,7 @@ $ toolchain/bin/clang++ src.cpp
     
     <entry>
       <title><![CDATA[UE4PythonHelper]]></title>
-      <url>https://nkoo.top/2022/03/27/UnrealEnginePythonHelper%20copy/</url>
+      <url>https://nkoo.top/2022/03/27/UnrealEnginePythonHelper/</url>
       <content type="html"><![CDATA[<h1 id="UE4PythonHelper"><a href="#UE4PythonHelper" class="headerlink" title="UE4PythonHelper"></a>UE4PythonHelper</h1><p>This plugin is only used in editor mode!!!</p>
 <p><img src="/images/ph01.webp" alt="ph01"></p>
 <h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><ol>

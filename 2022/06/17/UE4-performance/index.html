@@ -1,0 +1,928 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="performance,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="做梦诗人的博客" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon/favicon.ico?v=5.0.1">
+
+
+
+
+
+
+<meta name="description" content="性能分析帧率打印在UE编辑器运行或打包为Development版本的打包文件运行时，可用 “~” 键（键盘数字1键左边的按键）呼出Runtime Command，并执行 stat fps，即可打印帧率和延迟进行实时监测。 GPU Visualizer在编辑器运行状态下可以使用快捷键“Ctrl+Shift+逗号”呼出GPU Visualizer，截取当前帧的渲染消耗细分列表，对帮助分析性能消耗占比帮">
+<meta name="keywords" content="performance">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UE4-performance">
+<meta property="og:url" content="https://nkoo.top/2022/06/17/UE4-performance/index.html">
+<meta property="og:site_name" content="做梦诗人的博客">
+<meta property="og:description" content="性能分析帧率打印在UE编辑器运行或打包为Development版本的打包文件运行时，可用 “~” 键（键盘数字1键左边的按键）呼出Runtime Command，并执行 stat fps，即可打印帧率和延迟进行实时监测。 GPU Visualizer在编辑器运行状态下可以使用快捷键“Ctrl+Shift+逗号”呼出GPU Visualizer，截取当前帧的渲染消耗细分列表，对帮助分析性能消耗占比帮">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://nkoo.top/images/GPU-Visualizer.webp">
+<meta property="og:updated_time" content="2023-04-09T10:57:28.718Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UE4-performance">
+<meta name="twitter:description" content="性能分析帧率打印在UE编辑器运行或打包为Development版本的打包文件运行时，可用 “~” 键（键盘数字1键左边的按键）呼出Runtime Command，并执行 stat fps，即可打印帧率和延迟进行实时监测。 GPU Visualizer在编辑器运行状态下可以使用快捷键“Ctrl+Shift+逗号”呼出GPU Visualizer，截取当前帧的渲染消耗细分列表，对帮助分析性能消耗占比帮">
+<meta name="twitter:image" content="https://nkoo.top/images/GPU-Visualizer.webp">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://nkoo.top/2022/06/17/UE4-performance/">
+
+
+<!-- 网页加载条 -->
+<script src="/js/src/pace.min.js"></script>
+  <title> UE4-performance | 做梦诗人的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">做梦诗人的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">仰天大笑出门去</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search fa-lg"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">关闭</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                UE4-performance
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2022-06-17T09:54:12+08:00" content="2022-06-17">
+              2022-06-17
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UE4/" itemprop="url" rel="index">
+                    <span itemprop="name">UE4</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UE4/performance/" itemprop="url" rel="index">
+                    <span itemprop="name">performance</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+
+          
+
+          
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h1><h2 id="帧率打印"><a href="#帧率打印" class="headerlink" title="帧率打印"></a>帧率打印</h2><p>在UE编辑器运行或打包为Development版本的打包文件运行时，可用 “~” 键（键盘数字1键左边的按键）呼出Runtime Command，并执行 stat fps，即可打印帧率和延迟进行实时监测。</p>
+<h2 id="GPU-Visualizer"><a href="#GPU-Visualizer" class="headerlink" title="GPU Visualizer"></a>GPU Visualizer</h2><p>在编辑器运行状态下可以使用快捷键“Ctrl+Shift+逗号”呼出GPU Visualizer，截取当前帧的渲染消耗细分列表，对帮助分析性能消耗占比帮助很大。<br>如下图：因为输出了5个窗口，每个窗口对应了一个Scene，点开可以看到每个画面具体的消耗所占用的毫秒数，右侧Duration可以点击进行升降序排列，分析占用毫秒数最多的条目。<br><img src="/images/GPU-Visualizer.webp" alt="GPU-Visualizer"></p>
+<h1 id="优化建议"><a href="#优化建议" class="headerlink" title="优化建议"></a>优化建议</h1><a id="more"></a> 
+<p>这里将从GPU Visualizer内通常占比较多的模块展开，提供性能优化建议：</p>
+<ul>
+<li><p>BasePass<br>BasePass的消耗取决于：模型三角面数，物体数量，Decal数量，材质复杂度及分辨率。可以在ViewMode中切换到ShaderComplexity&amp;Quads中检查材质复杂度和面数是否有过于消耗大且密集重叠的区域</p>
+</li>
+<li><p>PostProcess<br>后期处理消耗，通常占用较高的包括抗锯齿模式（TSR,FXAA等），后期材质，以及bloom</p>
+</li>
+<li><p>LightCompositionTasks_PreLighting<br>此项是实时动态AO占用消耗，可以后期盒子中将AO关闭</p>
+</li>
+<li><p>Lights和ShadowDepths<br>动态光影的消耗，通常占比较多。如果没有动态物体的需求，要求使用灯光烘焙。如果一定需要动态光，可以适当平衡动态光影可见范围和质量。也可以在ViewMode中切换到Light Complexity检查动态光照是否有过多重叠的地方</p>
+</li>
+<li><p>Translucency<br>透明材质，可以再ViewMode中切换到ShaderComlexity检查透明物体是否有过多重叠的地方</p>
+</li>
+<li><p>Exponential Height Fog<br>雾的消耗通常较高，Volumetric Fog消耗更高，请权衡性能和效果选择</p>
+</li>
+<li><p>Lumen相关<br>条目名称中带有lumen，以及DiffuseIndirectAndAO都是lumen带来的消耗。lumen的消耗巨大，现阶段还无法在高分辨率情况下得到良好的优化</p>
+</li>
+<li><p>Nanite相关<br>Nanite可以在模型三角面数极高时提供针对BasePass的巨量优化，但其本身也会带来实时消耗，注意平衡tradeoff</p>
+</li>
+<li><p>Planar Reflection<br>平面反射是消耗最大的功能之一，基本相当于所有渲染的内容的消耗在其范围内翻倍。在没有足够的性能预算时请谨慎使用</p>
+</li>
+</ul>
+<h1 id="其它注意事项"><a href="#其它注意事项" class="headerlink" title="其它注意事项"></a>其它注意事项</h1><h2 id="屏幕空间效果"><a href="#屏幕空间效果" class="headerlink" title="屏幕空间效果"></a>屏幕空间效果</h2><p>暂不支持基于屏幕空间（Screen-Space）功能和效果，例如后期中的Screen Space Reflection，多窗口间会出现拼接问题。<br>摄像机方向相关的效果或功能需要被替代，可用摄像机位置计算。</p>
+<h2 id="硬件光追"><a href="#硬件光追" class="headerlink" title="硬件光追"></a>硬件光追</h2><p>消耗较大，要求关闭</p>
+<h2 id="抗锯齿模式"><a href="#抗锯齿模式" class="headerlink" title="抗锯齿模式"></a>抗锯齿模式</h2><p>目前支持的抗锯齿模式包括FXAA和TSR</p>
+<h2 id="自动曝光"><a href="#自动曝光" class="headerlink" title="自动曝光"></a>自动曝光</h2><p>自动曝光需要被关闭</p>
+<h2 id="光束（Light-Shaft）"><a href="#光束（Light-Shaft）" class="headerlink" title="光束（Light Shaft）"></a>光束（Light Shaft）</h2><p>在定向光影的设置中关闭光束</p>
+<h2 id="粒子"><a href="#粒子" class="headerlink" title="粒子"></a>粒子</h2><ol>
+<li>粒子的屏幕对齐设置使用PSA朝向摄像机位置；</li>
+<li>设置足够大的遮蔽边界，需要覆盖所有体验者可以抵达并看见此粒子效果的位置。</li>
+</ol>
+<h2 id="平面反射"><a href="#平面反射" class="headerlink" title="平面反射"></a>平面反射</h2><ol>
+<li>额外视野（FOV）需要在15-30的范围内；</li>
+<li>在Scene capture参数中取消采集每帧和移动时采集的选项；</li>
+<li>尽量避免同时使用多个平面反射；</li>
+<li>避免多个平面反射相互采集对方。</li>
+</ol>
+<h2 id="后期处理"><a href="#后期处理" class="headerlink" title="后期处理"></a>后期处理</h2><ol>
+<li>Image Effects中的Vignette Intensity设为0；</li>
+<li>关闭屏幕空间反射；</li>
+<li>关闭AO；</li>
+<li>关闭动态模糊；</li>
+<li>空出颜色分级LUT，使用其他方式调色；</li>
+<li>如果使用屏幕UV的失真效果，失真效果需要是四方连续的。</li>
+</ol>
+<h2 id="材质"><a href="#材质" class="headerlink" title="材质"></a>材质</h2><ol>
+<li>编写材质时使用摄像机位置计算，避免使用摄像机矢量计算。</li>
+<li>如果使用屏幕UV，贴图需要是四方连续的。</li>
+</ol>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p>UE 性能分析<br><a href="https://zhuanlan.zhihu.com/p/530921982" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/530921982</a><br><a href="https://www.bilibili.com/read/cv16498653" target="_blank" rel="noopener">https://www.bilibili.com/read/cv16498653</a><br><a href="https://www.bilibili.com/read/cv16498653" target="_blank" rel="noopener">https://www.bilibili.com/read/cv16498653</a></p>
+<p>UE4 性能 - (三) 性能分析工具：Unreal Insights<br><a href="https://zhuanlan.zhihu.com/p/444191961" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/444191961</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+<blockquote class="blockquote-center" style="color: #ccc;">
+    -------------  <i class="fa fa-coffee"></i> 感谢您的阅读-------------
+</blockquote>
+
+  <span id="inline-green" style="border-radius:3px;">作者</span>：<a class="link-blue" href="https://github.com/dreamingpoet" target="_blank">dreamingpoet</a><br>有问题请发邮箱 <a class="link-blue" href target="_blank">Dreamingoet@126.com</a>。
+
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>您的鼓励将成为创作者的动力</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/reward_wechat.webp" alt="Dreamingpoet WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/reward_alipay.webp" alt="Dreamingpoet Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/performance/" rel="tag"><i class="fa fa-tag"></i> performance</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/04/20/UE4-FString/" rel="next" title="FString和各种数据格式间转换">
+                <i class="fa fa-chevron-left"></i> FString和各种数据格式间转换
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/10/08/Tauri-vue/" rel="prev" title="如何用tauri + vue 搭建一个windows应用">
+                如何用tauri + vue 搭建一个windows应用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+  
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/avatar/avatar.png" alt="Dreamingpoet">
+          <p class="site-author-name" itemprop="name">Dreamingpoet</p>
+          <p class="site-description motion-element" itemprop="description">靡不有初 鲜克有终</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/dreamingpoet" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="/weblog" title="建站日志" target="_blank">建站日志</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#性能分析"><span class="nav-number">1.</span> <span class="nav-text">性能分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#帧率打印"><span class="nav-number">1.1.</span> <span class="nav-text">帧率打印</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GPU-Visualizer"><span class="nav-number">1.2.</span> <span class="nav-text">GPU Visualizer</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化建议"><span class="nav-number">2.</span> <span class="nav-text">优化建议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其它注意事项"><span class="nav-number">3.</span> <span class="nav-text">其它注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#屏幕空间效果"><span class="nav-number">3.1.</span> <span class="nav-text">屏幕空间效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#硬件光追"><span class="nav-number">3.2.</span> <span class="nav-text">硬件光追</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抗锯齿模式"><span class="nav-number">3.3.</span> <span class="nav-text">抗锯齿模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动曝光"><span class="nav-number">3.4.</span> <span class="nav-text">自动曝光</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#光束（Light-Shaft）"><span class="nav-number">3.5.</span> <span class="nav-text">光束（Light Shaft）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#粒子"><span class="nav-number">3.6.</span> <span class="nav-text">粒子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平面反射"><span class="nav-number">3.7.</span> <span class="nav-text">平面反射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后期处理"><span class="nav-number">3.8.</span> <span class="nav-text">后期处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#材质"><span class="nav-number">3.9.</span> <span class="nav-text">材质</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考链接"><span class="nav-number">4.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dreamingpoet</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a> 生成
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Pisces
+  </a>
+</div>
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  <!-- 按需加载背景 -->
+  
+  <!-- 页面点击小红心 -->
+  <!-- 页面点击小红心 -->
+
+  <script type="text/javascript" src="/js/src/love.js?v=5.0.1"></script>
+
+
+  <!-- 鼠标移动，效果 -->
+
+  <!-- 页面 title 进入/离开 效果 -->
+
+  <script type="text/javascript">var OriginTitile=document.title,st;document.addEventListener("visibilitychange",function(){document.hidden?(document.title="(ง •_•)ง 加油!!!",clearTimeout(st)):(document.title="(ง •_•)ง Thank you~ "+OriginTitile,st=setTimeout(function(){document.title=OriginTitile},4e3))})</script>
+
+
+</body>
+</html>

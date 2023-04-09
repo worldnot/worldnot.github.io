@@ -288,6 +288,270 @@
             
               
                 
+                <a class="post-title-link" href="/2019/08/04/UE4-Pack01/" itemprop="url">
+                  UE4 打包相关（一）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-08-04T20:17:41+08:00" content="2019-08-04">
+              2019-08-04
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UE4/" itemprop="url" rel="index">
+                    <span itemprop="name">UE4</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UE4/PACK/" itemprop="url" rel="index">
+                    <span itemprop="name">PACK</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+
+          
+
+          
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+<!-- 自定义，用于添加摘要图片，文章中不显示 -->
+        
+<!-- 自定义结束 -->
+        
+          <blockquote>
+<p>导语<br>想知道从C++代码/蓝图脚本/资产到打包成可执行程序，UE都帮我们干了些什么吗？<br>版本：UE4.21</p>
+</blockquote>
+<h3 id="基本名词解释"><a href="#基本名词解释" class="headerlink" title="基本名词解释"></a>基本名词解释</h3><blockquote>
+<p>ps:受限于当前的知识水平，难免产生理解错误，后期会继续完善修正。</p>
+</blockquote>
+<h4 id="UHT-UnrealHeaderTool"><a href="#UHT-UnrealHeaderTool" class="headerlink" title="UHT (UnrealHeaderTool )"></a>UHT (UnrealHeaderTool )</h4><p>我粗浅的理解就是UE自己的代码预处理器（相对于C++ 的预处理过程），UHT对代码文件内容进行处理，生成 .generated.h/.gen.cpp 文件，加入反射信息，适配UObject，在以便在在运行时能获取和使用这些数据。<br>生成的文件在 \Intermediate\Build\Win64\UE4Editor\Inc\YourProject 目录下。</p>
+<blockquote>
+<p>UObject提供了 元数据、反射数据、GC垃圾回收、序列化</p>
+</blockquote>
+<h4 id="UBT-UnrealBuildTool"><a href="#UBT-UnrealBuildTool" class="headerlink" title="UBT (UnrealBuildTool)"></a>UBT (UnrealBuildTool)</h4><p>UnrealBuildTool (UBT)管理在各种不同的构建配置下构建UE4源代码的过程；<br>UBT 程序源代码在Engine\Source\Programs\UnrealBuildTool 目录下；<br>UBT 的配置项在 UnrealBuildTool\Configuration\BuildConfiguration.cs 文件中。  </p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2019/08/04/UE4-Pack01/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2019/01/24/UE4-CPP-about-char/" itemprop="url">
+                  关于char * ,char a[ ] , string
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-01-24T19:22:17+08:00" content="2019-01-24">
+              2019-01-24
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C-C/" itemprop="url" rel="index">
+                    <span itemprop="name">C/C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+
+          
+
+          
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+<!-- 自定义，用于添加摘要图片，文章中不显示 -->
+        
+<!-- 自定义结束 -->
+        
+          <blockquote>
+<p>导语<br>借此理解数组名和数组首地址</p>
+</blockquote>
+<ol>
+<li><p>c 语言中没有 string 类型， 用 char 类型的数组来表示string，也就是 一串内存地址连续的 char</p>
+</li>
+<li><p>\0 是字符串的结束符</p>
+</li>
+<li><p><font color="red">“asfkhj”</font> 双引号中的内容表示一个常量字符串 const string，本质是一个地址，是第一个字符的地址</p>
+</li>
+<li><p>char* 表示一个指针变量，当然可以用一个地址来赋值</p>
+</li>
+<li><p>char a[ ] 表示一个字符串数组，a 是数组名，是const 常量，只能初始化，不能直接赋值，a也表示数组的首地址，也就是第一个元素的地址a[0]</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2019/01/24/UE4-CPP-about-char/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </li></ol></div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2019/01/23/UE4-CPP-temporary-objects/" itemprop="url">
                   C++ 临时对象
                 </a>
@@ -679,7 +943,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -687,7 +951,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -696,7 +960,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

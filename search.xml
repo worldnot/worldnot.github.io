@@ -457,7 +457,7 @@ $ toolchain/bin/clang++ src.cpp
 <p>  cd vite-project<br>  npm install<br>  npm run dev</p>
 <p>VS Code 安装的插件</p>
 <p>JavaScript and TypeScript Nightly<br>Tauri<br>rust-analyzer<br>Vue Language Features (Volar)</p>
-<p>CodeLLDB<br>es6-string-html</p>
+<p>CodeLLDB<br>es6-string-html<br><a id="more"></a> </p>
 <h3 id="添加到-github-进行版本管理"><a href="#添加到-github-进行版本管理" class="headerlink" title="添加到 github 进行版本管理"></a>添加到 github 进行版本管理</h3><p>在项目根目录下初始化</p>
 <p>初始化本地仓库<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure></p>
 <p>执行效果如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PS E:\RustProject\espect-launcher&gt; git init</span><br><span class="line">Initialized empty Git repository <span class="keyword">in</span> E:/RustProject/espect-launcher/.git/</span><br></pre></td></tr></table></figure></p>

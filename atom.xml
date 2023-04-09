@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nkoo.top/"/>
-  <updated>2023-04-09T00:19:35.233Z</updated>
+  <updated>2023-04-09T00:27:34.076Z</updated>
   <id>https://nkoo.top/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>UE4PythonHelper</title>
+    <title>UnrealEngineOBSClient</title>
     <link href="https://nkoo.top/2023/04/06/UnrealEngineOBSClient/"/>
     <id>https://nkoo.top/2023/04/06/UnrealEngineOBSClient/</id>
     <published>2023-04-06T15:20:10.000Z</published>
-    <updated>2023-04-09T00:19:35.233Z</updated>
+    <updated>2023-04-09T00:27:34.076Z</updated>
     
     <content type="html"><![CDATA[<h1 id="UnrealEngineOBSClient"><a href="#UnrealEngineOBSClient" class="headerlink" title="UnrealEngineOBSClient"></a>UnrealEngineOBSClient</h1><p>This plugin provides a convenient way to access object storage services that comply with the Amazon S3 protocol.</p><p><img src="/images/obs1-1.webp" alt="ph01"></p><h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><ol><li><p>Support Path and Virtual Hosted requests style.</p></li><li><p>Blueprintnode based.</p></li><li><p>With multilingual debug UMG.</p></li><li><p>Encapsulated and easier-to-use file download and upload nodes.</p></li><li><p>Fully use UE’s C++ API, theoretically supporting multiple platforms.</p><a id="more"></a> <h2 id="Startup"><a href="#Startup" class="headerlink" title="Startup"></a>Startup</h2></li><li><p>Find OBSClinet Content in Content Broswer -&gt; Plugins.</p></li><li><p>Open Example_Map and play this level.</p></li><li><p>Select a test server and Click buttons to test, the request respones will show on the right.</p></li><li><p>Open UMG_Example to see the detail usage of the blueprint node.</p></li><li><p>Things about object storage API:<br> AliCoud OSS: <a href="https://help.aliyun.com/document_detail/31947.html" target="_blank" rel="noopener">https://help.aliyun.com/document_detail/31947.html</a></p><p> amazon s3: <a href="https://docs.aws.amazon.com/cli/latest/reference/s3api/" target="_blank" rel="noopener">https://docs.aws.amazon.com/cli/latest/reference/s3api/</a></p></li></ol>]]></content>
     

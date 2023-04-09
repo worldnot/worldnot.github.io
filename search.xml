@@ -32,6 +32,7 @@
 <p> amazon s3: <a href="https://docs.aws.amazon.com/cli/latest/reference/s3api/" target="_blank" rel="noopener">https://docs.aws.amazon.com/cli/latest/reference/s3api/</a></p>
 </li>
 </ol>
+<p><a href="https://www.unrealengine.com/marketplace/en-us/product/obsclient" title="OBSClient" target="_blank" rel="noopener">OBSClient in marketplace</a></p>
 ]]></content>
       
         <categories>
@@ -651,6 +652,7 @@ $ toolchain/bin/clang++ src.cpp
 <li><p>Chinese directory and Chinese file name are not supported.</p>
 </li>
 </ol>
+<p><a href="https://www.unrealengine.com/marketplace/en-us/product/pythonhelper" title="pythonhelper" target="_blank" rel="noopener">pythonhelper in marketplace</a></p>
 <h2 id="中文"><a href="#中文" class="headerlink" title="中文"></a>中文</h2><p>本插件只能在编辑器模式下使用</p>
 <h2 id="插件功能"><a href="#插件功能" class="headerlink" title="插件功能"></a>插件功能</h2><ol>
 <li><p>本插件提供一个 unreallib.py 模块，模块中包含了完整的 UnrealEngine Python API, 当你在VS Code 等编辑器中使用的时候，将获得智能代码提示，函数参数提示，返回值类型推断，注释等，也能跳转到模块中的函数，查看详细的函数定义。</p>

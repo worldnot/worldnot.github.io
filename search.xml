@@ -4,31 +4,50 @@
   
     
     <entry>
-      <title><![CDATA[构建Android平台的UE-Protobuf插件]]></title>
-      <url>https://nkoo.top/2023/10/02/UE-Protobuf-Android/</url>
-      <content type="html"><![CDATA[<blockquote>
-<p>导语<br>Protobuf 作为一种跨平台的数据传输方案，在作为UE插件使用的时候，也是需要编译各平台的库文件的。本次会记录构建UE4 和 UE5的静态库文件，并在插件中使用。<br>Protobuf: 3.19.0<br>Unreal Engine 4: 4.27.2<br>Unreal Engine 5: 5.1.1</p>
-</blockquote>
-<h3 id="下载-protobuf-源码"><a href="#下载-protobuf-源码" class="headerlink" title="下载 protobuf 源码"></a>下载 protobuf 源码</h3><p>鉴于下载源码后，为了能匹配UE 的编译环境，需要进行一系列修改<br>具体修改内容参考：<br><a href="https://github.com/jashking/UE4Protobuf" target="_blank" rel="noopener">https://github.com/jashking/UE4Protobuf</a></p>
-<p>本案例直接使用</p>
+      <title><![CDATA[UE4PythonHelper]]></title>
+      <url>https://nkoo.top/2023/04/06/UnrealEngineOBSClient/</url>
+      <content type="html"><![CDATA[<h1 id="UnrealEngineOBSClient"><a href="#UnrealEngineOBSClient" class="headerlink" title="UnrealEngineOBSClient"></a>UnrealEngineOBSClient</h1><p>This plugin provides a convenient way to access object storage services that comply with the Amazon S3 protocol.</p>
+<p><img src="/images/obs1-1.webp" alt="ph01"></p>
+<h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><ol>
+<li><p>Support Path and Virtual Hosted requests style.</p>
+</li>
+<li><p>Blueprintnode based.</p>
+</li>
+<li><p>With multilingual debug UMG.</p>
+</li>
+<li><p>Encapsulated and easier-to-use file download and upload nodes.</p>
+</li>
+<li><p>Fully use UE’s C++ API, theoretically supporting multiple platforms.</p>
+<a id="more"></a> 
+<h2 id="Startup"><a href="#Startup" class="headerlink" title="Startup"></a>Startup</h2></li>
+<li><p>Find OBSClinet Content in Content Broswer -&gt; Plugins.</p>
+</li>
+<li><p>Open Example_Map and play this level.</p>
+</li>
+<li><p>Select a test server and Click buttons to test, the request respones will show on the right.</p>
+</li>
+<li><p>Open UMG_Example to see the detail usage of the blueprint node.</p>
+</li>
+<li><p>Things about object storage API:<br> AliCoud OSS: <a href="https://help.aliyun.com/document_detail/31947.html" target="_blank" rel="noopener">https://help.aliyun.com/document_detail/31947.html</a></p>
+<p> amazon s3: <a href="https://docs.aws.amazon.com/cli/latest/reference/s3api/" target="_blank" rel="noopener">https://docs.aws.amazon.com/cli/latest/reference/s3api/</a></p>
+</li>
+</ol>
 ]]></content>
       
         <categories>
             
-            <category> Protobuf </category>
+            <category> UE4 </category>
             
         </categories>
         
         
         <tags>
             
-            <tag> Protobuf </tag>
+            <tag> obs </tag>
             
-            <tag> ue4 </tag>
+            <tag> oss </tag>
             
-            <tag> ue5 </tag>
-            
-            <tag> Android </tag>
+            <tag> tools </tag>
             
         </tags>
         
@@ -47,6 +66,7 @@
 <h1 id="一-NDK的基本概念"><a href="#一-NDK的基本概念" class="headerlink" title="一. NDK的基本概念"></a>一. NDK的基本概念</h1><p>在学习NDK之前，我首先得知道什么是NDK，NDK可以干些什么，使用NDK的好处有哪些，知道了这些，我们才可以更好的学习NDK</p>
 <h3 id="1-什么是NDK"><a href="#1-什么是NDK" class="headerlink" title="1. 什么是NDK"></a>1. 什么是NDK</h3><p>NDK即<code>Native Development Kit</code>,是Android中的一个开发工具包,为我们提供native开发的环境</p>
 <p>NDK是我们实现Java与Native进行交互的一个<strong>手段</strong></p>
+<a id="more"></a>
 <h3 id="2-NDK可以干什么"><a href="#2-NDK可以干什么" class="headerlink" title="2. NDK可以干什么"></a>2. NDK可以干什么</h3><p>可以快速开发<code>C</code>、 <code>C++</code>的动态库，并自动将<code>so</code>和应用一起打包成 <code>APK</code></p>
 <p>即可通过 <code>NDK</code>使 <code>Java</code>与native代码（如 C、C++）交互</p>
 <p>NDK在现在很多热门的技术中都有使用，如：Android 音视频开发，热更新，OpenCV，等等</p>
@@ -435,7 +455,7 @@ $ toolchain/bin/clang++ src.cpp
 <h3 id="1-用vite创建一个vue项目"><a href="#1-用vite创建一个vue项目" class="headerlink" title="1.用vite创建一个vue项目"></a>1.用vite创建一个vue项目</h3><p>vite 官网<br><a href="https://vitejs.cn/" target="_blank" rel="noopener">https://vitejs.cn/</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm create vite@latest</span><br></pre></td></tr></table></figure>
 <p>  cd vite-project<br>  npm install<br>  npm run dev</p>
-<p>安装的插件</p>
+<p>VS Code 安装的插件</p>
 <p>JavaScript and TypeScript Nightly<br>Tauri<br>rust-analyzer<br>Vue Language Features (Volar)</p>
 <p>CodeLLDB<br>es6-string-html</p>
 <h3 id="添加到-github-进行版本管理"><a href="#添加到-github-进行版本管理" class="headerlink" title="添加到 github 进行版本管理"></a>添加到 github 进行版本管理</h3><p>在项目根目录下初始化</p>
@@ -448,7 +468,7 @@ $ toolchain/bin/clang++ src.cpp
 <p>添加远程仓库（origin）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:DreamingPoet/espect_launcher.git</span><br></pre></td></tr></table></figure></p>
 <p>推送当前main 分支到 远程仓库（origin）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure></p>
 <p>执行效果如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">PS E:\RustProject\espect-launcher&gt; git push -u origin main </span><br><span class="line">Enumerating objects: 23, <span class="keyword">done</span>.</span><br><span class="line">Counting objects: 100% (23/23), <span class="keyword">done</span>.</span><br><span class="line">Delta compression using up to 16 threads</span><br><span class="line">Compressing objects: 100% (18/18), <span class="keyword">done</span>.</span><br><span class="line">Writing objects: 100% (23/23), 13.42 KiB | 859.00 KiB/s, <span class="keyword">done</span>.</span><br><span class="line">Total 23 (delta 1), reused 0 (delta 0), pack-reused 0</span><br><span class="line">remote: Resolving deltas: 100% (1/1), <span class="keyword">done</span>.</span><br><span class="line">To github.com:DreamingPoet/espect-launcher.git</span><br><span class="line"> * [new branch]      main -&gt; main</span><br><span class="line">branch <span class="string">'main'</span> <span class="built_in">set</span> up to track <span class="string">'origin/main'</span>.</span><br></pre></td></tr></table></figure></p>
-<p>安装 element-plus<br>npm install element-plus –save</p>
+<p>安装 element-plus<br>npm install element-plus –save<br><a href="http://element-plus.org/" target="_blank" rel="noopener">http://element-plus.org/</a></p>
 <h3 id="安装后端相关"><a href="#安装后端相关" class="headerlink" title="安装后端相关"></a>安装后端相关</h3><p>tauri官网<br><a href="https://tauri.app/" target="_blank" rel="noopener">https://tauri.app/</a></p>
 <p>install tauri cli</p>
 <p>初始化后端Rust，添加 tauri<br>cargo tauri init</p>
@@ -601,7 +621,7 @@ $ toolchain/bin/clang++ src.cpp
     
     <entry>
       <title><![CDATA[UE4PythonHelper]]></title>
-      <url>https://nkoo.top/2022/03/27/UnrealEnginePythonHelper/</url>
+      <url>https://nkoo.top/2022/03/27/UnrealEnginePythonHelper%20copy/</url>
       <content type="html"><![CDATA[<h1 id="UE4PythonHelper"><a href="#UE4PythonHelper" class="headerlink" title="UE4PythonHelper"></a>UE4PythonHelper</h1><p>This plugin is only used in editor mode!!!</p>
 <p><img src="/images/ph01.webp" alt="ph01"></p>
 <h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><ol>
@@ -667,9 +687,9 @@ $ toolchain/bin/clang++ src.cpp
         
         <tags>
             
-            <tag> python </tag>
-            
             <tag> tools </tag>
+            
+            <tag> python </tag>
             
         </tags>
         

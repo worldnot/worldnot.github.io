@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="做梦诗人的博客">
 <meta property="og:description" content="导语 本次实验，使用 tauri 作为桌面框架，使用 Rust 语言作为后端，使用 axum 作为后端框架，使用 vue3 + element-plus 作为前端UI，使用 cargo + npm 作为包管理器，使用 vite 作为前端打包工具， 使用 TS 作为前端开发语言使用 websocket 作为通信协议  npm 官网https://www.npmjs.com/package/npmh">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2023-03-21T05:41:52.760Z">
+<meta property="og:updated_time" content="2023-03-21T07:56:48.001Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何用tauri + vue 搭建一个windows应用">
 <meta name="twitter:description" content="导语 本次实验，使用 tauri 作为桌面框架，使用 Rust 语言作为后端，使用 axum 作为后端框架，使用 vue3 + element-plus 作为前端UI，使用 cargo + npm 作为包管理器，使用 vite 作为前端打包工具， 使用 TS 作为前端开发语言使用 websocket 作为通信协议  npm 官网https://www.npmjs.com/package/npmh">
@@ -363,7 +363,7 @@
 <h3 id="1-用vite创建一个vue项目"><a href="#1-用vite创建一个vue项目" class="headerlink" title="1.用vite创建一个vue项目"></a>1.用vite创建一个vue项目</h3><p>vite 官网<br><a href="https://vitejs.cn/" target="_blank" rel="noopener">https://vitejs.cn/</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm create vite@latest</span><br></pre></td></tr></table></figure>
 <p>  cd vite-project<br>  npm install<br>  npm run dev</p>
-<p>安装的插件</p>
+<p>VS Code 安装的插件</p>
 <p>JavaScript and TypeScript Nightly<br>Tauri<br>rust-analyzer<br>Vue Language Features (Volar)</p>
 <p>CodeLLDB<br>es6-string-html</p>
 <h3 id="添加到-github-进行版本管理"><a href="#添加到-github-进行版本管理" class="headerlink" title="添加到 github 进行版本管理"></a>添加到 github 进行版本管理</h3><p>在项目根目录下初始化</p>
@@ -376,7 +376,7 @@
 <p>添加远程仓库（origin）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:DreamingPoet/espect_launcher.git</span><br></pre></td></tr></table></figure></p>
 <p>推送当前main 分支到 远程仓库（origin）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure></p>
 <p>执行效果如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">PS E:\RustProject\espect-launcher&gt; git push -u origin main </span><br><span class="line">Enumerating objects: 23, <span class="keyword">done</span>.</span><br><span class="line">Counting objects: 100% (23/23), <span class="keyword">done</span>.</span><br><span class="line">Delta compression using up to 16 threads</span><br><span class="line">Compressing objects: 100% (18/18), <span class="keyword">done</span>.</span><br><span class="line">Writing objects: 100% (23/23), 13.42 KiB | 859.00 KiB/s, <span class="keyword">done</span>.</span><br><span class="line">Total 23 (delta 1), reused 0 (delta 0), pack-reused 0</span><br><span class="line">remote: Resolving deltas: 100% (1/1), <span class="keyword">done</span>.</span><br><span class="line">To github.com:DreamingPoet/espect-launcher.git</span><br><span class="line"> * [new branch]      main -&gt; main</span><br><span class="line">branch <span class="string">'main'</span> <span class="built_in">set</span> up to track <span class="string">'origin/main'</span>.</span><br></pre></td></tr></table></figure></p>
-<p>安装 element-plus<br>npm install element-plus –save</p>
+<p>安装 element-plus<br>npm install element-plus –save<br><a href="http://element-plus.org/" target="_blank" rel="noopener">http://element-plus.org/</a></p>
 <h3 id="安装后端相关"><a href="#安装后端相关" class="headerlink" title="安装后端相关"></a>安装后端相关</h3><p>tauri官网<br><a href="https://tauri.app/" target="_blank" rel="noopener">https://tauri.app/</a></p>
 <p>install tauri cli</p>
 <p>初始化后端Rust，添加 tauri<br>cargo tauri init</p>
@@ -556,7 +556,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -565,7 +565,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

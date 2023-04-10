@@ -288,6 +288,123 @@
             
               
                 
+                <a class="post-title-link" href="/2023/04/09/FrameGraph/" itemprop="url">
+                  FrameGraph
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2023-04-09T22:36:01+08:00" content="2023-04-09">
+              2023-04-09
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Frame/" itemprop="url" rel="index">
+                    <span itemprop="name">Frame</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+
+          
+
+          
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+<!-- 自定义，用于添加摘要图片，文章中不显示 -->
+        
+<!-- 自定义结束 -->
+        
+          <blockquote>
+<p>导语<br>该框架设计图不代表最终实施结果，仅展示构思过程。</p>
+</blockquote>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2023/04/09/FrameGraph/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2023/04/06/UnrealEngineOBSClient/" itemprop="url">
                   UnrealEngineOBSClient
                 </a>
@@ -538,142 +655,6 @@
             
               
                 
-                <a class="post-title-link" href="/2022/10/08/Docker-PostgreSQL/" itemprop="url">
-                  在 Docker 中运行 PostgreSQL
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2022-10-08T18:46:12+08:00" content="2022-10-08">
-              2022-10-08
-            </time>
-          </span>
-
-          
-            <span class="post-category">
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/DataBase/" itemprop="url" rel="index">
-                    <span itemprop="name">DataBase</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/DataBase/PostgreSQL/" itemprop="url" rel="index">
-                    <span itemprop="name">PostgreSQL</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-
-          
-
-          
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-<!-- 自定义，用于添加摘要图片，文章中不显示 -->
-        
-<!-- 自定义结束 -->
-        
-          <blockquote>
-<p>导语<br>我们在这里要做的是下载PostgreSQL镜像，检查镜像是否准备好，使用特定参数运行镜像，最后连接到正在运行的PostgreSQL实例。</p>
-</blockquote>
-<h3 id="1-拉取一个-PostgreSQL-服务器-Docker-镜像"><a href="#1-拉取一个-PostgreSQL-服务器-Docker-镜像" class="headerlink" title="1.拉取一个 PostgreSQL 服务器 Docker 镜像"></a>1.拉取一个 PostgreSQL 服务器 Docker 镜像</h3><p>首先，我们需要从Docker Hub获取现有的 PostgreSQL 官方镜像。如果您需要特定版本，latest 请将标签更改 为所需版本。<br>现在让我们拉取镜像：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker pull postgres:latest</span><br></pre></td></tr></table></figure></p>
-<p>使用上述命令将从 Docker Hub 存储库中提取最新可用版本的 PostgreSQL。</p>
-<h3 id="2-从-PostgreSQL-服务器-Docker-镜像运行容器"><a href="#2-从-PostgreSQL-服务器-Docker-镜像运行容器" class="headerlink" title="2. 从 PostgreSQL 服务器 Docker 镜像运行容器"></a>2. 从 PostgreSQL 服务器 Docker 镜像运行容器</h3><p>在部署之前，您需要设置一个 Docker 卷或绑定安装来持久化您的数据库。否则，当容器重新启动时，您的数据将丢失。安装应该 /var/lib/postgresql/data 在容器内的目录中。<br>出于本指南的目的，我们将创建一个 docker 卷并将其附加到您的 PostgreSQL 容器。<br>以下命令将在您的本地计算机中创建卷，您可以稍后与 PostgreSQL 容器连接：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker volume create postgres-volume</span><br></pre></td></tr></table></figure>
-<p>现在你的机器上有 PostgreSQL 镜像和一个用于保存数据的卷，你可以部署一个容器：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d --name=postgres14 -p 5432:5432 -v postgres-volume:/var/lib/postgresql/data -e POSTGRES_PASSWORD=your_password postgres</span><br></pre></td></tr></table></figure>
-<p>默认用户名是 postgres</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2022/10/08/Docker-PostgreSQL/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2022/10/08/Tauri-vue/" itemprop="url">
                   如何用tauri + vue 搭建一个windows应用
                 </a>
@@ -767,6 +748,142 @@
         
       
     </p></div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2022/10/08/Docker-PostgreSQL/" itemprop="url">
+                  在 Docker 中运行 PostgreSQL
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2022-10-08T18:46:12+08:00" content="2022-10-08">
+              2022-10-08
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/DataBase/" itemprop="url" rel="index">
+                    <span itemprop="name">DataBase</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/DataBase/PostgreSQL/" itemprop="url" rel="index">
+                    <span itemprop="name">PostgreSQL</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+
+          
+
+          
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+<!-- 自定义，用于添加摘要图片，文章中不显示 -->
+        
+<!-- 自定义结束 -->
+        
+          <blockquote>
+<p>导语<br>我们在这里要做的是下载PostgreSQL镜像，检查镜像是否准备好，使用特定参数运行镜像，最后连接到正在运行的PostgreSQL实例。</p>
+</blockquote>
+<h3 id="1-拉取一个-PostgreSQL-服务器-Docker-镜像"><a href="#1-拉取一个-PostgreSQL-服务器-Docker-镜像" class="headerlink" title="1.拉取一个 PostgreSQL 服务器 Docker 镜像"></a>1.拉取一个 PostgreSQL 服务器 Docker 镜像</h3><p>首先，我们需要从Docker Hub获取现有的 PostgreSQL 官方镜像。如果您需要特定版本，latest 请将标签更改 为所需版本。<br>现在让我们拉取镜像：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker pull postgres:latest</span><br></pre></td></tr></table></figure></p>
+<p>使用上述命令将从 Docker Hub 存储库中提取最新可用版本的 PostgreSQL。</p>
+<h3 id="2-从-PostgreSQL-服务器-Docker-镜像运行容器"><a href="#2-从-PostgreSQL-服务器-Docker-镜像运行容器" class="headerlink" title="2. 从 PostgreSQL 服务器 Docker 镜像运行容器"></a>2. 从 PostgreSQL 服务器 Docker 镜像运行容器</h3><p>在部署之前，您需要设置一个 Docker 卷或绑定安装来持久化您的数据库。否则，当容器重新启动时，您的数据将丢失。安装应该 /var/lib/postgresql/data 在容器内的目录中。<br>出于本指南的目的，我们将创建一个 docker 卷并将其附加到您的 PostgreSQL 容器。<br>以下命令将在您的本地计算机中创建卷，您可以稍后与 PostgreSQL 容器连接：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker volume create postgres-volume</span><br></pre></td></tr></table></figure>
+<p>现在你的机器上有 PostgreSQL 镜像和一个用于保存数据的卷，你可以部署一个容器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d --name=postgres14 -p 5432:5432 -v postgres-volume:/var/lib/postgresql/data -e POSTGRES_PASSWORD=your_password postgres</span><br></pre></td></tr></table></figure>
+<p>默认用户名是 postgres</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2022/10/08/Docker-PostgreSQL/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
 
     <div>
       
@@ -1390,127 +1507,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2021/09/12/smartpointer01/" itemprop="url">
-                  C++ 智能指针
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2021-09-12T11:56:23+08:00" content="2021-09-12">
-              2021-09-12
-            </time>
-          </span>
-
-          
-            <span class="post-category">
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C-C/" itemprop="url" rel="index">
-                    <span itemprop="name">C/C++</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-
-          
-
-          
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-<!-- 自定义，用于添加摘要图片，文章中不显示 -->
-        
-<!-- 自定义结束 -->
-        
-          <blockquote>
-<p>导语<br>本篇不对智能指针的实现原理做详细研究，只讨论为什么要使用智能指针，以及使用规范和注意事项。</p>
-</blockquote>
-<h2 id="关于指针和智能指针"><a href="#关于指针和智能指针" class="headerlink" title="关于指针和智能指针"></a>关于指针和智能指针</h2><p>指针是一个变量，存储一块内存区域的地址。<br>指针指向一块内存，通过该指针可随意修改或者删除其中内容，那么我们可以说这个指针对这块内存具有所有权(ownership) 。</p>
-<p>PS:通常说的指向一个对象的指针，严格意义上来说应该是指向一个对象所在内存的指针。指针可以说和对象本身是没关系的，只是对象的类型(class)更详细的描述这块内存区域存的是什么内容。</p>
-<p>指针存在的意义:<br>1.访问特定内存中的数据<br>2.管理所拥有的内存，不再使用的内存要及时通知系统释放  </p>
-<p>裸指针能满足以上的访问和管理内存的需求，但是存在缺陷:<br> <strong>多个指针可以指向同一块内存</strong><br>也就是意味着权限混乱，比如创建(new)多个指针指向同一块内存，但是每个指针使用完毕，都没有释放(delete)，从而导致内存泄露。<br>或者所有的指针只要自己使用完毕就去释放内存，势必会造成正在使用该内存的地方产生未知结果，或者重复释放(delete)同一块内存导致崩溃。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2021/09/12/smartpointer01/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1553,7 +1549,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1561,7 +1557,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
